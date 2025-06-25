@@ -75,7 +75,7 @@
       intel-ocl
 
       vscodium-fhs
-      jetbrains-toolbox
+      # jetbrains-toolbox
 
       # Archive Tools
       p7zip-rar
@@ -104,6 +104,9 @@
       figma-linux
 
       android-studio
+      jetbrains.idea-ultimate
+      jetbrains.pycharm-professional
+
       # androidsdk
       # android-tools
       # androidenv.androidPkgs.emulator
