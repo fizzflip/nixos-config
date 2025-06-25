@@ -1,0 +1,44 @@
+{ ... }:
+{
+  # networking.hostName = "nixos"; # Define your hostname.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Network configuration
+  networking.networkmanager.enable = true;
+
+  # Firewall configuration
+  networking.firewall = {
+    allowedTCPPorts = [ 53317 ];
+    allowedUDPPorts = [ 53317 ];
+  };
+
+  networking = {
+    dns-crypt.enable = true;
+  };
+
+  # services.adguardhome = {
+  #   enable = true;
+  #   host = "0.0.0.0";
+  #   port = 3000;
+  # };
+  # networking.nameservers = [ "127.0.0.1" ];
+
+  # services.ntopng = {
+  #   enable = true;
+  # };
+
+  # services.adguardhome = {
+  #   enable = true;
+  #   listenAddress = "0.0.0.0"; # or restrict to localhost/VPN
+  #   dnsPort = 53;
+  #   upstreams = [ "https://dns.adguard.com/dns-query" ];
+  #   blocklists = [
+  #     "https://easylist.to/easylist/easylist.txt"
+  #     "https://easylist.to/easylist/easyprivacy.txt"
+  #   ];
+  # };
+}
