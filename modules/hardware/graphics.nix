@@ -39,8 +39,5 @@
     ];
   };
 
-  hardware = {
-    enableAllFirmware = true;
-    # sensor.enable = true;
-  };
+  hardware.enableAllFirmware = true;
 }

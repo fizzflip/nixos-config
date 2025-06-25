@@ -6,12 +6,6 @@
 }:
 
 {
-
-  # programs.git = {
-  #   enable = true;
-  #   username  = "John Doe";
-  #   emakil = "johndoe@example.com";
-  # };
   users.users.mrbot = {
     isNormalUser = true;
     description = "mrbot";
@@ -37,7 +31,7 @@
       ungoogled-chromium
       inputs.zen-browser.packages."${pkgs.system}".default
 
-      # WiFi networks recon
+      # WiFi recon
       # wifite2
       # hashcat
       # hcxdumptool
@@ -84,7 +78,7 @@
       jetbrains-toolbox
 
       # Archive Tools
-      # p7zip-rar
+      p7zip-rar
 
       # Podman
       dive
@@ -102,12 +96,6 @@
       qbittorrent-enhanced
 
       nixfmt-rfc-style
-      # ghostty
-
-      # poppler
-      # poppler-utils
-      # tesseract
-      # krabby
 
       nixd
       devenv
@@ -125,7 +113,6 @@
       # libpng
       # ncurses5
       # zlib
-
     ];
   };
 }

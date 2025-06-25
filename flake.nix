@@ -58,10 +58,10 @@
 
           # Uncomment if using nixos-hardware
           nixos-hardware.nixosModules.common-pc-ssd
-          nixos-hardware.nixosModules.common-cpu-intel # or common-cpu-amd
+          nixos-hardware.nixosModules.common-cpu-intel
         ];
       };
 
-      # Kim Dokja => kimja
+      # Kim Dokja => kimja #
     };
 }

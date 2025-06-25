@@ -1,4 +1,5 @@
 { pkgs, ... }:
+
 {
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.wayland.enable = true;
@@ -9,6 +10,7 @@
     kdePackages.kcalc
     # kdePackages.kolourpaint
     kdePackages.partitionmanager
+    python312Packages.kde-material-you-colors
   ];
 
   # environment.plasma6.excludePackages = with pkgs.kdePackages; [
