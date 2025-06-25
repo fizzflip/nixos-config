@@ -25,5 +25,6 @@
     nerd-fonts.mononoki
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
+    dm-mono
   ];
 }
