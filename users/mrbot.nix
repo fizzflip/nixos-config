@@ -103,7 +103,7 @@
 
       figma-linux
 
-      # android-studio
+      android-studio
       # androidsdk
       # android-tools
       # androidenv.androidPkgs.emulator
