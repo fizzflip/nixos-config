@@ -2,7 +2,7 @@
 {
 
   imports = [
-    ./waybar.nix
+    ../components/waybar.nix
   ];
 
   programs.niri.enable = true;

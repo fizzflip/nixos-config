@@ -21,7 +21,7 @@
 
     # ../../modules/appearence/kde.nix
     # ../../modules/appearence/pantheon.nix
-    ../../modules/appearence/niri.nix
+    ../../modules/appearence/desktop-environment/niri.nix
     # ../../modules/appearence/gnome.nix
     # ../../modules/appearence/hyprland.nix
     ../../modules/appearence/fonts.nix
