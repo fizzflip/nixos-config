@@ -12,11 +12,12 @@
     };
   };
 
-  #  virtualisation.docker.rootless = {
-  #    enable = true;
-  #    # setSocketVariable = true;
-  #  };
+  virtualisation.docker.rootless = {
+    enable = true;
+    # setSocketVariable = true;
+  };
 
+  # Virt-manager
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ "mrbot" ];
   virtualisation = {

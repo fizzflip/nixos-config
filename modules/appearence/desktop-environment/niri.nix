@@ -1,6 +1,6 @@
 { pkgs, ... }:
-{
 
+{
   imports = [
     ../components/waybar.nix
   ];
@@ -16,14 +16,7 @@
     polkit.enable = true;
     soteria.enable = true;
   };
-  # systemd.user.services.soteria = {
-  #   enable = true;
-  #   description = "Soteria Polkit Agent";
-  #   wantedBy = [ "graphical-session.target" ];
-  #   serviceConfig = {
-  #     ExecStart = "${pkgs.soteria}/bin/soteria";
-  #   };
-  # };
+
   services = {
     # Auto-mounting stuff
     devmon.enable = true;
@@ -48,5 +41,4 @@
     mpris-timer
     kdePackages.dolphin
   ];
-
 }

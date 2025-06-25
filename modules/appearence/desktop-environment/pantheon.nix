@@ -1,4 +1,3 @@
-# /etc/nixos/configuration.nix
 {
   config,
   pkgs,
