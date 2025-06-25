@@ -10,6 +10,7 @@
     kdePackages.kcalc
     # kdePackages.kolourpaint
     kdePackages.partitionmanager
+    python312Packages.kde-material-you-colors
   ];
 
   # environment.plasma6.excludePackages = with pkgs.kdePackages; [
