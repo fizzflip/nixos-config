@@ -35,7 +35,7 @@
           ./modules/boot/plymouth.nix
           ./modules/boot/bootloader.nix
 
-          # ./users/nini.nix
+          ./users/nini.nix
           ./users/mrbot.nix
 
           # ./modules/appearence/gnome.nix
