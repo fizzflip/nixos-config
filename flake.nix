@@ -19,7 +19,6 @@
       ...
     }:
     {
-
       # Arthur Leywin + King Grey => artrey
       nixosConfigurations."artrey" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
