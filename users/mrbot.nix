@@ -98,8 +98,8 @@
       nixfmt-rfc-style
 
       nixd
-      devenv
-      direnv
+      # devenv
+      # direnv
 
       figma-linux
 
