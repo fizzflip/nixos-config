@@ -38,5 +38,7 @@
     noto-fonts-cjk-sans
     noto-fonts-emoji
     helvetica-neue-lt-std
+    material-icons
+    material-design-icons
   ];
 }

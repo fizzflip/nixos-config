@@ -1,5 +1,8 @@
-{ config, ... }:
+{ pkgs, config, ... }:
+
 {
+  environment.systemPackages = [ pkgs.starship ];
+
   programs = {
     zsh = {
       enable = true;

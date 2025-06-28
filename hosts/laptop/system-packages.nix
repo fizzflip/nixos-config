@@ -1,14 +1,12 @@
 { config, pkgs, ... }:
-{
 
+{
   # Allow proprietary packages
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
-    starship
     # Video/Audio
     mpv
-    amberol
     miru
     freetube
 
