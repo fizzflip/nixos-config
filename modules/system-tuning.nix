@@ -25,7 +25,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
   services.scx.enable = true; # by default uses scx_rustland scheduler
-  #  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # SWAP and Z-RAM
   swapDevices = [
@@ -37,6 +36,6 @@
 
   zramSwap = {
     enable = true;
-    memoryPercent = 100;
+    memoryPercent = 100; # hehe
   };
 }

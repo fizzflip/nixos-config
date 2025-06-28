@@ -34,15 +34,4 @@
   # services.ntopng = {
   #   enable = true;
   # };
-
-  # services.adguardhome = {
-  #   enable = true;
-  #   listenAddress = "0.0.0.0"; # or restrict to localhost/VPN
-  #   dnsPort = 53;
-  #   upstreams = [ "https://dns.adguard.com/dns-query" ];
-  #   blocklists = [
-  #     "https://easylist.to/easylist/easylist.txt"
-  #     "https://easylist.to/easylist/easyprivacy.txt"
-  #   ];
-  # };
 }

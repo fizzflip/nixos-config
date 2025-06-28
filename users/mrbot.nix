@@ -19,7 +19,6 @@
 
     packages = with pkgs; [
       # Monitoring
-      bat
       btop
       htop
       fastfetch
@@ -69,13 +68,10 @@
       zulu
       libgcc
       python3
-      python312Packages.numpy
-      python312Packages.pyopencl
-      python312Packages.psutil
-      intel-ocl
-
       vscodium-fhs
-      # jetbrains-toolbox
+      android-studio
+      jetbrains.idea-ultimate
+      jetbrains.pycharm-professional
 
       # Archive Tools
       p7zip-rar
@@ -87,35 +83,15 @@
       podman-compose
 
       # Ollama
-      ollama
-      oterm
-      # alpaca
-      gollama
+      # ollama
+      # oterm
+      # gollama
 
       android-tools
       qbittorrent-enhanced
 
-      nixfmt-rfc-style
-
       nixd
-      # devenv
-      # direnv
-
-      figma-linux
-
-      android-studio
-      jetbrains.idea-ultimate
-      jetbrains.pycharm-professional
-
-      # androidsdk
-      # android-tools
-      # androidenv.androidPkgs.emulator
-      # androidenv.androidPkgs.tools
-
-      # android-udev-rules
-      # libpng
-      # ncurses5
-      # zlib
+      nixfmt-rfc-style
     ];
   };
 }

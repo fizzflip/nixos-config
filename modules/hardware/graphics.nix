@@ -1,7 +1,6 @@
 { pkgs, ... }:
 
 {
-
   # Intel Graphics (HW-Accel)
   nixpkgs.config.packageOverrides = pkgs: {
     intel-vaapi-driver = pkgs.intel-vaapi-driver.override { enableHybridCodec = true; };
@@ -28,8 +27,6 @@
       mesa
       vpl-gpu-rt
       vulkan-tools
-      # nvidia-vaapi-driver
-      # nv-codec-headers-12
     ];
     extraPackages32 = with pkgs.pkgsi686Linux; [
       intel-media-driver
