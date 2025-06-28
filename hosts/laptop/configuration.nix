@@ -15,8 +15,8 @@
     ../../hosts/laptop/hardware-configuration.nix
     ../../hosts/laptop/system-packages.nix
 
-    # ../../modules/appearence/desktop-environment/kde.nix
-    ../../modules/appearence/desktop-environment/niri.nix
+    ../../modules/appearence/desktop-environment/kde.nix
+    # ../../modules/appearence/desktop-environment/niri.nix
     # ../../modules/appearence/desktop-environment/gnome.nix
     # ../../modules/appearence/desktop-environment/hyprland.nix
     ../../modules/appearence/fonts.nix
