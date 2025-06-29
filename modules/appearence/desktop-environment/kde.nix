@@ -2,22 +2,13 @@
 
 {
   environment.systemPackages = [
-    # (pkgs.catppuccin-sddm.override {
-    #   flavor = "mocha";
-    #   font = "Noto Sans";
-    #   fontSize = "9";
-    #   # background = "${./wallpaper.png}";
-    #   loginBackground = true;
-    # })
+    pkgs.kdePackages.kcalc
+    pkgs.kdePackages.partitionmanager
 
-    (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
+    pkgs.python312Packages.kde-material-you-colors
 
     pkgs.kdePackages.qtmultimedia
-    pkgs.kdePackages.karousel
-    pkgs.kdePackages.kcalc
-    pkgs.kdePackages.kolourpaint
-    pkgs.kdePackages.partitionmanager
-    pkgs.python312Packages.kde-material-you-colors
+    (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
   ];
 
   services.displayManager.sddm = {
@@ -27,5 +18,5 @@
   };
 
   services.desktopManager.plasma6.enable = true;
-  # environment.plasma6.excludePackages = with pkgs.kdePackages; [ konsole plasma-browser-integration ];
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [ plasma-browser-integration ];
 }
