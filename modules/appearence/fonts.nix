@@ -1,22 +1,22 @@
 { pkgs, ... }:
 
 {
-  fonts.packages = with pkgs; [
-    nerd-fonts.noto
-    nerd-fonts.fira-code
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.mononoki
+  fonts.packages = [
+    pkgs.nerd-fonts.noto
+    pkgs.nerd-fonts.fira-code
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.nerd-fonts.mononoki
 
-    stix-two
-    iosevka
+    pkgs.stix-two
+    pkgs.iosevka
 
-    corefonts
-    open-sans
+    pkgs.corefonts
+    pkgs.open-sans
 
-    dm-sans
-    dm-mono
+    pkgs.dm-sans
+    pkgs.dm-mono
 
-    cascadia-code
-    maple-mono.NF
+    pkgs.cascadia-code
+    pkgs.maple-mono.NF
   ];
 }

@@ -24,21 +24,21 @@
     udisks2.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    fuzzel
-    mako
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-gnome
-    alacritty
-    swayidle
-    swaylock
-    xwayland-satellite
+  environment.systemPackages = [
+    pkgs.fuzzel
+    pkgs.mako
+    pkgs.xdg-desktop-portal-gtk
+    pkgs.xdg-desktop-portal-gnome
+    pkgs.alacritty
+    pkgs.swayidle
+    pkgs.swaylock
+    pkgs.xwayland-satellite
 
-    material-icons
-    material-design-icons
+    pkgs.material-icons
+    pkgs.material-design-icons
 
-    cava
-    mpris-timer
-    kdePackages.dolphin
+    pkgs.cava
+    pkgs.mpris-timer
+    pkgs.kdePackages.dolphin
   ];
 }

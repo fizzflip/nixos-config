@@ -17,17 +17,17 @@
     ];
     shell = pkgs.zsh;
 
-    packages = with pkgs; [
+    packages = [
       # Monitoring
-      btop
-      htop
-      fastfetch
+      pkgs.btop
+      pkgs.htop
+      pkgs.fastfetch
 
       # Browsers
-      librewolf
-      tor-browser
-      mullvad-browser
-      ungoogled-chromium
+      pkgs.librewolf
+      pkgs.tor-browser
+      pkgs.mullvad-browser
+      pkgs.ungoogled-chromium
       inputs.zen-browser.packages."${pkgs.system}".default
 
       # WiFi recon
@@ -45,53 +45,52 @@
       # nmap
 
       # Game Tools
-      renpy
-      bottles
-      mangohud
-      gamemode
-      steam-run
-      prismlauncher
+      pkgs.renpy
+      pkgs.bottles
+      pkgs.mangohud
+      pkgs.gamemode
+      pkgs.steam-run
+      pkgs.prismlauncher
 
       # Communication
-      vesktop
-      anydesk
-      materialgram
+      pkgs.vesktop
+      pkgs.anydesk
+      pkgs.materialgram
 
       # Note-taking
-      obsidian
+      pkgs.obsidian
 
       # Development
-      uv
-      gh
-      git
-      gcc
-      zulu
-      libgcc
-      python3
-      vscodium-fhs
-      android-studio
-      jetbrains.idea-ultimate
-      jetbrains.pycharm-professional
+      pkgs.uv
+      pkgs.gh
+      pkgs.git
+      pkgs.gcc
+      pkgs.zulu
+      pkgs.libgcc
+      pkgs.python3
+      pkgs.vscodium-fhs
+      pkgs.jetbrains.idea-ultimate
+      pkgs.jetbrains.pycharm-professional
 
       # Archive Tools
-      p7zip-rar
+      pkgs.p7zip-rar
 
       # Podman
-      dive
-      podman-tui
-      docker-compose
-      podman-compose
+      pkgs.dive
+      pkgs.podman-tui
+      pkgs.docker-compose
+      pkgs.podman-compose
 
       # Ollama
       # ollama
       # oterm
       # gollama
 
-      android-tools
-      qbittorrent-enhanced
+      pkgs.android-tools
+      pkgs.qbittorrent-enhanced
 
-      nixd
-      nixfmt-rfc-style
+      pkgs.nixd
+      pkgs.nixfmt-rfc-style
     ];
   };
 }

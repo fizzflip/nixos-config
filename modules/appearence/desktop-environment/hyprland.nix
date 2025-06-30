@@ -15,26 +15,26 @@
   programs.hyprlock.enable = true;
   services.hypridle.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    kitty
-    rofi-wayland
-    waybar
-    dunst
-    swww
+  environment.systemPackages = [
+    pkgs.kitty
+    pkgs.rofi-wayland
+    pkgs.waybar
+    pkgs.dunst
+    pkgs.swww
     # kdePackages.dolphin
-    libnotify
-    networkmanagerapplet
+    pkgs.libnotify
+    pkgs.networkmanagerapplet
 
-    pyprland
-    hyprpicker
-    hyprcursor
-    hyprlock
-    hypridle
-    hyprpaper
+    pkgs.pyprland
+    pkgs.hyprpicker
+    pkgs.hyprcursor
+    pkgs.hyprlock
+    pkgs.hypridle
+    pkgs.hyprpaper
   ];
 
-  fonts.packages = with pkgs; [
-    font-awesome
+  fonts.packages = [
+    pkgs.font-awesome
   ];
 
   environment.sessionVariables = {
@@ -42,7 +42,5 @@
   };
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = with pkgs; [
-    xdg-desktop-portal-wlr
-  ];
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
 }

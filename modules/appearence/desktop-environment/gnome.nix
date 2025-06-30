@@ -23,57 +23,54 @@
   # services.gnome.core-utilities.enable = false;
 
   # Excluded GNOME components
-  environment.gnome.excludePackages = (
-    with pkgs;
-    [
-      geary # email reader
-      totem # video player
-      baobab # disk usage analyzer
-      yelp # help
-      # seahorse # password manager
-      snapshot # webcam viewer
+  environment.gnome.excludePackages = ([
+    pkgs.geary # email reader
+    pkgs.totem # video player
+    pkgs.baobab # disk usage analyzer
+    pkgs.yelp # help
+    # seahorse # password manager
+    pkgs.snapshot # webcam viewer
 
-      gnome-clocks
-      gnome-contacts
-      gnome-weather
-      gnome-logs
-      gnome-characters
-      gnome-music
-      gnome-tour
-      gnome-maps
-    ]
-  );
+    pkgs.gnome-clocks
+    pkgs.gnome-contacts
+    pkgs.gnome-weather
+    pkgs.gnome-logs
+    pkgs.gnome-characters
+    pkgs.gnome-music
+    pkgs.gnome-tour
+    pkgs.gnome-maps
+  ]);
 
   # GNOME Extensions/Themes/Stuff
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
 
     # Blur goes brrr
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.dash-to-dock
+    pkgs.gnomeExtensions.blur-my-shell
+    pkgs.gnomeExtensions.dash-to-dock
     # gnomeExtensions.dynamic-panel
 
     # WMs on top of GNOME
     # gnomeExtensions.forge
     # gnomeExtensions.tiling-shell
-    gnomeExtensions.paperwm
+    pkgs.gnomeExtensions.paperwm
 
     # Theme
-    gnomeExtensions.user-themes
+    pkgs.gnomeExtensions.user-themes
     # marble-shell-theme
     # flat-remix-gnome
-    orchis-theme
-    whitesur-gtk-theme
-    whitesur-cursors
-    whitesur-icon-theme
+    pkgs.orchis-theme
+    pkgs.whitesur-gtk-theme
+    pkgs.whitesur-cursors
+    pkgs.whitesur-icon-theme
 
     # Icon-packs
-    flat-remix-icon-theme
-    papirus-icon-theme
+    pkgs.flat-remix-icon-theme
+    pkgs.papirus-icon-theme
 
     # QoL
-    gnomeExtensions.launch-new-instance
-    gnomeExtensions.soft-brightness-plus
-    gnomeExtensions.appindicator
+    pkgs.gnomeExtensions.launch-new-instance
+    pkgs.gnomeExtensions.soft-brightness-plus
+    pkgs.gnomeExtensions.appindicator
 
     # gnomeExtensions.astra-monitor
     # lspci
@@ -81,13 +78,13 @@
     # iotop
     # gtop
 
-    gnome-settings-daemon
-    gnome-tweaks
+    pkgs.gnome-settings-daemon
+    pkgs.gnome-tweaks
 
-    gnomeExtensions.clipboard-indicator
-    gnomeExtensions.day-progress
-    gnomeExtensions.just-perfection
-    gnomeExtensions.open-bar
+    pkgs.gnomeExtensions.clipboard-indicator
+    pkgs.gnomeExtensions.day-progress
+    pkgs.gnomeExtensions.just-perfection
+    pkgs.gnomeExtensions.open-bar
     # gnomeExtensions.media-controls
   ];
 

@@ -10,11 +10,11 @@
       "wheel"
     ];
 
-    packages = with pkgs; [
-      vscodium-fhs
-      uv
-      python3
-      google-chrome
+    packages = [
+      pkgs.vscodium-fhs
+      pkgs.uv
+      pkgs.python3
+      pkgs.google-chrome
     ];
   };
 }

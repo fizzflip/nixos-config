@@ -8,37 +8,37 @@
     power-profiles-daemon.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    waybar
+  environment.systemPackages = [
+    pkgs.waybar
 
-    lm_sensors
-    brightnessctl
+    pkgs.lm_sensors
+    pkgs.brightnessctl
     # pamixer
-    libnotify
-    cliphist
-    wl-clipboard-rs
+    pkgs.libnotify
+    pkgs.cliphist
+    pkgs.wl-clipboard-rs
     # wlogout #TODO
-    pavucontrol
+    pkgs.pavucontrol
 
-    swww
-    networkmanagerapplet
+    pkgs.swww
+    pkgs.networkmanagerapplet
 
-    hicolor-icon-theme
-    adwaita-icon-theme
-    power-profiles-daemon
+    pkgs.hicolor-icon-theme
+    pkgs.adwaita-icon-theme
+    pkgs.power-profiles-daemon
 
-    jq
-    pulseaudio
-    playerctl
+    pkgs.jq
+    pkgs.pulseaudio
+    pkgs.playerctl
   ];
 
-  fonts.packages = with pkgs; [
-    font-awesome
-    noto-fonts
-    noto-fonts-cjk-sans
-    noto-fonts-emoji
-    helvetica-neue-lt-std
-    material-icons
-    material-design-icons
+  fonts.packages = [
+    pkgs.font-awesome
+    pkgs.noto-fonts
+    pkgs.noto-fonts-cjk-sans
+    pkgs.noto-fonts-emoji
+    pkgs.helvetica-neue-lt-std
+    pkgs.material-icons
+    pkgs.material-design-icons
   ];
 }
