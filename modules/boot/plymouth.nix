@@ -8,9 +8,9 @@
     plymouth = {
       enable = true;
       theme = "lone";
-      themePackages = with pkgs; [
+      themePackages = [
         # By default we would install all themes
-        (adi1090x-plymouth-themes.override {
+        (pkgs.adi1090x-plymouth-themes.override {
           selected_themes = [ "lone" ];
         })
       ];

@@ -43,11 +43,11 @@
   #   host = "127.0.0.1";
   # };
 
-  environment.systemPackages = with pkgs; [
-    oterm
-    alpaca
-    aichat
-    aider-chat
+  environment.systemPackages = [
+    pkgs.oterm
+    pkgs.alpaca
+    pkgs.aichat
+    pkgs.aider-chat
 
     # tgpt
     # smartcat
