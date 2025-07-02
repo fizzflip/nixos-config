@@ -1,9 +1,14 @@
 { pkgs, ... }:
 
 {
+  services.desktopManager.plasma6.enable = true;
+  environment.plasma6.excludePackages = [ pkgs.kdePackages.plasma-browser-integration ];
+
   environment.systemPackages = [
     pkgs.kdePackages.kcalc
     pkgs.kdePackages.partitionmanager
+
+    pkgs.kdePackages.akregator
 
     pkgs.python312Packages.kde-material-you-colors
 
@@ -17,6 +22,5 @@
     theme = "sddm-astronaut-theme";
   };
 
-  services.desktopManager.plasma6.enable = true;
-  environment.plasma6.excludePackages = [ pkgs.kdePackages.plasma-browser-integration ];
+  services.fwupd.enable = true;
 }
