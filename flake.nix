@@ -11,6 +11,10 @@
       url = "github:andreoss/dnscrypt-nixos-module";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    silentSDDM = {
+      url = "github:uiriansan/SilentSDDM";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
   outputs =
