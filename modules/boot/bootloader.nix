@@ -10,7 +10,7 @@
       efiSupport = true;
       devices = [ "nodev" ];
       # useOSProber = true;
-      theme = ../../themes/grub/fallout;
+      theme = ../../themes/grub/catppuccin-latte;
     };
     efi.canTouchEfiVariables = true;
   };
