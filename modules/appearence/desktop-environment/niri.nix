@@ -3,14 +3,15 @@
 {
   imports = [
     ../components/waybar.nix
+    ../components/sddm.nix
   ];
 
   programs.niri.enable = true;
 
-  services.xserver.displayManager.gdm = {
-    enable = true;
-    wayland = true;
-  };
+  # services.xserver.displayManager.gdm = {
+  #   enable = true;
+  #   wayland = true;
+  # };
 
   security = {
     polkit.enable = true;
