@@ -86,6 +86,8 @@
       # oterm
       # gollama
 
+      pkgs.lmstudio
+      
       pkgs.android-tools
       pkgs.qbittorrent-enhanced
 
