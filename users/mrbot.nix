@@ -87,12 +87,14 @@
       # gollama
 
       pkgs.lmstudio
-      
+
       pkgs.android-tools
       pkgs.qbittorrent-enhanced
 
       pkgs.nixd
       pkgs.nixfmt-rfc-style
+
+      pkgs.gimp3-with-plugins
     ];
   };
 }
