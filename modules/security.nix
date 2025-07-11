@@ -43,6 +43,8 @@
 
   boot.kernelModules = [ "tcp_bbr" ];
 
+  networking.networkmanager.wifi.macAddress = "random";
+
   security = {
     # allow wayland lockers to unlock the screen
     # pam.services.hyprlock.text = "auth include login";
