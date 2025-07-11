@@ -13,6 +13,11 @@
   #   wayland = true;
   # };
 
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+  };
+
   security = {
     polkit.enable = true;
     soteria.enable = true;
@@ -28,8 +33,6 @@
   environment.systemPackages = [
     pkgs.fuzzel
     pkgs.mako
-    pkgs.xdg-desktop-portal-gtk
-    pkgs.xdg-desktop-portal-gnome
     pkgs.alacritty
     pkgs.swayidle
     pkgs.swaylock
