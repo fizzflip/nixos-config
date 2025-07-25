@@ -95,6 +95,7 @@
       pkgs.nixfmt-rfc-style
 
       pkgs.gimp3-with-plugins
+      pkgs.figma-linux
     ];
   };
 }
