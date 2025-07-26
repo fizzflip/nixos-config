@@ -7,11 +7,11 @@
   boot = {
     plymouth = {
       enable = true;
-      theme = "lone";
+      theme = "sliced";
       themePackages = [
         # By default we would install all themes
         (pkgs.adi1090x-plymouth-themes.override {
-          selected_themes = [ "lone" ];
+          selected_themes = [ "sliced" ];
         })
       ];
     };
