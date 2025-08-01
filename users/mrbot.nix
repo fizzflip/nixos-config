@@ -96,6 +96,8 @@
 
       pkgs.gimp3-with-plugins
       pkgs.figma-linux
+
+      pkgs.rawtherapee
     ];
   };
 }
