@@ -24,25 +24,25 @@
       pkgs.fastfetch
 
       # Browsers
-      pkgs.librewolf
+      # pkgs.librewolf
       pkgs.tor-browser
       pkgs.mullvad-browser
       pkgs.ungoogled-chromium
       inputs.zen-browser.packages."${pkgs.system}".default
 
       # WiFi recon
-      # wifite2
-      # hashcat
-      # hcxdumptool
-      # hcxtools
-      # tshark
-      # reaverwps
-      # bully
-      # john
-      # cowpatty
-      # aircrack-ng
-      # iw
-      # nmap
+      # pkgs.wifite2
+      # pkgs.hashcat
+      # pkgs.hcxdumptool
+      # pkgs.hcxtools
+      # pkgs.tshark
+      # pkgs.reaverwps
+      # pkgs.bully
+      # pkgs.john
+      # pkgs.cowpatty
+      # pkgs.aircrack-ng
+      # pkgs.iw
+      # pkgs.nmap
 
       # Game Tools
       pkgs.renpy
@@ -71,6 +71,7 @@
       pkgs.vscodium-fhs
       pkgs.jetbrains.idea-ultimate
       pkgs.jetbrains.pycharm-professional
+      pkgs.nodejs_24
 
       # Archive Tools
       pkgs.p7zip-rar
@@ -82,11 +83,9 @@
       pkgs.podman-compose
 
       # Ollama
-      # ollama
-      # oterm
-      # gollama
-
-      pkgs.lmstudio
+      pkgs.ollama
+      pkgs.oterm
+      pkgs.gollama
 
       pkgs.android-tools
       pkgs.qbittorrent-enhanced
@@ -94,10 +93,8 @@
       pkgs.nixd
       pkgs.nixfmt-rfc-style
 
-      pkgs.gimp3-with-plugins
-      pkgs.figma-linux
-
       pkgs.rawtherapee
+      pkgs.gimp3-with-plugins
     ];
   };
 }
