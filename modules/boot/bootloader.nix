@@ -9,7 +9,7 @@
       enable = true;
       efiSupport = true;
       devices = [ "nodev" ];
-      # useOSProber = true;
+      useOSProber = true;
       theme = ../../themes/grub/catppuccin-latte;
     };
     efi.canTouchEfiVariables = true;
