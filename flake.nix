@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -15,7 +16,6 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
   outputs =
     inputs@{
