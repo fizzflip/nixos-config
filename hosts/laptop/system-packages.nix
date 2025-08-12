@@ -6,22 +6,18 @@
 
   environment.systemPackages = [
     # Video/Audio
-    pkgs.mpv
-    pkgs.miru
     pkgs.freetube
+    pkgs.mpv
 
-    pkgs.neovim
 
     # Tools
-    pkgs.localsend
-    pkgs.ncdu
     pkgs.ffmpeg-full
+    pkgs.localsend
+    pkgs.neovim
     pkgs.aria2
+    pkgs.ncdu
     pkgs.curl
     pkgs.wget
-
-    # Browser
-    # ungoogled-chromium
 
     # Communication
     pkgs.thunderbird
@@ -29,17 +25,13 @@
     # Reading
     pkgs.foliate
 
-    # openai-whisper-cpp
-    pkgs.onlyoffice-desktopeditors
-    pkgs.ffmpegthumbnailer
-
     # Rust utils
-    pkgs.bat
     pkgs.ripgrep
-    pkgs.eza
     pkgs.zoxide
-    pkgs.xh
     pkgs.dust
     pkgs.yazi
+    pkgs.bat
+    pkgs.eza
+    pkgs.xh
   ];
 }
