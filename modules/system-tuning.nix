@@ -27,12 +27,12 @@
   services.scx.enable = true; # by default uses scx_rustland scheduler
 
   # SWAP and Z-RAM
-  swapDevices = [
-    {
-      device = "/swapfile";
-      size = 16 * 1000; # 16GB
-    }
-  ];
+  # swapDevices = [
+  #   {
+  #     device = "/swapfile";
+  #     size = 16 * 1000; # 16GB
+  #   }
+  # ];
 
   zramSwap = {
     enable = true;
