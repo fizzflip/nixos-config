@@ -91,7 +91,10 @@
             ./modules/hardware/graphics.nix
             inputs.dnscrypt-module.nixosModules.default
 
-            chaotic.nixosModules.default
+            # chaotic.nixosModules.default
+            chaotic.nixosModules.nyx-cache
+            chaotic.nixosModules.nyx-overlay
+            chaotic.nixosModules.nyx-registry
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-cpu-intel
           ];
