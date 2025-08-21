@@ -12,10 +12,10 @@
   };
 
   # TRIM-SSD
-  services.fstrim = {
-    enable = true;
-    interval = "weekly";
-  };
+  # services.fstrim = {
+  #   enable = true;
+  #   interval = "weekly";
+  # };
 
   powerManagement.enable = true;
   services = {
@@ -36,6 +36,6 @@
 
   zramSwap = {
     enable = true;
-    memoryPercent = 100; # hehe
+    # memoryPercent = 100; # hehe
   };
 }
