@@ -1,8 +1,4 @@
-{
-  config,
-  ...
-}:
-
+{ ... }:
 {
   boot.loader = {
     grub = {
@@ -10,7 +6,7 @@
       efiSupport = true;
       devices = [ "nodev" ];
       useOSProber = true;
-      theme = ../../themes/grub/catppuccin-latte;
+      theme = ./themes/grub/catppuccin-latte;
     };
     efi.canTouchEfiVariables = true;
   };
