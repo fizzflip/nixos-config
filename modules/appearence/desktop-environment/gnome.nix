@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   services.xserver = {
@@ -23,7 +23,7 @@
   # services.gnome.core-utilities.enable = false;
 
   # Excluded GNOME components
-  environment.gnome.excludePackages = ([
+  environment.gnome.excludePackages = [
     pkgs.geary # email reader
     pkgs.totem # video player
     pkgs.baobab # disk usage analyzer
@@ -39,7 +39,7 @@
     pkgs.gnome-music
     pkgs.gnome-tour
     pkgs.gnome-maps
-  ]);
+  ];
 
   # GNOME Extensions/Themes/Stuff
   environment.systemPackages = [

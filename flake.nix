@@ -83,7 +83,7 @@
             ./modules/services/sound.nix
             ./modules/services/printing.nix
             ./modules/services/networking.nix
-            #./modules/services/virtualisation.nix
+            ./modules/services/virtualisation.nix
 
             ./modules/shell/zsh.nix
 
