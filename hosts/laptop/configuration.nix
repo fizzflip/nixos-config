@@ -6,9 +6,7 @@
     "flakes"
   ];
 
-  imports = [
-    ../common.nix
-  ];
+  imports = [ ../common.nix ];
 
   # Bootloader.
   # boot.loader.systemd-boot.enable = true;

@@ -44,5 +44,7 @@
     pkgs.cava
     pkgs.mpris-timer
     pkgs.kdePackages.dolphin
+
+    pkgs.wallust
   ];
 }

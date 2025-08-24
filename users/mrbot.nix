@@ -1,8 +1,4 @@
-{
-  inputs,
-  pkgs,
-  ...
-}:
+{ inputs, pkgs, ... }:
 
 {
   users.users.mrbot = {
@@ -24,7 +20,7 @@
 
       # Browsers
       # pkgs.librewolf
-      pkgs.tor-browser
+      # pkgs.tor-browser
       pkgs.mullvad-browser
       pkgs.ungoogled-chromium
       inputs.zen-browser.packages."${pkgs.system}".default
@@ -45,11 +41,11 @@
 
       # Game Tools
       pkgs.renpy
-      pkgs.bottles
-      pkgs.mangohud
-      pkgs.gamemode
+      # pkgs.bottles
+      # pkgs.mangohud
+      # pkgs.gamemode
       pkgs.steam-run
-      pkgs.prismlauncher
+      # pkgs.prismlauncher
 
       # Communication
       pkgs.vesktop
@@ -67,10 +63,10 @@
       pkgs.zulu
       pkgs.libgcc
       pkgs.python3
+      pkgs.nodejs_24
       pkgs.vscodium-fhs
       pkgs.jetbrains.idea-ultimate
       pkgs.jetbrains.pycharm-professional
-      pkgs.nodejs_24
 
       # Archive Tools
       pkgs.p7zip-rar
@@ -82,17 +78,21 @@
       pkgs.podman-compose
 
       # Ollama
-      pkgs.ollama
       pkgs.oterm
+      pkgs.ollama
       pkgs.gollama
 
+      # Android
       pkgs.android-tools
+
+      # Torrent
       pkgs.qbittorrent-enhanced
 
+      # Nix formatting
       pkgs.nixd
       pkgs.nixfmt-rfc-style
 
-      pkgs.rawtherapee
+      # Image Editing
       pkgs.gimp3-with-plugins
     ];
   };

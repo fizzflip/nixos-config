@@ -1,19 +1,11 @@
-{
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
   boot = {
     plymouth = {
       enable = true;
       theme = "hexagon_2";
-      themePackages = [
-        # By default we would install all themes
-        (pkgs.adi1090x-plymouth-themes.override {
-          selected_themes = [ "hexagon_2" ];
-        })
-      ];
+      themePackages = [ (pkgs.adi1090x-plymouth-themes.override { selected_themes = [ "hexagon_2" ]; }) ];
     };
 
     # Enable "Silent boot"

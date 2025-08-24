@@ -9,7 +9,6 @@
     pkgs.freetube
     pkgs.mpv
 
-
     # Tools
     pkgs.ffmpeg-full
     pkgs.localsend
