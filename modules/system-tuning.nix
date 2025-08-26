@@ -23,8 +23,8 @@
     preload.enable = true;
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  services.scx.enable = true; # by default uses scx_rustland scheduler
+  # boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  # services.scx.enable = true; # by default uses scx_rustland scheduler
 
   # SWAP and Z-RAM
   # swapDevices = [

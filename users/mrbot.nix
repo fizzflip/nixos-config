@@ -12,6 +12,8 @@
     ];
     shell = pkgs.zsh;
 
+    hashedPassword = "$6$UanhywzWk0G21m4N$ePO/TL.pOesbz5rTFruqWa6yjk9X74zazexUocZaCKm3qXvE5NehIPrQxV.ElkWw41I2Rm7T0kfpGyZedtO1r1";
+
     packages = [
       # Monitoring
       pkgs.btop

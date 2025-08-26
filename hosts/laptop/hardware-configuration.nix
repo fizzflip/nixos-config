@@ -4,12 +4,15 @@
 {
   config,
   lib,
+  pkgs,
   modulesPath,
   ...
 }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
   boot.initrd.availableKernelModules = [
     "xhci_pci"
@@ -23,17 +26,22 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/56ed3190-57be-4715-9ce2-0da9a11a5842";
-    fsType = "ext4";
+    device = "/dev/disk/by-uuid/1e9d2acd-39a2-4669-ad19-2357ceadfb8d";
+    fsType = "btrfs";
   };
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/0243-1448";
     fsType = "vfat";
     options = [
-      "fmask=0077"
-      "dmask=0077"
+      "fmask=0022"
+      "dmask=0022"
     ];
+  };
+
+  fileSystems."/home" = {
+    device = "/dev/disk/by-uuid/ee0266d4-626c-4380-a3ff-986e765921af";
+    fsType = "ext4";
   };
 
   swapDevices = [ ];
