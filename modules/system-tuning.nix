@@ -30,10 +30,7 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  system.modulesTree = [
-    (lib.getOutput "modules" pkgs.linuxPackages_cachyos.kernel)
-  ];
-  services.scx.enable = true; # by default uses scx_rustland scheduler
+  services.scx.enable = true;
 
   # SWAP and Z-RAM
   swapDevices = [
