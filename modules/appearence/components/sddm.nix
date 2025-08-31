@@ -1,10 +1,9 @@
 { pkgs, ... }:
+
 {
   environment.systemPackages = [
     pkgs.kdePackages.qtmultimedia
-   (pkgs.sddm-astronaut.override {
-      embeddedTheme = "pixel_sakura";
-   })
+    (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
   ];
 
   services.displayManager.sddm = {

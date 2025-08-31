@@ -1,4 +1,5 @@
 { ... }:
+
 {
   boot.kernel.sysctl = {
     # The Magic SysRq key is a key combo that allows users connected to the
@@ -46,12 +47,8 @@
   networking.networkmanager.wifi.macAddress = "random";
 
   security = {
-    # allow wayland lockers to unlock the screen
-    # pam.services.hyprlock.text = "auth include login";
-
     # userland niceness
     rtkit.enable = true;
-    
     # don't ask for password for wheel group
     sudo.wheelNeedsPassword = false;
   };

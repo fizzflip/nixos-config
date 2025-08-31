@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   # OPTIMISE NIX
@@ -12,10 +12,16 @@
   };
 
   # TRIM-SSD
-  # services.fstrim = {
-  #   enable = true;
-  #   interval = "weekly";
-  # };
+  services.fstrim = {
+    enable = true;
+    interval = "weekly";
+  };
+
+  services.btrfs.autoScrub = {
+    enable = true;
+    fileSystems = [ "/" ];
+    interval = "monthly";
+  };
 
   powerManagement.enable = true;
   services = {
@@ -24,18 +30,18 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos;
-  services.scx.enable = true; # by default uses scx_rustland scheduler
+  services.scx.enable = true;
 
   # SWAP and Z-RAM
-  # swapDevices = [
-  #   {
-  #     device = "/swapfile";
-  #     size = 16 * 1000; # 16GB
-  #   }
-  # ];
+  swapDevices = [
+    {
+      device = "/swapfile";
+      size = 16 * 1000; # 16GB
+    }
+  ];
 
   zramSwap = {
     enable = true;
-    # memoryPercent = 100; # hehe
+    memoryPercent = 100; # hehe
   };
 }

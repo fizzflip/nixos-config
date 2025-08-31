@@ -33,9 +33,7 @@
     pkgs.hyprpaper
   ];
 
-  fonts.packages = [
-    pkgs.font-awesome
-  ];
+  fonts.packages = [ pkgs.font-awesome ];
 
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
