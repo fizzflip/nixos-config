@@ -1,22 +1,26 @@
-{ pkgs, ... }:
-
+{ pkgs, inputs, ... }:
+let
+  sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
+    theme = "catppuccin-latte";
+  };
+in
 {
   environment.systemPackages = [
+    sddm-theme
     pkgs.kdePackages.qtmultimedia
-    (pkgs.sddm-astronaut.override { embeddedTheme = "pixel_sakura"; })
   ];
 
   services.displayManager.sddm = {
     enable = true;
-    autoNumlock = true;
     wayland.enable = true;
-    theme = "sddm-astronaut-theme";
+    theme = sddm-theme.pname;
     package = pkgs.kdePackages.sddm;
-    extraPackages = [
-      pkgs.sddm-astronaut
-      pkgs.kdePackages.qtbase
-      pkgs.kdePackages.qtwayland
-      pkgs.kdePackages.qtmultimedia
-    ];
+    extraPackages = sddm-theme.propagatedBuildInputs;
+    settings = {
+      General = {
+        GreeterEnvironment = "QML2_IMPORT_PATH=${sddm-theme}/share/sddm/themes/${sddm-theme.pname}/components/,QT_IM_MODULE=qtvirtualkeyboard";
+        InputMethod = "qtvirtualkeyboard";
+      };
+    };
   };
 }

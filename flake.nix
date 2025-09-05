@@ -48,7 +48,7 @@
             ./modules/services/sound.nix
             ./modules/services/printing.nix
             ./modules/services/networking.nix
-            #./modules/services/virtualisation.nix
+            ./modules/services/virtualisation.nix
 
             ./modules/shell/zsh.nix
 
@@ -81,7 +81,6 @@
 
             ./modules/security.nix
             ./modules/services/sound.nix
-            ./modules/services/printing.nix
             ./modules/services/networking.nix
             ./modules/services/virtualisation.nix
 
@@ -92,9 +91,6 @@
             inputs.dnscrypt-module.nixosModules.default
 
             chaotic.nixosModules.default
-            # chaotic.nixosModules.nyx-cache
-            # chaotic.nixosModules.nyx-overlay
-            # chaotic.nixosModules.nyx-registry
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-cpu-intel
           ];

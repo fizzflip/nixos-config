@@ -96,6 +96,8 @@
 
       # Image Editing
       pkgs.gimp3-with-plugins
+
+      pkgs.figma-linux
     ];
   };
 }
