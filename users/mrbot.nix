@@ -27,6 +27,9 @@
       pkgs.ungoogled-chromium
       inputs.zen-browser.packages."${pkgs.system}".default
 
+      pkgs.yt-dlp
+      pkgs.grayjay
+
       # WiFi recon
       # pkgs.wifite2
       # pkgs.hashcat
@@ -90,14 +93,20 @@
       # Torrent
       pkgs.qbittorrent-enhanced
 
-      # Nix formatting
+      # Nix
       pkgs.nixd
+      pkgs.nix-tree
       pkgs.nixfmt-rfc-style
 
       # Image Editing
       pkgs.gimp3-with-plugins
 
       pkgs.figma-linux
+
+      # LaTeX
+      pkgs.texstudio
+      pkgs.texmaker
+      pkgs.miktex
     ];
   };
 }
