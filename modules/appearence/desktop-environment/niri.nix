@@ -43,7 +43,14 @@
 
     pkgs.cava
     pkgs.mpris-timer
-    pkgs.kdePackages.dolphin
+
+    pkgs.xfce.thunar
+    pkgs.xfce.thunar-volman
+    pkgs.xfce.thunar-vcs-plugin
+    pkgs.xfce.thunar-archive-plugin
+    pkgs.xfce.thunar-media-tags-plugin
+
+    pkgs.orchis-theme
 
     pkgs.wallust
   ];
