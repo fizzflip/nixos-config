@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   sddm-theme = inputs.silentSDDM.packages.${pkgs.system}.default.override {
     theme = "catppuccin-latte";
@@ -14,7 +19,7 @@ in
     enable = true;
     wayland.enable = true;
     theme = sddm-theme.pname;
-    package = pkgs.kdePackages.sddm;
+    package = lib.mkDefault pkgs.kdePackages.sddm;
     extraPackages = sddm-theme.propagatedBuildInputs;
     settings = {
       General = {

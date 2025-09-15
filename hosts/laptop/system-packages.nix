@@ -1,36 +1,21 @@
 { pkgs, ... }:
 
 {
-  # Allow proprietary packages
   nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = [
-    # Video/Audio
-    pkgs.freetube
     pkgs.mpv
 
-    # Tools
-    pkgs.ffmpeg-full
     pkgs.localsend
-    pkgs.neovim
-    pkgs.aria2
-    pkgs.ncdu
+    pkgs.ffmpeg-full
+
     pkgs.curl
-    pkgs.wget
+    pkgs.aria2
 
-    # Communication
-    pkgs.thunderbird
-
-    # Reading
-    pkgs.foliate
-
-    # Rust utils
-    pkgs.ripgrep
-    pkgs.zoxide
+    pkgs.ncdu
     pkgs.dust
     pkgs.yazi
+
     pkgs.bat
-    pkgs.eza
-    pkgs.xh
+    pkgs.ripgrep
   ];
 }
