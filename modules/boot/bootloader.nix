@@ -4,12 +4,13 @@
   boot.loader = {
     grub = {
       enable = true;
-      efiSupport = true;
       devices = [ "nodev" ];
-      useOSProber = true;
       theme = ./themes/grub/catppuccin-latte;
+
+      default = 2;
+      efiSupport = true;
+      useOSProber = true;
       efiInstallAsRemovable = true;
     };
-    # efi.canTouchEfiVariables = true;
   };
 }

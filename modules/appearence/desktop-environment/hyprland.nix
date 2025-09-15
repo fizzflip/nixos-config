@@ -1,23 +1,27 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   services.greetd = {
     enable = true;
     settings.default_session = {
-      command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd hyprland";
+      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd hyprland";
       user = "mrbot";
     };
   };
   environment.etc."greetd/environments".text = "Hyprland";
 
-  programs.hyprland.enable = true;
-  # programs.hyprland.xwayland.enable = true;
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
   programs.hyprlock.enable = true;
   services.hypridle.enable = true;
 
   environment.systemPackages = [
+    inputs.caelestia-shell.packages."${pkgs.system}".default
     pkgs.kitty
-    pkgs.rofi-wayland
+    pkgs.rofi
     pkgs.waybar
     pkgs.dunst
     pkgs.swww

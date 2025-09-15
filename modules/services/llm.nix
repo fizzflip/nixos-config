@@ -44,7 +44,10 @@
   # };
 
   environment.systemPackages = [
+    # Ollama
     pkgs.oterm
+    pkgs.gollama
+
     pkgs.alpaca
     pkgs.aichat
     pkgs.aider-chat

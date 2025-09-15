@@ -27,10 +27,12 @@
       pkgs.ungoogled-chromium
       inputs.zen-browser.packages."${pkgs.system}".default
 
+      # Youtube
       pkgs.yt-dlp
       pkgs.grayjay
+      pkgs.freetube
 
-      # WiFi recon
+      ## WiFi recon
       # pkgs.wifite2
       # pkgs.hashcat
       # pkgs.hcxdumptool
@@ -44,7 +46,7 @@
       # pkgs.iw
       # pkgs.nmap
 
-      # Game Tools
+      ## Game Tools
       pkgs.renpy
       # pkgs.bottles
       # pkgs.mangohud
@@ -52,9 +54,13 @@
       pkgs.steam-run
       # pkgs.prismlauncher
 
+      # Reading
+      pkgs.foliate
+
       # Communication
       pkgs.vesktop
       pkgs.anydesk
+      pkgs.thunderbird
       pkgs.materialgram
 
       # Note-taking
@@ -69,23 +75,13 @@
       pkgs.libgcc
       pkgs.python3
       pkgs.nodejs_24
+      pkgs.figma-linux
       pkgs.vscodium-fhs
       pkgs.jetbrains.idea-ultimate
       pkgs.jetbrains.pycharm-professional
 
       # Archive Tools
       pkgs.p7zip-rar
-
-      # Podman
-      pkgs.dive
-      pkgs.podman-tui
-      pkgs.docker-compose
-      pkgs.podman-compose
-
-      # Ollama
-      pkgs.oterm
-      pkgs.ollama
-      pkgs.gollama
 
       # Android
       pkgs.android-tools
@@ -94,19 +90,18 @@
       pkgs.qbittorrent-enhanced
 
       # Nix
+      pkgs.nil
       pkgs.nixd
       pkgs.nix-tree
       pkgs.nixfmt-rfc-style
 
-      # Image Editing
+      # Image Editing / Viewing
+      pkgs.nomacs
       pkgs.gimp3-with-plugins
 
-      pkgs.figma-linux
-
       # LaTeX
-      pkgs.texstudio
-      pkgs.texmaker
       pkgs.miktex
+      pkgs.texstudio
     ];
   };
 }

@@ -16,19 +16,24 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    caelestia-shell = {
+      url = "github:caelestia-dots/shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
       self,
       nixpkgs,
       chaotic,
+      caelestia-shell,
       nixos-hardware,
       ...
     }:
     {
       nixosConfigurations = {
-        # Arthur Leywin + King Grey => artrey #
-        "artrey" = nixpkgs.lib.nixosSystem {
+
+        "fluid" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
@@ -36,19 +41,19 @@
             ./hosts/laptop/configuration.nix
             ./hosts/laptop/system-packages.nix
             ./hosts/laptop/hardware-configuration.nix
-            ./modules/appearence/desktop-environment/kde.nix
+            ./modules/appearence/desktop-environment/hyprland.nix
 
             ./modules/boot/plymouth.nix
             ./modules/boot/bootloader.nix
 
-            ./users/nini.nix
+            # ./users/nini.nix
             ./users/mrbot.nix
 
             ./modules/security.nix
             ./modules/services/sound.nix
-            ./modules/services/printing.nix
+            # ./modules/services/printing.nix
             ./modules/services/networking.nix
-            ./modules/services/virtualisation.nix
+            # ./modules/services/virtualisation.nix
 
             ./modules/shell/zsh.nix
 
@@ -62,8 +67,7 @@
           ];
         };
 
-        # Kim Dokja => kimja #
-        "kimja" = nixpkgs.lib.nixosSystem {
+        "minimal" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
@@ -76,13 +80,13 @@
             ./modules/boot/plymouth.nix
             ./modules/boot/bootloader.nix
 
-            ./users/nini.nix
+            #./users/nini.nix
             ./users/mrbot.nix
 
             ./modules/security.nix
             ./modules/services/sound.nix
             ./modules/services/networking.nix
-            ./modules/services/virtualisation.nix
+            #./modules/services/virtualisation.nix
 
             ./modules/shell/zsh.nix
 

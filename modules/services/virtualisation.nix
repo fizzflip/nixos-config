@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   virtualisation = {
@@ -24,4 +24,14 @@
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
+
+  environment.systemPackages = [
+    # Docker
+    pkgs.dive
+    pkgs.docker-compose
+
+    # Podman
+    pkgs.podman-tui
+    pkgs.podman-compose
+  ];
 }
