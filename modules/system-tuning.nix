@@ -29,8 +29,15 @@
     preload.enable = true;
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_cachyos;
+  boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
   services.scx.enable = true;
+
+  # hardware.block.defaultScheduler = "kyber";
+  # hardware.block.defaultSchedulerRotational = "bfq";
+  hardware.block.scheduler = {
+    "sda[0-9]*" = "bfq";
+    "nvme[0-9]*" = "kyber";
+  };
 
   # SWAP and Z-RAM
   swapDevices = [
