@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  plymouth-theme = "hexagon_2";
+  plymouth-theme = "sliced";
 in
 {
   boot = {
