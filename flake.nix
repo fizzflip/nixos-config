@@ -16,17 +16,12 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
   outputs =
     inputs@{
       self,
       nixpkgs,
       chaotic,
-      caelestia-shell,
       nixos-hardware,
       ...
     }:
