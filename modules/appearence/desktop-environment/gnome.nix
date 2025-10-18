@@ -1,23 +1,13 @@
 { pkgs, ... }:
 
 {
-  services.xserver = {
-    # Enable the X11 windowing system.
-    # enable = true;
-
-    # Enable the GNOME Desktop Environment.
-    displayManager = {
-      gdm.enable = true;
-      gdm.wayland = true;
+  # Enable GNOME DE
+  services = {
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
     };
     desktopManager.gnome.enable = true;
-
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-
-    excludePackages = [ pkgs.xterm ];
   };
 
   # services.gnome.core-utilities.enable = false;
