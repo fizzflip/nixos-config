@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 {
   services.greetd = {
@@ -19,7 +19,6 @@
   services.hypridle.enable = true;
 
   environment.systemPackages = [
-    inputs.caelestia-shell.packages."${pkgs.system}".default
     pkgs.kitty
     pkgs.rofi
     pkgs.waybar
