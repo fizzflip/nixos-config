@@ -3,19 +3,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    dnscrypt-module = {
-      url = "github:andreoss/dnscrypt-nixos-module";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    silentSDDM = {
-      url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    dnscrypt-module.url = "github:andreoss/dnscrypt-nixos-module";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    silentSDDM.url = "github:uiriansan/SilentSDDM";
   };
   outputs =
     inputs@{
@@ -36,7 +26,7 @@
             ./hosts/laptop/configuration.nix
             ./hosts/laptop/system-packages.nix
             ./hosts/laptop/hardware-configuration.nix
-            ./modules/appearence/desktop-environment/hyprland.nix
+            ./modules/appearence/desktop-environment/gnome.nix
 
             ./modules/boot/plymouth.nix
             ./modules/boot/bootloader.nix
