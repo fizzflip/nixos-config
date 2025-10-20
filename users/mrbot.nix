@@ -98,10 +98,6 @@
       # Image Editing / Viewing
       pkgs.nomacs
       pkgs.gimp3-with-plugins
-
-      # LaTeX
-      pkgs.miktex
-      pkgs.texstudio
     ];
   };
 }

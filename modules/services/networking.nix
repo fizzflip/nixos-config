@@ -20,8 +20,6 @@
     allowedUDPPorts = [ 53317 ];
   };
 
-  networking.dns-crypt.enable = true;
-
   # services.adguardhome = {
   #   enable = true;
   #   host = "0.0.0.0";

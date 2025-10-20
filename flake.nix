@@ -3,7 +3,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    dnscrypt-module.url = "github:andreoss/dnscrypt-nixos-module";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     silentSDDM.url = "github:uiriansan/SilentSDDM";
   };
@@ -31,8 +30,8 @@
             ./modules/boot/plymouth.nix
             ./modules/boot/bootloader.nix
 
-            # ./users/nini.nix
             ./users/mrbot.nix
+            # ./users/nini.nix
 
             ./modules/security.nix
             ./modules/services/sound.nix
@@ -44,7 +43,7 @@
 
             ./modules/system-tuning.nix
             ./modules/hardware/graphics.nix
-            inputs.dnscrypt-module.nixosModules.default
+            ./modules/services/adguard-home.nix
 
             chaotic.nixosModules.default
             nixos-hardware.nixosModules.common-pc-ssd
@@ -77,7 +76,7 @@
 
             ./modules/system-tuning.nix
             ./modules/hardware/graphics.nix
-            inputs.dnscrypt-module.nixosModules.default
+            ./modules/services/adguard-home.nix
 
             chaotic.nixosModules.default
             nixos-hardware.nixosModules.common-pc-ssd
