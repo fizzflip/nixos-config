@@ -11,6 +11,7 @@
       efiSupport = true;
       useOSProber = true;
       efiInstallAsRemovable = true;
+      splashImage = null;
     };
   };
 }
