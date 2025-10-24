@@ -48,11 +48,11 @@
 
       ## Game Tools
       pkgs.renpy
-      # pkgs.bottles
-      # pkgs.mangohud
-      # pkgs.gamemode
+      (pkgs.bottles.override { removeWarningPopup = true; })
+      pkgs.mangohud
+      pkgs.gamemode
       pkgs.steam-run
-      # pkgs.prismlauncher
+      (pkgs.prismlauncher.override { jdks = [ pkgs.temurin-bin-21 ]; })
 
       # Reading
       pkgs.foliate
@@ -61,7 +61,6 @@
       pkgs.vesktop
       pkgs.anydesk
       pkgs.thunderbird
-      pkgs.materialgram
 
       # Note-taking
       pkgs.obsidian
@@ -71,14 +70,17 @@
       pkgs.gh
       pkgs.git
       pkgs.gcc
-      pkgs.zulu
+      pkgs.bun
+      # pkgs.zulu
+      pkgs.pnpm
       pkgs.libgcc
+      pkgs.nodejs
       pkgs.python3
-      pkgs.nodejs_24
       pkgs.figma-linux
       pkgs.vscodium-fhs
-      pkgs.jetbrains.idea-ultimate
-      pkgs.jetbrains.pycharm-professional
+      (pkgs.android-studio.override { forceWayland = true; })
+      (pkgs.jetbrains.idea-ultimate.override { forceWayland = true; })
+      (pkgs.jetbrains.pycharm-professional.override { forceWayland = true; })
 
       # Archive Tools
       pkgs.p7zip-rar
