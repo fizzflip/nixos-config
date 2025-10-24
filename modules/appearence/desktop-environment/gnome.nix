@@ -42,16 +42,16 @@
     # WMs on top of GNOME
     # gnomeExtensions.forge
     # gnomeExtensions.tiling-shell
-    pkgs.gnomeExtensions.paperwm
+    # pkgs.gnomeExtensions.paperwm
 
     # Theme
     pkgs.gnomeExtensions.user-themes
     # marble-shell-theme
     # flat-remix-gnome
     pkgs.orchis-theme
-    pkgs.whitesur-gtk-theme
-    pkgs.whitesur-cursors
-    pkgs.whitesur-icon-theme
+    # pkgs.whitesur-gtk-theme
+    # pkgs.whitesur-cursors
+    # pkgs.whitesur-icon-theme
 
     # Icon-packs
     pkgs.flat-remix-icon-theme
