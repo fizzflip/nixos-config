@@ -3,8 +3,17 @@
 {
   imports = [
     ../components/waybar.nix
-    ../components/sddm.nix
+    # ../components/sddm.nix
   ];
+
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = "${pkgs.tuigreet}/bin/tuigreet --time --cmd niri";
+      user = "mrbot";
+    };
+  };
+  environment.etc."greetd/environments".text = "Niri";
 
   programs.niri.enable = true;
 
@@ -45,5 +54,8 @@
 
     # Colors
     pkgs.wallust
+
+    # Image viewer
+    pkgs.nomacs
   ];
 }

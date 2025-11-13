@@ -29,7 +29,7 @@
 
       # Youtube
       pkgs.yt-dlp
-      pkgs.grayjay
+      # pkgs.grayjay
       pkgs.freetube
 
       ## WiFi recon
@@ -52,7 +52,12 @@
       pkgs.mangohud
       pkgs.gamemode
       pkgs.steam-run
-      (pkgs.prismlauncher.override { jdks = [ pkgs.temurin-bin-21 ]; })
+      # (pkgs.prismlauncher.override {
+      #   jdks = [
+      #     pkgs.zulu
+      #     pkgs.temurin-bin-21
+      #   ];
+      # })
 
       # Reading
       pkgs.foliate
@@ -71,14 +76,14 @@
       pkgs.git
       pkgs.gcc
       pkgs.bun
-      # pkgs.zulu
+      pkgs.zulu
       pkgs.pnpm
+      # pkgs.devenv
       pkgs.libgcc
       pkgs.nodejs
       pkgs.python3
       pkgs.figma-linux
       pkgs.vscodium-fhs
-      (pkgs.android-studio.override { forceWayland = true; })
       (pkgs.jetbrains.idea-ultimate.override { forceWayland = true; })
       (pkgs.jetbrains.pycharm-professional.override { forceWayland = true; })
 
@@ -97,9 +102,9 @@
       pkgs.nix-tree
       pkgs.nixfmt-rfc-style
 
-      # Image Editing / Viewing
-      pkgs.nomacs
+      # Image Editing
       pkgs.gimp3-with-plugins
     ];
   };
+  nixpkgs.config.permittedInsecurePackages = [ "python3.12-ecdsa-0.19.1" ];
 }

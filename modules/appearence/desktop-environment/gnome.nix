@@ -8,6 +8,7 @@
       wayland = true;
     };
     desktopManager.gnome.enable = true;
+    gvfs.enable = true;
   };
 
   # services.gnome.core-utilities.enable = false;
