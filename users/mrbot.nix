@@ -84,6 +84,8 @@
       pkgs.python3
       pkgs.figma-linux
       pkgs.vscodium-fhs
+      # pkgs.jetbrains.idea-ultimate
+      # pkgs.jetbrains.pycharm-professional
       (pkgs.jetbrains.idea-ultimate.override { forceWayland = true; })
       (pkgs.jetbrains.pycharm-professional.override { forceWayland = true; })
 

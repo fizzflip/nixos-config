@@ -1,10 +1,19 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    zen-browser.url = "github:0xc000022070/zen-browser-flake";
-    silentSDDM.url = "github:uiriansan/SilentSDDM";
+    chaotic = {
+      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    silentSDDM = {
+      url = "github:uiriansan/SilentSDDM";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -45,7 +54,10 @@
             ./modules/hardware/graphics.nix
             ./modules/services/adguard-home.nix
 
-            chaotic.nixosModules.default
+            chaotic.nixosModules.nyx-cache
+            chaotic.nixosModules.nyx-overlay
+            chaotic.nixosModules.nyx-registry
+
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-cpu-intel
           ];
@@ -70,7 +82,7 @@
             ./modules/security.nix
             ./modules/services/sound.nix
             ./modules/services/networking.nix
-            #./modules/services/virtualisation.nix
+            ./modules/services/virtualisation.nix
 
             ./modules/shell/zsh.nix
 
@@ -78,7 +90,10 @@
             ./modules/hardware/graphics.nix
             ./modules/services/adguard-home.nix
 
-            chaotic.nixosModules.default
+            chaotic.nixosModules.nyx-cache
+            chaotic.nixosModules.nyx-overlay
+            chaotic.nixosModules.nyx-registry
+
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-cpu-intel
           ];

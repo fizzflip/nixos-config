@@ -24,10 +24,7 @@
   };
 
   powerManagement.enable = true;
-  services = {
-    thermald.enable = true;
-    preload.enable = true;
-  };
+  services.thermald.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
   services.scx.enable = true;
