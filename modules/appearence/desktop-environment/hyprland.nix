@@ -34,6 +34,9 @@
     pkgs.hyprlock
     pkgs.hypridle
     pkgs.hyprpaper
+
+    # Image viewer
+    pkgs.nomacs
   ];
 
   fonts.packages = [ pkgs.font-awesome ];

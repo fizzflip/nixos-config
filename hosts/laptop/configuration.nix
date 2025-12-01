@@ -1,4 +1,4 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   nix.settings.experimental-features = [
@@ -7,6 +7,16 @@
   ];
 
   imports = [ ../common.nix ];
+
+  # specialisation.de-kde.configuration = {
+  #   imports = [ (inputs.self + "/modules/appearence/desktop-environment/kde.nix") ];
+  #   system.nixos.label = "NixOS-KDE";
+  # };
+
+  # specialisation.de-niri.configuration = {
+  #   imports = [ (inputs.self + "/modules/appearence/desktop-environment/niri.nix") ];
+  #   system.nixos.label = "NixOS-Niri";
+  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

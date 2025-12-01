@@ -45,5 +45,8 @@
 
     # Colors
     pkgs.wallust
+
+    # Image viewer
+    pkgs.nomacs
   ];
 }
