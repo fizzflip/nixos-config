@@ -18,12 +18,12 @@
   };
 
   # Virt-manager
-  # programs.virt-manager.enable = true;
-  # users.groups.libvirtd.members = [ "mrbot" ];
-  # virtualisation = {
-  #   libvirtd.enable = true;
-  #   spiceUSBRedirection.enable = true;
-  # };
+  programs.virt-manager.enable = true;
+  users.groups.libvirtd.members = [ "mrbot" ];
+  virtualisation = {
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
+  };
 
   environment.systemPackages = [
     # Docker
