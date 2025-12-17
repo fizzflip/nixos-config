@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     chaotic = {
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
@@ -40,13 +40,10 @@
             ./modules/boot/bootloader.nix
 
             ./users/mrbot.nix
-            # ./users/nini.nix
 
             ./modules/security.nix
             ./modules/services/sound.nix
-            # ./modules/services/printing.nix
             ./modules/services/networking.nix
-            # ./modules/services/virtualisation.nix
 
             ./modules/shell/zsh.nix
 
@@ -76,13 +73,11 @@
             ./modules/boot/plymouth.nix
             ./modules/boot/bootloader.nix
 
-            #./users/nini.nix
             ./users/mrbot.nix
 
             ./modules/security.nix
             ./modules/services/sound.nix
             ./modules/services/networking.nix
-            ./modules/services/virtualisation.nix
 
             ./modules/shell/zsh.nix
 
