@@ -25,7 +25,7 @@
       # pkgs.tor-browser
       pkgs.mullvad-browser
       pkgs.ungoogled-chromium
-      inputs.zen-browser.packages."${pkgs.system}".default
+      inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
 
       # Youtube
       pkgs.yt-dlp
@@ -77,6 +77,7 @@
       pkgs.gcc
       pkgs.bun
       pkgs.zulu
+      pkgs.yarn
       pkgs.pnpm
       # pkgs.devenv
       pkgs.libgcc
@@ -105,7 +106,13 @@
       pkgs.nixfmt-rfc-style
 
       # Image Editing
-      pkgs.gimp3-with-plugins
+      # pkgs.gimp3-with-plugins
+
+      # Emulation
+      # pkgs.rpcs3
+
+      pkgs.devenv
+      pkgs.vlc
     ];
   };
   nixpkgs.config.permittedInsecurePackages = [ "python3.12-ecdsa-0.19.1" ];
