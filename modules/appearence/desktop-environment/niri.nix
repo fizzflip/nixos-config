@@ -48,5 +48,7 @@
 
     # Image viewer
     pkgs.nomacs
+
+    pkgs.gnome-disk-utility
   ];
 }
