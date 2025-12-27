@@ -6,6 +6,10 @@
       url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    scroll-flake = {
+      url = "github:AsahiRocks/scroll-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     silentSDDM = {
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -68,7 +72,7 @@
             ./hosts/laptop/configuration.nix
             ./hosts/laptop/system-packages.nix
             ./hosts/laptop/hardware-configuration.nix
-            ./modules/appearence/desktop-environment/niri.nix
+            ./modules/appearence/desktop-environment/scroll.nix
 
             ./modules/boot/plymouth.nix
             ./modules/boot/bootloader.nix
@@ -91,6 +95,8 @@
 
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-cpu-intel
+
+            inputs.scroll-flake.nixosModules.default
           ];
         };
       };

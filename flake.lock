@@ -163,6 +163,7 @@
         "chaotic": "chaotic",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
+        "scroll-flake": "scroll-flake",
         "silentSDDM": "silentSDDM",
         "zen-browser": "zen-browser"
       }
@@ -186,6 +187,62 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "scroll-flake": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "scroll-git": "scroll-git",
+        "scroll-stable": "scroll-stable"
+      },
+      "locked": {
+        "lastModified": 1766454036,
+        "narHash": "sha256-n1lQNITz6USSmF7eW5tvJ0IBBH2J87+mzWhtY8E3fIg=",
+        "owner": "AsahiRocks",
+        "repo": "scroll-flake",
+        "rev": "3423144d4a54b3a15ae4ec730b73c7fec95ebe64",
+        "type": "github"
+      },
+      "original": {
+        "owner": "AsahiRocks",
+        "repo": "scroll-flake",
+        "type": "github"
+      }
+    },
+    "scroll-git": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1766400091,
+        "narHash": "sha256-cpj8SbCnmC2pnApt3MK0DztTPBOR6F3C/EFS4zph6FA=",
+        "ref": "master",
+        "rev": "59a71a41288700084f12be6c7d8d102eb632f045",
+        "revCount": 8054,
+        "type": "git",
+        "url": "https://github.com/dawsers/scroll"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://github.com/dawsers/scroll"
+      }
+    },
+    "scroll-stable": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765533070,
+        "narHash": "sha256-tDMFLm+wQyVukvunnCiq0qP/ZeNXF4xHC7YehsVFzXE=",
+        "ref": "refs/tags/1.12.3",
+        "rev": "6343bb793ef4875489badaf8995227a25d017887",
+        "revCount": 8022,
+        "type": "git",
+        "url": "https://github.com/dawsers/scroll"
+      },
+      "original": {
+        "ref": "refs/tags/1.12.3",
+        "type": "git",
+        "url": "https://github.com/dawsers/scroll"
       }
     },
     "silentSDDM": {
