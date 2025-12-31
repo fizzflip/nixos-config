@@ -1,6 +1,10 @@
-{ pkgs, ... }:
-
+{ ... }:
 {
+  imports = [
+    ./kernel.nix
+    ./network.nix
+  ];
+
   # OPTIMISE NIX
   nix = {
     optimise.automatic = true;
@@ -23,13 +27,12 @@
     interval = "monthly";
   };
 
+  hardware.block.defaultSchedulerRotational = "bfq";
+
   powerManagement.enable = true;
   services.thermald.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_cachyos-lto;
   services.scx.enable = true;
-
-  hardware.block.defaultSchedulerRotational = "bfq";
 
   # SWAP and Z-RAM
   swapDevices = [
