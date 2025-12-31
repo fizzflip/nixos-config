@@ -47,11 +47,11 @@
       # pkgs.nmap
 
       ## Game Tools
-      pkgs.renpy
-      (pkgs.bottles.override { removeWarningPopup = true; })
-      pkgs.mangohud
-      pkgs.gamemode
-      pkgs.steam-run
+      # pkgs.renpy
+      # (pkgs.bottles.override { removeWarningPopup = true; })
+      # pkgs.mangohud
+      # pkgs.gamemode
+      # pkgs.steam-run
       # (pkgs.prismlauncher.override {
       #   jdks = [
       #     pkgs.zulu
@@ -87,7 +87,7 @@
       pkgs.vscodium-fhs
       # pkgs.jetbrains.idea-ultimate
       # pkgs.jetbrains.pycharm-professional
-      (pkgs.jetbrains.idea-ultimate.override { forceWayland = true; })
+      # (pkgs.jetbrains.idea-ultimate.override { forceWayland = true; })
       (pkgs.jetbrains.pycharm-professional.override { forceWayland = true; })
 
       # Archive Tools
@@ -95,6 +95,7 @@
 
       # Android
       pkgs.android-tools
+      pkgs.android-studio
 
       # Torrent
       pkgs.qbittorrent-enhanced
@@ -110,10 +111,8 @@
 
       # Emulation
       # pkgs.rpcs3
-
-      pkgs.devenv
-      pkgs.vlc
     ];
   };
-  nixpkgs.config.permittedInsecurePackages = [ "python3.12-ecdsa-0.19.1" ];
+  # nixpkgs.config.android_sdk.accept_license = true;
+  # nixpkgs.config.permittedInsecurePackages = [ "python3.12-ecdsa-0.19.1" ];
 }

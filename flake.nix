@@ -2,10 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    chaotic = {
-      url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     silentSDDM = {
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,7 +15,6 @@
     inputs@{
       self,
       nixpkgs,
-      chaotic,
       nixos-hardware,
       ...
     }:
@@ -41,19 +36,14 @@
 
             ./users/mrbot.nix
 
-            ./modules/security.nix
             ./modules/services/sound.nix
             ./modules/services/networking.nix
 
             ./modules/shell/zsh.nix
 
-            ./modules/system-tuning.nix
+            ./modules/system-tuning/all.nix
             ./modules/hardware/graphics.nix
             ./modules/services/adguard-home.nix
-
-            chaotic.nixosModules.nyx-cache
-            chaotic.nixosModules.nyx-overlay
-            chaotic.nixosModules.nyx-registry
 
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-cpu-intel
@@ -75,19 +65,14 @@
 
             ./users/mrbot.nix
 
-            ./modules/security.nix
             ./modules/services/sound.nix
             ./modules/services/networking.nix
 
             ./modules/shell/zsh.nix
 
-            ./modules/system-tuning.nix
+            ./modules/system-tuning/all.nix
             ./modules/hardware/graphics.nix
             ./modules/services/adguard-home.nix
-
-            chaotic.nixosModules.nyx-cache
-            chaotic.nixosModules.nyx-overlay
-            chaotic.nixosModules.nyx-registry
 
             nixos-hardware.nixosModules.common-pc-ssd
             nixos-hardware.nixosModules.common-cpu-intel
