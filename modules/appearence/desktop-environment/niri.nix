@@ -34,11 +34,10 @@
     pkgs.xwayland-satellite
 
     # File manager
-    pkgs.xfce.thunar
-    pkgs.xfce.thunar-volman
-    pkgs.xfce.thunar-vcs-plugin
-    pkgs.xfce.thunar-archive-plugin
-    pkgs.xfce.thunar-media-tags-plugin
+    pkgs.thunar
+    pkgs.thunar-volman
+    pkgs.thunar-archive-plugin
+    pkgs.thunar-media-tags-plugin
 
     # GTK Theme
     pkgs.orchis-theme

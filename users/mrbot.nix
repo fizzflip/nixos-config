@@ -29,8 +29,8 @@
 
       # Youtube
       pkgs.yt-dlp
-      # pkgs.grayjay
       pkgs.freetube
+      # pkgs.grayjay
 
       ## WiFi recon
       # pkgs.wifite2
@@ -47,11 +47,11 @@
       # pkgs.nmap
 
       ## Game Tools
+      pkgs.steam-run
       # pkgs.renpy
-      # (pkgs.bottles.override { removeWarningPopup = true; })
       # pkgs.mangohud
       # pkgs.gamemode
-      # pkgs.steam-run
+      # (pkgs.bottles.override { removeWarningPopup = true; })
       # (pkgs.prismlauncher.override {
       #   jdks = [
       #     pkgs.zulu
@@ -63,7 +63,7 @@
       pkgs.foliate
 
       # Communication
-      pkgs.vesktop
+      # pkgs.vesktop
       pkgs.anydesk
       pkgs.thunderbird
 
@@ -87,8 +87,8 @@
       pkgs.vscodium-fhs
       # pkgs.jetbrains.idea-ultimate
       # pkgs.jetbrains.pycharm-professional
-      # (pkgs.jetbrains.idea-ultimate.override { forceWayland = true; })
-      (pkgs.jetbrains.pycharm-professional.override { forceWayland = true; })
+      (pkgs.jetbrains.idea.override { forceWayland = true; })
+      (pkgs.jetbrains.pycharm.override { forceWayland = true; })
 
       # Archive Tools
       pkgs.p7zip-rar
@@ -103,8 +103,8 @@
       # Nix
       pkgs.nil
       pkgs.nixd
+      pkgs.nixfmt
       pkgs.nix-tree
-      pkgs.nixfmt-rfc-style
 
       # Image Editing
       # pkgs.gimp3-with-plugins
@@ -113,6 +113,4 @@
       # pkgs.rpcs3
     ];
   };
-  # nixpkgs.config.android_sdk.accept_license = true;
-  # nixpkgs.config.permittedInsecurePackages = [ "python3.12-ecdsa-0.19.1" ];
 }
