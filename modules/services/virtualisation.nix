@@ -33,5 +33,8 @@
     # Podman
     pkgs.podman-tui
     pkgs.podman-compose
+
+    # RDP Client
+    pkgs.freerdp
   ];
 }
