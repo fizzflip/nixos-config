@@ -42,6 +42,7 @@
 
     # GTK Theme
     pkgs.orchis-theme
+    pkgs.phinger-cursors
 
     # Colors
     pkgs.wallust
