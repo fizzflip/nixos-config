@@ -2,7 +2,8 @@
 
 {
   imports = [
-    ../components/waybar.nix
+    ../components/dms.nix
+    # ../components/waybar.nix
     ../components/sddm.nix
   ];
 
