@@ -5,7 +5,7 @@
     grub = {
       enable = true;
       devices = [ "nodev" ];
-      theme = ./themes/grub/catppuccin-latte;
+      theme = ./themes/grub/catppuccin-mocha;
 
       default = 2;
       efiSupport = true;
