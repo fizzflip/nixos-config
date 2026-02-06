@@ -3,7 +3,6 @@
 {
   imports = [
     ../components/dms.nix
-    # ../components/waybar.nix
     ../components/sddm.nix
   ];
 
@@ -16,8 +15,27 @@
 
   security = {
     polkit.enable = true;
-    soteria.enable = true;
+    # soteria.enable = true;
   };
+
+  systemd.user.services.polkit-agent = {
+    description = "Polkit authentication agent";
+    wantedBy = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      Type = "simple";
+    };
+  };
+
+  # systemd.user.services.polkit-gnome-agent = {
+  #   description = "Polkit GNOME Authentication Agent";
+  #   wantedBy =  [ "graphical-session-target"];
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.polkit_gnome}/libexec/"
+  #   };
+  # };
 
   # Auto-mounting stuff
   services = {
@@ -27,11 +45,9 @@
   };
 
   environment.systemPackages = [
-    pkgs.mako
-    pkgs.fuzzel
-    pkgs.swayidle
-    pkgs.swaylock
-    pkgs.alacritty
+    pkgs.foot
+
+    pkgs.polkit_gnome
     pkgs.xwayland-satellite
 
     # File manager

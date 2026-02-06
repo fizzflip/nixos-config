@@ -79,16 +79,16 @@
       pkgs.zulu
       pkgs.yarn
       pkgs.pnpm
-      # pkgs.devenv
+      pkgs.devenv
       pkgs.libgcc
       pkgs.nodejs
       pkgs.python3
       pkgs.figma-linux
       pkgs.vscodium-fhs
-      # pkgs.jetbrains.idea-ultimate
-      # pkgs.jetbrains.pycharm-professional
-      (pkgs.jetbrains.idea.override { forceWayland = true; })
-      (pkgs.jetbrains.pycharm.override { forceWayland = true; })
+      pkgs.jetbrains.idea
+      pkgs.jetbrains.pycharm
+      # (pkgs.jetbrains.idea.override { forceWayland = true; })
+      # (pkgs.jetbrains.pycharm.override { forceWayland = true; })
 
       # Archive Tools
       pkgs.p7zip-rar
@@ -111,6 +111,8 @@
 
       # Emulation
       # pkgs.rpcs3
+      pkgs.android-translation-layer
+      pkgs.gradle_9
     ];
   };
 }

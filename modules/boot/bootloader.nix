@@ -6,8 +6,7 @@
       enable = true;
       devices = [ "nodev" ];
       theme = ./themes/grub/catppuccin-mocha;
-
-      default = 2;
+      default = 3;
       efiSupport = true;
       useOSProber = true;
       efiInstallAsRemovable = true;
