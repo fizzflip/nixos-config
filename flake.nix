@@ -25,28 +25,10 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./modules/appearence/fonts.nix
-            ./hosts/laptop/configuration.nix
-            ./hosts/laptop/system-packages.nix
-            ./hosts/laptop/hardware-configuration.nix
-            ./modules/appearence/desktop-environment/gnome.nix
-
-            ./modules/boot/plymouth.nix
-            ./modules/boot/bootloader.nix
-
-            ./users/mrbot.nix
-
-            ./modules/services/sound.nix
-            ./modules/services/networking.nix
-
-            ./modules/shell/zsh.nix
-
-            ./modules/system-tuning/all.nix
-            ./modules/hardware/graphics.nix
+            ./modules/appearence/desktop-environment/kde.nix
             ./modules/services/adguard-home.nix
-
-            nixos-hardware.nixosModules.common-pc-ssd
-            nixos-hardware.nixosModules.common-cpu-intel
+            ./modules/minimal.nix
+            ./users/mrbot.nix
           ];
         };
 
@@ -54,28 +36,10 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
-            ./modules/appearence/fonts.nix
-            ./hosts/laptop/configuration.nix
-            ./hosts/laptop/system-packages.nix
-            ./hosts/laptop/hardware-configuration.nix
             ./modules/appearence/desktop-environment/niri.nix
-
-            ./modules/boot/plymouth.nix
-            ./modules/boot/bootloader.nix
-
-            ./users/mrbot.nix
-
-            ./modules/services/sound.nix
-            ./modules/services/networking.nix
-
-            ./modules/shell/zsh.nix
-
-            ./modules/system-tuning/all.nix
-            ./modules/hardware/graphics.nix
             ./modules/services/adguard-home.nix
-
-            nixos-hardware.nixosModules.common-pc-ssd
-            nixos-hardware.nixosModules.common-cpu-intel
+            ./modules/minimal.nix
+            ./users/mrbot.nix
           ];
         };
       };

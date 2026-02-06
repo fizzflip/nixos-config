@@ -21,6 +21,10 @@
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ "mrbot" ];
   virtualisation = {
+    libvirtd.nss = {
+      enable = true;
+      enableGuest = true;
+    };
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
@@ -36,5 +40,8 @@
 
     # RDP Client
     pkgs.freerdp
+
+    pkgs.oracle-instantclient
+    pkgs.rlwrap
   ];
 }
