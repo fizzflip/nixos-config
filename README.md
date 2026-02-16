@@ -21,10 +21,46 @@ Mess? Kinda. Cleaning? Working on that.
 - Delete the generated `configuration.nix`
 - Replace the existing `hardware-configuration.nix` to match your hardware.
 
-### Run
+### Create a `<username>.nix`
+
+#### Template
+
+```nix
+{ pkgs, ... }:
+{
+  users.users.<username> = {
+    isNormalUser = true;
+    # use mkpasswd to obtain hash
+    # remove this after first login
+    # to change your password use passwd
+    initialHashedPassword = "$6$YZ ... ";
+    extraGroups = [
+        "<group_name>" # "wheel" "kvm" etc.
+    ];
+    shell = pkgs.<shell_package_name>;
+    packages = [
+      pkgs.<package_name_1>
+      pkgs.<package_name_2>
+      ...
+    ];
+  };
+}
+```
+
+**Alternative** \
+Remove existing users in `./users` or edit them.
+
+### Run Installer
 
     nixos-install --flake .#minimal --root /mnt --verbose --show-trace
 
 ## Update
 
     nixos-rebuild switch --flake .#minimal --verbose --show-trace --upgrade
+
+## Documentation
+
+- [search.nixos.org](https://search.nixos.org)
+- [mynixos.com](https://mynixos.com)
+- [NixOS Manual](https://nixos.org/manual/nixos)
+- [NixOS Wiki](https://nixos.wiki)
