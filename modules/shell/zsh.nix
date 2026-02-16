@@ -14,7 +14,7 @@
       shellAliases = {
         ll = "ls -l";
         edit = "sudo -e";
-        update = "sudo nixos-rebuild switch --fast";
+        update = "sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace --upgrade";
       };
 
       ohMyZsh = {

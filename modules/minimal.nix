@@ -4,6 +4,7 @@
     ./appearence/fonts.nix
 
     ./services/sound.nix
+    ./services/fhs-env.nix
     ./services/networking.nix
 
     ../hosts/laptop/configuration.nix
@@ -16,7 +17,6 @@
     ./shell/zsh.nix
 
     ./system-tuning/all.nix
-    ./hardware/graphics.nix
 
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-intel
