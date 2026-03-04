@@ -1,6 +1,5 @@
 { ... }:
 {
-  # SWAP and Z-RAM
   swapDevices = [
     {
       device = "/swapfile";
@@ -8,9 +7,12 @@
     }
   ];
 
-  zramSwap = {
-    enable = true;
-    memoryPercent = 100;
-    priority = 100;
-  };
+  # Disable ZRAM so they don't fight
+  zramSwap.enable = false;
+
+  # Explicitly enforce ZSWAP parameters just in case
+  boot.kernelParams = [
+    "zswap.enabled=1"
+    "zswap.shrinker_enabled=1"
+  ];
 }

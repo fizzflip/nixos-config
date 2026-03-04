@@ -12,22 +12,16 @@
   # networking.firewall.enable = false;
 
   # Network configuration
+  systemd.services.NetworkManager-wait-online.enable = false;
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi = {
+    macAddress = "random";
+    backend = "iwd";
+  };
 
   # Open ports in the firewall
   networking.firewall = {
     allowedTCPPorts = [ 53317 ];
     allowedUDPPorts = [ 53317 ];
   };
-
-  # services.adguardhome = {
-  #   enable = true;
-  #   host = "0.0.0.0";
-  #   port = 3000;
-  # };
-  # networking.nameservers = [ "127.0.0.1" ];
-
-  # services.ntopng = {
-  #   enable = true;
-  # };
 }

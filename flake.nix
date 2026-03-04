@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     silentSDDM = {
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -12,6 +13,7 @@
       self,
       nixpkgs,
       nixos-hardware,
+      nix-cachyos-kernel,
       ...
     }:
     {

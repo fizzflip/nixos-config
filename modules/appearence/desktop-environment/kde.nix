@@ -12,7 +12,7 @@
   environment.systemPackages = [
     pkgs.kdePackages.kcalc
     pkgs.kdePackages.partitionmanager
-    pkgs.python312Packages.kde-material-you-colors
+    # pkgs.python312Packages.kde-material-you-colors
   ];
 
   services.fwupd.enable = true;

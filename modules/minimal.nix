@@ -11,7 +11,7 @@
     ../hosts/laptop/system-packages.nix
     ../hosts/laptop/hardware-configuration.nix
 
-    ./boot/plymouth.nix
+    # ./boot/plymouth.nix
     ./boot/bootloader.nix
 
     ./shell/zsh.nix

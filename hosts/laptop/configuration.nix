@@ -24,6 +24,11 @@
   #   system.nixos.label = "NixOS-Niri";
   # };
 
+  # specialisation.stable-kernel.configuration = {
+  #   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
+  #   services.scx.enable = lib.mkForce false;
+  # };
+
   specialisation.virt-podman.configuration = {
     imports = [ (inputs.self + "/modules/services/virtualisation.nix") ];
   };
