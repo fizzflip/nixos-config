@@ -2,7 +2,6 @@
 {
   imports = [
     ./kernel.nix
-    ./network.nix
     ./security.nix
     ./graphics.nix
     ./disks.nix

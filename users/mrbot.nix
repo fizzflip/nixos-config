@@ -102,6 +102,8 @@
 
       # LaTex
       pkgs.texliveFull
+
+      pkgs.megabasterd
     ];
   };
 }

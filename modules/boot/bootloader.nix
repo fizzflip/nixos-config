@@ -1,5 +1,4 @@
 { ... }:
-
 {
   boot.loader = {
     grub = {
@@ -12,5 +11,9 @@
       efiInstallAsRemovable = true;
       splashImage = null;
     };
+  };
+  boot.initrd = {
+    systemd.enable = true;
+    verbose = false;
   };
 }

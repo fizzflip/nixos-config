@@ -57,5 +57,11 @@
       };
     };
   };
+  systemd.services.adguardhome = {
+    wants = [ "network.target" ];
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    # This tells systemd not to wait for the network to be fully "online"
+  };
   networking.nameservers = [ "127.0.0.1" ];
 }
