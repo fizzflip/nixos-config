@@ -1,7 +1,6 @@
 { pkgs, inputs, ... }:
 {
   nix.settings = {
-    # Appends to the default list rather than overwriting
     extra-substituters = [
       "https://xddxdd.cachix.org?priority=50"
       "https://cache.garnix.io?priority=60"
@@ -21,6 +20,6 @@
 
   services.scx = {
     enable = true;
-    scheduler = "scx_rusty";
+    scheduler = "scx_bpfland";
   };
 }
