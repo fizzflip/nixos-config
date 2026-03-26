@@ -5,7 +5,7 @@
   environment.systemPackages = [
     pkgs.mpv
     pkgs.ffmpeg-full
-    
+
     pkgs.curl
     pkgs.aria2
     pkgs.localsend
@@ -29,6 +29,6 @@
     pkgs.nix-tree
 
     # Archive Tools
-    pkgs.p7zip-rar
+    pkgs._7zip-zstd-rar
   ];
 }
