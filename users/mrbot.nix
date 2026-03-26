@@ -12,7 +12,7 @@
     ];
     shell = pkgs.zsh;
 
-    hashedPassword = "$6$UanhywzWk0G21m4N$ePO/TL.pOesbz5rTFruqWa6yjk9X74zazexUocZaCKm3qXvE5NehIPrQxV.ElkWw41I2Rm7T0kfpGyZedtO1r1";
+    hashedPassword = "$6$Ry2Jsx.8nx017/St$bSRCq.fOsVMqIOQtnMwaZhNIyL6OaJtEQqQlzObNxmKmQvLzhkja2c5CzV7u8kOrBbP3o5ST2Z026tQtHaZK/1";
 
     packages = [
       # Browsers
@@ -80,10 +80,6 @@
       pkgs.jetbrains.idea
       pkgs.jetbrains.pycharm
 
-      # Android
-      pkgs.android-tools
-      pkgs.android-studio
-
       # Torrent
       pkgs.qbittorrent-enhanced
 
@@ -92,7 +88,6 @@
 
       # Emulation
       # pkgs.rpcs3
-      pkgs.android-translation-layer
 
       # Typst
       pkgs.typst
@@ -101,7 +96,7 @@
       pkgs.typstwriter
 
       # LaTex
-      pkgs.texliveFull
+      # pkgs.texliveFull
 
       pkgs.megabasterd
     ];
