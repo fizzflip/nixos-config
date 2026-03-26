@@ -29,8 +29,11 @@
   #   services.scx.enable = lib.mkForce false;
   # };
 
-  specialisation.virt-podman.configuration = {
-    imports = [ (inputs.self + "/modules/services/virtualisation.nix") ];
+  specialisation.virtualisation.configuration = {
+    imports = [
+      (inputs.self + "/modules/services/virtualisation.nix")
+      (inputs.self + "/modules/services/android.nix")
+    ];
   };
 
   # This value determines the NixOS release from which the default
