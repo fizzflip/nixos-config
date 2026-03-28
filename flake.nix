@@ -24,7 +24,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./modules/appearence/desktop-environment/kde.nix
-            ./modules/services/adguard-home.nix
             ./modules/minimal.nix
             ./users/mrbot.nix
           ];
@@ -35,7 +34,6 @@
           specialArgs = { inherit inputs; };
           modules = [
             ./modules/appearence/desktop-environment/niri.nix
-            ./modules/services/adguard-home.nix
             ./modules/minimal.nix
             ./users/mrbot.nix
           ];

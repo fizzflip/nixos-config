@@ -4,6 +4,7 @@
     ./appearence/fonts.nix
 
     ./services/sound.nix
+    ./services/nextdns.nix
     ./services/fhs-env.nix
     ./services/networking.nix
 
