@@ -12,6 +12,7 @@
     inputs@{
       self,
       nixpkgs,
+      silentSDDM,
       nixos-hardware,
       nix-cachyos-kernel,
       ...
@@ -23,8 +24,9 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
+            ./hosts/laptop/configuration.nix
             ./modules/appearence/desktop-environment/kde.nix
-            ./modules/minimal.nix
+            ./modules/base.nix
             ./users/mrbot.nix
           ];
         };
@@ -33,8 +35,9 @@
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
           modules = [
+            ./hosts/laptop/configuration.nix
             ./modules/appearence/desktop-environment/niri.nix
-            ./modules/minimal.nix
+            ./modules/base.nix
             ./users/mrbot.nix
           ];
         };
