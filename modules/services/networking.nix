@@ -13,10 +13,13 @@
 
   # Network configuration
   systemd.services.NetworkManager-wait-online.enable = false;
-  networking.networkmanager.enable = true;
-  networking.networkmanager.wifi = {
-    macAddress = "random";
-    backend = "iwd";
+  networking.networkmanager = {
+    enable = true;
+    wifi = {
+      backend = "iwd";
+      powersave = false;
+      macAddress = "stable";
+    };
   };
 
   # Open ports in the firewall
