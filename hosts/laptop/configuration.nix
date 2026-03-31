@@ -12,7 +12,11 @@
     ];
   };
 
-  imports = [ ../common.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ./system-packages.nix
+    ../common.nix
+  ];
 
   # specialisation.de-kde.configuration = {
   #   imports = [ (inputs.self + "/modules/appearence/desktop-environment/kde.nix") ];

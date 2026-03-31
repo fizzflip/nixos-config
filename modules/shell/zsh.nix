@@ -1,9 +1,7 @@
-{ pkgs, ... }:
-
+{ ... }:
 {
-  environment.systemPackages = [ pkgs.starship ];
-
   programs = {
+    starship.enable = true;
     zsh = {
       enable = true;
       enableCompletion = true;
@@ -20,14 +18,13 @@
 
       ohMyZsh = {
         enable = true;
-        theme = "agnoster";
+        # theme = "agnoster";
         plugins = [
           "git"
           "python"
           "man"
           "npm"
           "history"
-          "starship"
           "podman"
           "nmap"
         ];
