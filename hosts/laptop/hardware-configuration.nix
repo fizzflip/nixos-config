@@ -2,8 +2,8 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  config,
   lib,
+  config,
   modulesPath,
   ...
 }:
@@ -17,6 +17,7 @@
     "xhci_pci"
     "ahci"
     "nvme"
+    "usb_storage"
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
@@ -24,11 +25,14 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/3de34c69-5101-461c-b2d6-62a21a6264ec";
-    fsType = "ext4";
+    device = "/dev/disk/by-uuid/3b521ac2-f014-4d13-8994-edcbf868aad0";
+    fsType = "f2fs";
     options = [
-      "noatime"
-      "commit=60"
+      "compress_algorithm=zstd"
+      "compress_chksum"
+      "atgc"
+      "gc_merge"
+      "lazytime"
     ];
   };
 
@@ -45,21 +49,13 @@
     device = "/dev/disk/by-uuid/ee0266d4-626c-4380-a3ff-986e765921af";
     fsType = "ext4";
     options = [
-      "defaults"
       "noatime"
-      "nofail"
     ];
   };
 
   swapDevices = [ ];
 
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
-
+  boot.supportedFilesystems = [ "f2fs" ];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
