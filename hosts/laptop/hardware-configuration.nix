@@ -2,8 +2,9 @@
 # and may be overwritten by future invocations.  Please make changes
 # to /etc/nixos/configuration.nix instead.
 {
-  lib,
   config,
+  lib,
+  pkgs,
   modulesPath,
   ...
 }:
@@ -25,14 +26,12 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/3b521ac2-f014-4d13-8994-edcbf868aad0";
-    fsType = "f2fs";
+    device = "/dev/disk/by-uuid/01ae2240-c2ce-4e9b-ae38-8641a8b774af";
+    fsType = "btrfs";
     options = [
-      "compress_algorithm=zstd"
-      "compress_chksum"
-      "atgc"
-      "gc_merge"
-      "lazytime"
+      "noatime"
+      "compress=zstd:1"
+      "discard=async"
     ];
   };
 
@@ -55,7 +54,6 @@
 
   swapDevices = [ ];
 
-  boot.supportedFilesystems = [ "f2fs" ];
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

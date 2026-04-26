@@ -5,6 +5,8 @@
     pkgs.android-tools
     pkgs.android-studio
     pkgs.waydroid-helper
-    pkgs.android-translation-layer
+    # pkgs.flutter
+    pkgs.unzip
+    pkgs.fvm
   ];
 }

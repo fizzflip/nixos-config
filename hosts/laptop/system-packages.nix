@@ -6,15 +6,19 @@
     pkgs.mpv
     pkgs.ffmpeg-full
 
+    # Transfer
     pkgs.curl
     pkgs.aria2
     pkgs.localsend
 
+    # File management
     pkgs.dust
     pkgs.ncdu
     pkgs.yazi
 
+    # Searching
     pkgs.bat
+    pkgs.skim
     pkgs.ripgrep
 
     # Monitoring
