@@ -1,16 +1,7 @@
 { pkgs, ... }:
 
 {
-  virtualisation = {
-    containers.enable = true;
-    podman = {
-      enable = true;
-      dockerCompat = true;
-      autoPrune.enable = true;
-      dockerSocket.enable = true;
-      defaultNetwork.settings.dns_enabled = true;
-    };
-  };
+  virtualisation.docker.enable = true;
 
   # Virt-manager
   programs.virt-manager.enable = true;
@@ -25,12 +16,9 @@
   };
 
   environment.systemPackages = [
-    pkgs.podman-tui
-    pkgs.podman-compose
-
-    pkgs.rlwrap
     pkgs.oracle-instantclient
-
+    pkgs.docker-compose
     pkgs.freerdp
+    pkgs.rlwrap
   ];
 }

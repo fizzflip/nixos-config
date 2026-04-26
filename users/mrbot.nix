@@ -3,14 +3,14 @@
 {
   users.users.mrbot = {
     isNormalUser = true;
-    description = "mrbot";
+    shell = pkgs.zsh;
     extraGroups = [
       "networkmanager"
-      "wheel"
       "adbusers"
+      "docker"
+      "wheel"
       "kvm"
     ];
-    shell = pkgs.zsh;
 
     hashedPassword = "$6$Ry2Jsx.8nx017/St$bSRCq.fOsVMqIOQtnMwaZhNIyL6OaJtEQqQlzObNxmKmQvLzhkja2c5CzV7u8kOrBbP3o5ST2Z026tQtHaZK/1";
 
@@ -77,6 +77,7 @@
       pkgs.nodejs
       pkgs.python3
       pkgs.vscodium-fhs
+      pkgs.antigravity-fhs
       pkgs.jetbrains.idea
       pkgs.jetbrains.pycharm
 
@@ -99,6 +100,9 @@
       # pkgs.texliveFull
 
       pkgs.megabasterd
+
+      pkgs.mochi
+      pkgs.anki
     ];
   };
 }

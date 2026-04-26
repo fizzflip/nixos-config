@@ -16,7 +16,7 @@
   boot.kernelPackages =
     pkgs.linuxPackagesFor
       inputs.nix-cachyos-kernel.packages.${pkgs.stdenv.hostPlatform.system}.linux-cachyos-latest-lto-x86_64-v4;
-  # pkgs.linuxPackages_zen;
+  #  pkgs.linuxPackages_zen;
 
   services.scx = {
     enable = true;
