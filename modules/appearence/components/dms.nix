@@ -18,6 +18,8 @@
     };
   };
 
+  services.upower.enable = true;
+
   environment.systemPackages = [
     pkgs.libnotify
     pkgs.pulseaudio
