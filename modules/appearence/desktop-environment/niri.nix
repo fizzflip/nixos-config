@@ -4,13 +4,19 @@
   imports = [
     ../components/dms.nix
     ../components/sddm.nix
+    ../../services/bluetooth.nix
+    ../../services/printing.nix
   ];
 
   programs.niri.enable = true;
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true;
+    # xdg-desktop-portal-gtk: handles file pickers, inhibit (sleep/screen), and
+    # other portal interfaces not supported by the wlr backend.
+    # programs.niri.enable already sets up the core Niri portal — don't set wlr.enable here.
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = [ "gtk" ];
   };
 
   security = {
