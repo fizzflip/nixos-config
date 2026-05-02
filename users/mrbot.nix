@@ -14,7 +14,7 @@
       "input" # dms-shell evdev manager / gesture support
     ];
 
-    hashedPassword = "$6$Ry2Jsx.8nx017/St$bSRCq.fOsVMqIOQtnMwaZhNIyL6OaJtEQqQlzObNxmKmQvLzhkja2c5CzV7u8kOrBbP3o5ST2Z026tQtHaZK/1";
+    hashedPasswordFile = "/etc/nixos/passwords/mrbot";
 
     packages = [
       # Browsers

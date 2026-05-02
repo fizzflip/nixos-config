@@ -19,14 +19,8 @@
       "nextdns.service"
     ];
     serviceConfig = {
-      # Wait for a real default route before attempting DNS — avoids the boot
-      # network race caused by NetworkManager-wait-online being disabled.
-      ExecStartPre = [
-        ""
-        "${/bin/sh} -c 'for i in $(seq 1 15); do ip route get 1.1.1.1 &>/dev/null && break; sleep 2; done'"
-      ];
       Restart = "on-failure";
-      RestartSec = "10s";
+      RestartSec = lib.mkForce "10s";
       # Disable the burst limit so RestartSec is used immediately
       StartLimitIntervalSec = 0;
     };
