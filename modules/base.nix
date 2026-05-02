@@ -15,4 +15,7 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-cpu-intel
   ];
+
+  # Firmware updates — needed in all profiles for BIOS/device firmware (fwupdmgr)
+  services.fwupd.enable = true;
 }
