@@ -5,7 +5,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-cachyos-kernel = {
       url = "github:xddxdd/nix-cachyos-kernel/release";
-      inputs.nixpkgs.follows = "nixpkgs"; # Avoid double nixpkgs evaluation
     };
     silentSDDM = {
       url = "github:uiriansan/SilentSDDM";

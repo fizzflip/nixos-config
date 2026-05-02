@@ -8,7 +8,10 @@
     ../../services/printing.nix
   ];
 
-  programs.niri.enable = true;
+  programs.niri = {
+    enable = true;
+    useNautilus = false;
+  };
 
   xdg.portal = {
     enable = true;
