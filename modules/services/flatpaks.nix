@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 {
   services.flatpak = {
     enable = true;
@@ -18,5 +18,9 @@
       "network-online.target"
       "nextdns.service"
     ];
+    serviceConfig = {
+      Restart = "on-failure";
+      RestartSec = lib.mkDefault "10s"; # Recover from network race at boot
+    };
   };
 }

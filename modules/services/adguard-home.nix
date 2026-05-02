@@ -5,8 +5,7 @@
     port = 3000;
     allowDHCP = true;
     settings = {
-      web_port = 3000;
-      web_address = "0.0.0.0";
+      web_address = "127.0.0.1"; # Restrict UI to localhost only
       dns = {
         bind_hosts = [
           "127.0.0.1"
@@ -63,5 +62,5 @@
     wantedBy = [ "multi-user.target" ];
     # This tells systemd not to wait for the network to be fully "online"
   };
-  networking.nameservers = [ "127.0.0.1" ];
+  # Note: networking.nameservers is already set by nextdns.nix — removed duplicate
 }
