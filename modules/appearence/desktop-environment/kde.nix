@@ -15,5 +15,5 @@
     # pkgs.python312Packages.kde-material-you-colors
   ];
 
-  services.fwupd.enable = true;
+  # fwupd now enabled in base.nix for all profiles
 }
