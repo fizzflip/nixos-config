@@ -102,7 +102,8 @@
       pkgs.megabasterd
 
       pkgs.mochi
-      pkgs.anki
+
+      pkgs.godot
     ];
   };
 }
