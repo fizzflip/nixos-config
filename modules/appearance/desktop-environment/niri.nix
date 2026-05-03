@@ -4,8 +4,6 @@
   imports = [
     ../components/dms.nix
     ../components/sddm.nix
-    ../../services/bluetooth.nix
-    ../../services/printing.nix
   ];
 
   programs.niri = {
@@ -75,6 +73,6 @@
     # Image viewer
     pkgs.nomacs
 
-    pkgs.gparted
+    pkgs.gnome-disk-utility
   ];
 }
