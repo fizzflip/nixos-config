@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   users.users.mrbot = {
     isNormalUser = true;
@@ -10,102 +9,9 @@
       "docker"
       "wheel"
       "kvm"
-      "i2c"   # ddcutil display brightness/color control
-      "input" # dms-shell evdev manager / gesture support
+      "i2c"
+      "input"
     ];
-
     hashedPasswordFile = "/etc/nixos/passwords/mrbot";
-
-    packages = [
-      # Browsers
-      # pkgs.librewolf
-      # pkgs.tor-browser
-      pkgs.mullvad-browser
-      pkgs.ungoogled-chromium
-
-      # Youtube
-      pkgs.yt-dlp
-      pkgs.freetube
-      # pkgs.grayjay
-
-      ## WiFi recon
-      # pkgs.wifite2
-      # pkgs.hashcat
-      # pkgs.hcxdumptool
-      # pkgs.hcxtools
-      # pkgs.tshark
-      # pkgs.reaverwps
-      # pkgs.bully
-      # pkgs.john
-      # pkgs.cowpatty
-      # pkgs.aircrack-ng
-      # pkgs.iw
-      # pkgs.nmap
-
-      ## Game Tools
-      # pkgs.renpy
-      # pkgs.mangohud
-      # pkgs.gamemode
-      # (pkgs.bottles.override { removeWarningPopup = true; })
-      # (pkgs.prismlauncher.override {
-      #   jdks = [
-      #     pkgs.zulu
-      #     pkgs.temurin-bin-21
-      #   ];
-      # })
-
-      # Reading
-      pkgs.foliate
-
-      # Communication
-      # pkgs.vesktop
-      pkgs.anydesk
-      pkgs.thunderbird
-
-      # Note-taking
-      pkgs.obsidian
-
-      # Development
-      pkgs.uv
-      pkgs.gh
-      pkgs.git
-      pkgs.gcc
-      pkgs.bun
-      pkgs.zulu
-      pkgs.yarn
-      pkgs.pnpm
-      pkgs.devenv
-      pkgs.libgcc
-      pkgs.nodejs
-      pkgs.python3
-      pkgs.vscodium-fhs
-      pkgs.antigravity-fhs
-      pkgs.jetbrains.idea
-      pkgs.jetbrains.pycharm
-
-      # Torrent
-      pkgs.qbittorrent-enhanced
-
-      # Image Editing
-      # pkgs.gimp3-with-plugins
-
-      # Emulation
-      # pkgs.rpcs3
-
-      # Typst
-      pkgs.typst
-      pkgs.typstyle
-      pkgs.typst-live
-      pkgs.typstwriter
-
-      # LaTex
-      # pkgs.texliveFull
-
-      pkgs.megabasterd
-
-      pkgs.mochi
-
-      pkgs.godot
-    ];
   };
 }
