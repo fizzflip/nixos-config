@@ -19,12 +19,12 @@
   ];
 
   # specialisation.de-kde.configuration = {
-  #   imports = [ (inputs.self + "/modules/appearence/desktop-environment/kde.nix") ];
+  #   imports = [ (inputs.self + "/modules/appearance/desktop-environment/kde.nix") ];
   #   system.nixos.label = "NixOS-KDE";
   # };
 
   # specialisation.de-niri.configuration = {
-  #   imports = [ (inputs.self + "/modules/appearence/desktop-environment/niri.nix") ];
+  #   imports = [ (inputs.self + "/modules/appearance/desktop-environment/niri.nix") ];
   #   system.nixos.label = "NixOS-Niri";
   # };
 
