@@ -4,6 +4,7 @@
     enable = true;
     libraries = [
       pkgs.glib
+      pkgs.glibc
       pkgs.nss
       pkgs.nspr
       pkgs.dbus
