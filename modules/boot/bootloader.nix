@@ -10,6 +10,7 @@
       useOSProber = true;
       efiInstallAsRemovable = true;
       splashImage = null;
+      configurationLimit = 10;
     };
     initrd = {
       systemd.enable = true;
