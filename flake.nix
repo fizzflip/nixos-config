@@ -36,6 +36,11 @@
       nixosConfigurations = {
         fluid = mkSystem ./modules/appearance/desktop-environment/kde.nix;
         minimal = mkSystem ./modules/appearance/desktop-environment/niri.nix;
+        iso = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [ ./hosts/iso/configuration.nix ];
+        };
       };
     };
 }
