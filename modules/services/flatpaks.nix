@@ -4,10 +4,8 @@
     enable = true;
     packages = [
       "com.usebottles.bottles"
-      "org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08"
-      "com.unity.UnityHub"
-      "app.zen_browser.zen"
       "com.github.tchx84.Flatseal"
+      "org.freedesktop.Platform.VulkanLayer.MangoHud/x86_64/25.08"
     ];
     update.onActivation = true;
     uninstallUnmanaged = true;

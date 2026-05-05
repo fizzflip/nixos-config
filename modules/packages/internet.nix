@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   environment.systemPackages = [
     # Browsers
@@ -6,6 +6,7 @@
     # pkgs.tor-browser
     pkgs.mullvad-browser
     pkgs.ungoogled-chromium
+    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Communication
     # pkgs.vesktop
