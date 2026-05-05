@@ -2,7 +2,7 @@
 {
   users.users.mrbot = {
     isNormalUser = true;
-    shell = pkgs.zsh;
+    shell = pkgs.nushell;
     extraGroups = [
       "networkmanager"
       "adbusers"
