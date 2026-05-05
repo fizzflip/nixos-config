@@ -8,7 +8,7 @@
     ./services/fhs-env.nix
     ./services/networking.nix
     ./boot/bootloader.nix
-    ./shell/zsh.nix
+    ./shell/nu.nix
     ./system-tuning/all.nix
     ./services/flatpaks.nix
     inputs.nix-flatpak.nixosModules.nix-flatpak
