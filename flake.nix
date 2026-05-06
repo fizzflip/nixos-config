@@ -12,7 +12,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     helium = {
-      url = "github:AlvaroParker/helium-nix";
+      url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -36,11 +36,6 @@
       nixosConfigurations = {
         fluid = mkSystem ./modules/appearance/desktop-environment/kde.nix;
         minimal = mkSystem ./modules/appearance/desktop-environment/niri.nix;
-        iso = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [ ./hosts/iso/configuration.nix ];
-        };
       };
     };
 }
