@@ -10,7 +10,6 @@
     # File management
     pkgs.dust
     pkgs.ncdu
-    pkgs.yazi
 
     # Searching
     pkgs.bat
