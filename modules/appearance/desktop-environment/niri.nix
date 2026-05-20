@@ -4,12 +4,10 @@
   imports = [
     ../components/dms.nix
     ../components/sddm.nix
+    ../components/nautilus.nix
   ];
 
-  programs.niri = {
-    enable = true;
-    useNautilus = false;
-  };
+  programs.niri.enable = true;
 
   xdg.portal = {
     enable = true;
@@ -56,12 +54,7 @@
 
     pkgs.polkit_gnome
     pkgs.xwayland-satellite
-
-    # File manager
-    pkgs.thunar
-    pkgs.thunar-volman
-    pkgs.thunar-archive-plugin
-    pkgs.thunar-media-tags-plugin
+    pkgs.gnome-disk-utility
 
     # GTK Theme
     pkgs.orchis-theme
@@ -72,7 +65,5 @@
 
     # Image viewer
     pkgs.nomacs
-
-    pkgs.gnome-disk-utility
   ];
 }

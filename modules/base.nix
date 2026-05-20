@@ -1,20 +1,16 @@
 { inputs, ... }:
 {
   imports = [
-    ./boot/plymouth.nix
+    ./shell/nu.nix
     ./appearance/fonts.nix
+    ./boot/plymouth.nix
+    ./boot/bootloader.nix
     ./services/sound.nix
     ./services/nextdns.nix
     ./services/fhs-env.nix
-    ./services/networking.nix
-    ./boot/bootloader.nix
-    ./shell/nu.nix
-    ./system-tuning/all.nix
     ./services/flatpaks.nix
+    ./services/networking.nix
+    ./system-tuning/all.nix
     inputs.nix-flatpak.nixosModules.nix-flatpak
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
   ];
-  # # Firmware updates — needed in all profiles for BIOS/device firmware (fwupdmgr)
-  # services.fwupd.enable = true;
 }
