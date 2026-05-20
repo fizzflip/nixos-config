@@ -1,26 +1,76 @@
-# NixOS
+# ❄️ NixOS
 
 My NixOS daily driver. \
 Mess? Kinda. Cleaning? Working on that.
+
+[![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3)](https://nixos.org)
+[![Kernel](https://img.shields.io/badge/Kernel-cachyos--lto--x86__64--v4-orange.svg?logo=linux&color=E25D25)](https://github.com/xddxdd/nix-cachyos-kernel)
+[![Shell](https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5)](https://fishshell.com)
+[![Desktop](https://img.shields.io/badge/Desktop-KDE%20%2F%20Niri-blueviolet.svg?logo=niri&color=8A2BE2)](#desktop-environments)
 
 ## Features
 
 This repository is structured into easily toggleable modules. Out of the box, it supports:
 
-- **Desktop Environments**: Pre-configured profiles for **KDE Plasma** (`fluid` profile) and **Niri** (`minimal` profile). Additional modules are available for GNOME and Hyprland.
-- **Performance Optimized**: Uses `nixos-unstable` and integrates `nix-cachyos-kernel` for improved system responsiveness and hardware support.
-- **Custom Boot & Login**: Clean boot experience using `systemd-boot` with Plymouth, and a customized Silent SDDM (using Helium themes).
-- **Shell Environments**: Modules for both **Zsh** and **Nushell** (`nu`).
-- **Software Management**:
-  - Declarative Flatpaks managed directly through Nix via the `nix-flatpak` module.
-  - FHS environments (`fhs-env.nix`) for running unpatched pre-compiled binaries seamlessly.
-- **Services & Capabilities**:
-  - Virtualization (KVM/QEMU) and Android development environments.
-  - Local LLM integrations.
-  - DNS ad-blocking and privacy via NextDNS and AdGuard Home.
-- **ISO Generation**: Capable of building a custom live bootable ISO directly from the flake.
+### Desktop Environments
 
----
+* **Niri (`minimal` profile)**: A modern, scrollable-tile Wayland compositor integrated with **Dank Material Shell (`dms-shell`)**, offering:
+  * Dynamic Material You theming and color palettes via `wallust`.
+  * Interactive status bar with real-time system monitoring, clipboard pasting, and audio wavelength visualizers.
+  * Fast terminal emulator using `foot`.
+* **KDE Plasma (`fluid` profile)**: A feature-rich, beautiful, fluid, and complete desktop experience using Plasma 6 with custom SDDM themes.
+* **Modular Extensibility**: Additional pre-configured modules are ready for **Hyprland** (including custom greeters) and **GNOME**.
+
+### Core Performance Tuning & Kernel
+
+* **Linux CachyOS Kernel**: Custom optimized kernel utilizing `nix-cachyos-kernel` compiled with LTO (Link-Time Optimization) and tailored specifically for modern **x86_64-v4** instruction set architectures.
+* **BPF Extensible Scheduler (`scx`)**: Utilizes the high-responsiveness `scx_bpfland` user-space scheduler for unparalleled desktop smoothness and latency handling under heavy loads.
+* **Network Optimizations**: Employs **TCP BBR** congestion control, network queue management (`fq`), TCP Fast Open, and MTU probing for stable, low-latency connectivity.
+* **Dynamic Hardware-Aware I/O Scheduling**:
+  * **NVMe SSDs**: Bypasses queue scheduling entirely (`none`) to maximize raw parallel IOPS.
+  * **SATA SSDs**: Implements the lightweight `mq-deadline` scheduler.
+  * **HDDs**: Uses `bfq` (Budget Fair Queueing) for smooth multitasking and fair queue allocation.
+* **Dynamic Interrupt Balancing**: Runs `irqbalance` to distribute hardware interrupts across CPU cores, improving power efficiency and real-time responsiveness.
+* **Hardware Control**: Automatically configures the system `i2c` bus for direct display brightness/colour control via `ddcutil`.
+
+### Software Management & CLI Arsenal
+
+* **Modern CLI Suite**: High-efficiency developer utilities including **Yazi** (a blazing-fast terminal file manager), `eza` (modern visually-enhanced `ls` replacement), `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, and more.
+* **Declarative Flatpaks**: Flatpak applications managed directly through Nix via the `nix-flatpak` module.
+* **FHS Environments**: An FHS-compatible environment wrapper (`fhs-env.nix`) for running unpatched, pre-compiled Linux binaries out of the box.
+
+### Services & Security
+
+* **Specialised Virtualization**: Packaged inside a clean, toggleable boot profile/specialisation containing Docker, KVM/QEMU, virtual machine managers (`virt-manager`), Guest NSS, and spice USB redirection.
+* **Local AI**: Local LLM model integrations.
+* **Privacy-Focused DNS**: DNS-level ad-blocking and privacy utilizing local **AdGuard Home** and **NextDNS** clients.
+* **Secure Authentication**: System-wide Polkit graphical authentication agent via `polkit-gnome`.
+
+## Configuration Structure
+
+```text
+.nixos-config/
+├── flake.nix             # Flake entry point (hosts, inputs, & system-wide builders)
+├── flake.lock            # Lockfile managing pin points of nixpkgs & modules
+├── LICENSE               # MIT License
+├── README.md             # This guide
+├── hosts/
+│   ├── common.nix        # Common host attributes (Timezone, Locales)
+│   └── laptop/
+│       ├── configuration.nix      # Host-specific settings & Specialisations
+│       ├── hardware-configuration.nix # Generated machine/partition layout
+│       └── system-packages.nix    # Target channel settings & global apps
+├── modules/
+│   ├── base.nix          # Global modules imported on all systems
+│   ├── boot/             # bootloader and plymouth splash modules
+│   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE profiles
+│   ├── packages/         # Core groups (CLI tools, Internet, Media, Dev)
+│   ├── services/         # AdGuard, NextDNS, virtualization, Flatpak wrappers
+│   ├── shell/            # Shell configurations (Fish, Nu, Zsh)
+│   └── system-tuning/    # Performance tuning, disks, swap, graphics, kernels
+└── users/
+    └── mrbot.nix         # User profile definition (groups, shell, password-hashes)
+```
 
 ## Installation Guide
 
@@ -31,64 +81,63 @@ This repository is structured into easily toggleable modules. Out of the box, it
 
 Create and mount your partitions according to your preferred filesystem layout:
 
-- **Root (`/`)**: Mount at `/mnt` (e.g., ext4, btrfs)
-- **Boot (`/boot`)**: Mount at `/mnt/boot` (e.g., fat32)
-- **Home (`/home`)**: _(Optional)_ Mount at `/mnt/home` (e.g., ext4, zfs)
+* **Root (`/`)**: Mount at `/mnt` (e.g., ext4, btrfs, zfs)
+* **Boot (`/boot`)**: Mount at `/mnt/boot` (e.g., fat32)
+* **Home (`/home`)**: *(Optional)* Mount at `/mnt/home`
 
 ### 2. Generate Hardware Configuration
 
 You need to generate a hardware profile specific to your machine.
 
 > [!CAUTION]
-> **Do not generate this in the root directory.** The flake expects the hardware configuration to be located inside your specific host directory (e.g., `hosts/laptop/`). If you use `--dir .`, you will need to manually move `hardware-configuration.nix` and delete the generated `configuration.nix`.
+> **Do not generate this in the root directory.** The flake expects the hardware configuration to be located inside your specific host directory (e.g., `hosts/laptop/`). If you use `--dir .` in the root of the workspace, you will need to manually move `hardware-configuration.nix` and delete the generated `configuration.nix`.
 
 ```bash
 nixos-generate-config --show-hardware-config --root /mnt > hosts/laptop/hardware-configuration.nix
 ```
 
-_Ensure you overwrite the existing `hardware-configuration.nix` in that folder._
+*Ensure you overwrite the existing `hardware-configuration.nix` in that folder.*
 
 ### 3. Personalize User Configuration
 
 This setup currently hardcodes the `mrbot` user in several places and expects password hashes to be stored in external files rather than directly in the Nix code. Follow these steps to set up your own:
 
 1. **Create your user profile:**
-   Copy the existing user profile or create a new one based on the template below.
+    Copy the existing user profile or create a new one based on the template below.
 
-   ```bash
-   cp users/mrbot.nix users/<your_username>.nix
-   ```
+    ```bash
+    cp users/mrbot.nix users/<your_username>.nix
+    ```
 
 2. **Configure your settings (`users/<your_username>.nix`):**
-   - Update `users.users.<your_username>`.
-   - Update `hashedPasswordFile` to point to `/etc/nixos/passwords/<your_username>`.
-   - Customize your packages and preferred shell.
+    * Update `users.users.<your_username>`.
+    * Update `hashedPasswordFile` to point to `/etc/nixos/passwords/<your_username>`.
+    * Customize your packages and preferred shell.
 
 3. **Generate and Store Your Password:**
-   Instead of storing the password directly in the nix file, this configuration relies on an external file. Create this file on your mounted system:
+    Instead of storing the password directly in the nix file, this configuration relies on an external file. Create this file on your mounted system:
 
-   ```bash
-   mkdir -p /mnt/etc/nixos/passwords
-   mkpasswd -m sha-512 > /mnt/etc/nixos/passwords/<your_username>
-   ```
+    ```bash
+    mkdir -p /mnt/etc/nixos/passwords
+    mkpasswd -m sha-512 > /mnt/etc/nixos/passwords/<your_username>
+    ```
 
 4. **Update Flake References:**
-   Open `flake.nix` and update the base modules list to point to your new user file instead of `./users/mrbot.nix`.
-
-   > [!NOTE]
-   > If you decide to rename the `laptop` host directory to something else (e.g., `desktop`), you must also update all paths referencing `hosts/laptop/...` in your `flake.nix`.
+    Open `flake.nix` and update the base modules list (`baseModules`) to point to your new user file instead of `./users/mrbot.nix`.
+    > [!NOTE]
+    > If you decide to rename the `laptop` host directory to something else (e.g., `desktop`), you must also update all paths referencing `hosts/laptop/...` in your `flake.nix`.
 
 5. **Replace Hardcoded Usernames:**
-   You must replace `"mrbot"` with your `<your_username>` across the codebase. Specifically check:
-   - `hosts/laptop/configuration.nix` (under `nix.settings.trusted-users`)
-   - `modules/appearance/desktop-environment/hyprland.nix` (under `greetd` user)
-   - `modules/services/virtualisation.nix` (under `libvirtd.members`)
+    You must replace `"mrbot"` with your `<your_username>` across the codebase. Specifically check:
+    * `hosts/laptop/configuration.nix` (under `nix.settings.trusted-users`)
+    * `modules/appearance/desktop-environment/hyprland.nix` (under `greetd` user)
+    * `modules/services/virtualisation.nix` (under `libvirtd.members`)
 
-   > [!WARNING]
-   > If you skip this step, your new user will lack permissions to run Nix commands, and features like virtualization or the Hyprland greeter will fail to start.
+    > [!WARNING]
+    > If you skip this step, your new user will lack permissions to run Nix commands, and features like virtualization or the Hyprland greeter will fail to start.
 
 <details>
-<summary>Click here to view a clean User Template</summary>
+<summary>User Template</summary>
 
 ```nix
 { pkgs, ... }:
@@ -97,11 +146,11 @@ This setup currently hardcodes the `mrbot` user in several places and expects pa
     isNormalUser = true;
     hashedPasswordFile = "/etc/nixos/passwords/<username>";
     extraGroups = [
-        "wheel" "kvm" "video" "audio"
+      "wheel" "kvm" "video" "audio" "networkmanager"
     ];
-    shell = pkgs.zsh; # change to your preferred shell
+    shell = pkgs.fish; # your preferred shell
     packages = with pkgs; [
-      # your packages
+      # your custom user packages
     ];
   };
 }
@@ -126,17 +175,50 @@ Execute the installation:
 nixos-install --flake .#minimal --root /mnt --verbose --show-trace
 ```
 
-## Maintenance
+## Maintenance & System Operations
+
+### Rebuilding and Switching
 
 To update or apply changes to your system:
 
 ```bash
-nixos-rebuild switch --flake .#minimal --verbose --show-trace --upgrade
+# Rebuild & switch using the minimal (Niri) profile
+nixos-rebuild switch --flake .#minimal --verbose --show-trace
+
+# Rebuild & switch using the fluid (KDE Plasma) profile
+nixos-rebuild switch --flake .#fluid --verbose --show-trace
 ```
 
-## Documentation
+### Toggle Specialisations (Virtualization & Development)
 
-- [NixOS Search](https://search.nixos.org)
-- [MyNixOS](https://mynixos.com)
-- [NixOS Manual](https://nixos.org/manual/nixos)
-- [NixOS Wiki](https://nixos.wiki)
+The virtualization configuration is structured under a clean **Specialisation** block. It can be dynamically loaded at boot-time as a separate system entry or switched on the fly without rebooting:
+
+```bash
+# Apply and switch to the virtualization profile on the fly
+sudo /run/current-system/specialisation/virtualisation/bin/switch
+```
+
+## Integrated Fish Shell Abbreviations
+
+For maximum operational efficiency, several pre-defined dynamic abbreviations expand automatically as you type:
+
+| Abbreviation | Expanded Command                                                                 | Purpose                                          |
+| :----------- | :------------------------------------------------------------------------------- | :----------------------------------------------- |
+| `ll`         | `eza -l --icons --git --group-directories-first`                                 | Visual directory listing with details            |
+| `la`         | `eza -la --icons --git --group-directories-first`                                | Visual directory listing including hidden files  |
+| `lt`         | `eza --tree --level=2 --icons --git ...`                                         | Two-level visual directory tree structure        |
+| `edit`       | `sudo -e`                                                                        | Secure system file editing                       |
+| `rfluid`     | `sudo nixos-rebuild boot --flake ~/.nixos-config#fluid --verbose --show-trace`   | Stage Fluid (KDE) rebuild for next boot          |
+| `rminimal`   | `sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace` | Stage Minimal (Niri) rebuild for next boot       |
+| `ufluid`     | `sudo nixos-rebuild boot --flake ~/.nixos-config#fluid ... --upgrade`            | Perform system upgrade on Fluid profile          |
+| `uminimal`   | `sudo nixos-rebuild boot --flake ~/.nixos-config#minimal ... --upgrade`          | Perform system upgrade on Minimal profile        |
+| `nconf`      | `cd ~/.nixos-config`                                                             | Quick jump to NixOS configuration directory      |
+| `nclean`     | `sudo nix-collect-garbage -d`                                                    | Clean old system generations and free disk space |
+| `nlog`       | `git log --oneline -n 10`                                                        | Show recent Git history of configuration changes |
+
+## Useful Documentation & Resources
+
+* [NixOS Search](https://search.nixos.org) - Look up available Nix packages and configurations options.
+* [MyNixOS](https://mynixos.com) - Browse beautifully formatted option structures and details.
+* [NixOS Manual](https://nixos.org/manual/nixos) - Official guide to system operations.
+* [NixOS Wiki](https://nixos.wiki) - Community wiki for troubleshooting and tips.
