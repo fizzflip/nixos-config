@@ -10,6 +10,7 @@
     # File management
     pkgs.dust
     pkgs.ncdu
+    pkgs.yazi
 
     # Searching
     pkgs.bat
@@ -28,6 +29,6 @@
     pkgs.nix-tree
 
     # Archive Tools
-    pkgs._7zip-zstd-rar
+    pkgs._7zz-rar
   ];
 }

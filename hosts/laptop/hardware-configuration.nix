@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  inputs,
   modulesPath,
   ...
 }:
@@ -8,6 +9,10 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.common-gpu-intel
+    inputs.nixos-hardware.nixosModules.common-pc-laptop
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
   boot.initrd.availableKernelModules = [
@@ -51,6 +56,7 @@
 
   swapDevices = [ ];
 
+  hardware.enableRedistributableFirmware = true;
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
