@@ -2,7 +2,7 @@
 {
   users.users.mrbot = {
     isNormalUser = true;
-    shell = pkgs.nushell;
+    shell = pkgs.fish;
     extraGroups = [
       "networkmanager"
       "adbusers"
