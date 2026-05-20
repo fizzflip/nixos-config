@@ -23,8 +23,5 @@
     pkgs.typst
     pkgs.typstyle
     pkgs.typst-live
-
-    # Godot
-    pkgs.godot
   ];
 }

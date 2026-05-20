@@ -15,6 +15,7 @@
     # Searching
     pkgs.bat
     pkgs.skim
+    pkgs.fd
     pkgs.ripgrep
 
     # Monitoring

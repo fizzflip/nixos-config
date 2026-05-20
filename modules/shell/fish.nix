@@ -11,26 +11,62 @@
       functions.enable = true;
     };
 
-    # Disable the default welcome greeting
+    # Disable default welcome greeting & configure colored man pages
     interactiveShellInit = ''
       set -g fish_greeting ""
+
+      # Beautifully colored manual pages
+      set -g xp_man_colors 1
+      set -g -x LESS_TERMCAP_mb (printf "\e[1;31m")
+      set -g -x LESS_TERMCAP_md (printf "\e[1;36m")
+      set -g -x LESS_TERMCAP_me (printf "\e[0m")
+      set -g -x LESS_TERMCAP_se (printf "\e[0m")
+      set -g -x LESS_TERMCAP_so (printf "\e[1;44;33m")
+      set -g -x LESS_TERMCAP_ue (printf "\e[0m")
+      set -g -x LESS_TERMCAP_us (printf "\e[1;32m")
     '';
 
     # Modern abbreviations that expand dynamically as they are typed
     shellAbbrs = {
-      # Standard tools
-      ll = "ls -l";
+      # Directory listing with eza (modern visual ls replacement)
+      ll = "eza -l --icons --git --group-directories-first";
+      la = "eza -la --icons --git --group-directories-first";
+      lt = "eza --tree --level=2 --icons --git --group-directories-first";
+
+      # Editor shortcut
       edit = "sudo -e";
 
-      # System upgrade & rebuild (matching the Zsh aliases)
-      update = "sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace";
-      upgrade = "sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace --upgrade";
+      # System upgrade & profile-aware rebuild
+      rfluid = "sudo nixos-rebuild boot --flake ~/.nixos-config#fluid --verbose --show-trace";
+      rminimal = "sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace";
+      
+      ufluid = "sudo nixos-rebuild boot --flake ~/.nixos-config#fluid --verbose --show-trace --upgrade";
+      uminimal = "sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace --upgrade";
 
       # Developer convenience helpers
       nconf = "cd ~/.nixos-config";
       nclean = "sudo nix-collect-garbage -d";
       nlog = "git log --oneline -n 10";
     };
+  };
+
+  # Smart directory jumping (replaces cd with z/zi)
+  programs.zoxide = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+
+  # Modern, visual ls replacement
+  programs.eza = {
+    enable = true;
+    git = true;
+    icons = "auto";
+  };
+
+  # Automatic workspace loader (loads shell.nix / flake.nix environments instantly)
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   # Enable Starship prompt system-wide (automatically configures Fish integration)
