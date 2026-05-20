@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    ./shell/nu.nix
+    ./shell/fish.nix
     ./appearance/fonts.nix
     ./boot/plymouth.nix
     ./boot/bootloader.nix
