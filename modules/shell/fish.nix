@@ -55,14 +55,6 @@
     enable = true;
     enableFishIntegration = true;
   };
-
-  # Modern, visual ls replacement
-  programs.eza = {
-    enable = true;
-    git = true;
-    icons = "auto";
-  };
-
   # Automatic workspace loader (loads shell.nix / flake.nix environments instantly)
   programs.direnv = {
     enable = true;
@@ -75,7 +67,7 @@
   # Modern developer CLI plugins for Fish
   environment.systemPackages = with pkgs; [
     # Core CLI tools needed by plugins
-    fzf grc
+    fzf grc eza
 
     # Fish plugins
     fishPlugins.autopair    # Auto-closes parenthesis, brackets, and quotes

@@ -1,10 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 {
   boot = {
     loader.grub = {
       enable = true;
       devices = [ "nodev" ];
-      theme = ./themes/grub/catppuccin-mocha;
+      theme = pkgs.catppuccin-grub;
       default = "saved";
       efiSupport = true;
       useOSProber = true;
