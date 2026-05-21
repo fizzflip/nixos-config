@@ -1,4 +1,4 @@
-# ❄️ NixOS daily driver
+# ❄️ NixOS
 
 My NixOS daily driver. \
 Mess? Kinda. Cleaning? Working on that.
@@ -6,7 +6,7 @@ Mess? Kinda. Cleaning? Working on that.
 [![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3)](https://nixos.org)
 [![Kernel](https://img.shields.io/badge/Kernel-cachyos--lto--x86__64--v4-orange.svg?logo=linux&color=E25D25)](https://github.com/xddxdd/nix-cachyos-kernel)
 [![Shell](https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5)](https://fishshell.com)
-[![Desktop](https://img.shields.io/badge/Desktop-KDE%20%2F%20Niri-blueviolet.svg?logo=niri&color=8A2BE2)](#-desktop-environments)
+[![Desktop](https://img.shields.io/badge/Desktop-KDE%20%2F%20Niri-blueviolet.svg?logo=niri&color=8A2BE2)](#desktop-environments)
 
 ## Features
 
@@ -14,11 +14,11 @@ This repository is structured into easily toggleable modules. Out of the box, it
 
 ### Desktop Environments
 
-* **KDE Plasma (`fluid` profile)**: A feature-rich, beautiful, fluid, and complete desktop experience using Plasma 6 with custom SDDM themes.
 * **Niri (`minimal` profile)**: A modern, scrollable-tile Wayland compositor integrated with **Dank Material Shell (`dms-shell`)**, offering:
   * Dynamic Material You theming and color palettes via `wallust`.
   * Interactive status bar with real-time system monitoring, clipboard pasting, and audio wavelength visualizers.
   * Fast terminal emulator using `foot`.
+* **KDE Plasma (`fluid` profile)**: A feature-rich, beautiful, fluid, and complete desktop experience using Plasma 6 with custom SDDM themes.
 * **Modular Extensibility**: Additional pre-configured modules are ready for **Hyprland** (including custom greeters) and **GNOME**.
 
 ### Core Performance Tuning & Kernel
@@ -32,21 +32,6 @@ This repository is structured into easily toggleable modules. Out of the box, it
   * **HDDs**: Uses `bfq` (Budget Fair Queueing) for smooth multitasking and fair queue allocation.
 * **Dynamic Interrupt Balancing**: Runs `irqbalance` to distribute hardware interrupts across CPU cores, improving power efficiency and real-time responsiveness.
 * **Hardware Control**: Automatically configures the system `i2c` bus for direct display brightness/colour control via `ddcutil`.
-
-### Interactive Shell Environment (Fish)
-
-The configuration has transitioned fully to the **Fish Shell** as the interactive default, heavily polished for maximum CLI developer productivity:
-
-* **Starship Prompt**: Premium, lightning-fast, and informative prompt system-wide.
-* **Zoxide**: Smart directory jumping (automatically replacing `cd` with `z` and `zi`).
-* **Direnv**: Zero-friction workspace loading that instantly loads `shell.nix` / `flake.nix` environments upon directory entry.
-* **Productivity Plugins**:
-  * `fishPlugins.autopair`: Automatically closes brackets, parenthesis, and quotes.
-  * `fishPlugins.done`: Sends desktop notifications when long-running CLI tasks complete.
-  * `fishPlugins.fzf-fish`: Interactive terminal navigation and search powered by `fzf`.
-  * `fishPlugins.grc`: Generic colorizer for beautifying system command output.
-  * `fishPlugins.foreign-env`: Safely source traditional POSIX/Bash scripts directly inside Fish.
-* **Aesthetic Manuals**: Configured with beautifully styled, high-contrast colored manual pages.
 
 ### Software Management & CLI Arsenal
 
@@ -190,8 +175,6 @@ Execute the installation:
 nixos-install --flake .#minimal --root /mnt --verbose --show-trace
 ```
 
----
-
 ## Maintenance & System Operations
 
 ### Rebuilding and Switching
@@ -214,8 +197,6 @@ The virtualization configuration is structured under a clean **Specialisation** 
 # Apply and switch to the virtualization profile on the fly
 sudo /run/current-system/specialisation/virtualisation/bin/switch
 ```
-
----
 
 ## Integrated Fish Shell Abbreviations
 
