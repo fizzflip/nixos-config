@@ -74,11 +74,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1778817414,
-        "narHash": "sha256-U1pJAxTPbPMn/SCwePgIwoiMWD43QgUAIL7J3kxgAAU=",
+        "lastModified": 1779336803,
+        "narHash": "sha256-4zTqjkq4jMrMlu03i/n9w8drbGft4yeFNB8bcnTaI+o=",
         "owner": "schembriaiden",
         "repo": "helium-browser-nix-flake",
-        "rev": "53a220890870c24d8c7ad6a21b8d63260e94507f",
+        "rev": "d07b924b2e8389821373ff303057b1af75158881",
         "type": "github"
       },
       "original": {
@@ -98,11 +98,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779219007,
-        "narHash": "sha256-10yT9sZh8pQRHQV1Hs3y166J3xwBaZMbyYy+mp5JKt0=",
+        "lastModified": 1779306729,
+        "narHash": "sha256-ccC0CMMW6a4sz1L9Ze9uskiT3nvGMbRA5/ZAfUkYsZ0=",
         "owner": "xddxdd",
         "repo": "nix-cachyos-kernel",
-        "rev": "b2bbce6f051a6fec0fe38a1a6452c77d7df55d6a",
+        "rev": "ac9f02824490d781e39e252d1fab0114fed1d9c7",
         "type": "github"
       },
       "original": {
