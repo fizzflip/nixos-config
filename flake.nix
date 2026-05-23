@@ -23,16 +23,6 @@
         ./hosts/laptop/configuration.nix
         ./modules/base.nix
         ./users/mrbot.nix
-        ({ lib, ... }: {
-          virtualisation.vmVariant = {
-            # Give the VM sufficient resources for a desktop environment
-            virtualisation.memorySize = 4096;
-            virtualisation.cores = 4;
-            # Provide a default password for the 'mrbot' user in the VM
-            users.users.mrbot.hashedPasswordFile = lib.mkForce null;
-            users.users.mrbot.password = "nixos";
-          };
-        })
       ];
       mkSystem =
         desktopModule:
@@ -46,17 +36,17 @@
       nixosConfigurations = {
         fluid = mkSystem ./modules/appearance/desktop-environment/kde.nix;
         minimal = mkSystem ./modules/appearance/desktop-environment/niri.nix;
-      };
-      
-      apps."x86_64-linux" = {
-        default = self.apps."x86_64-linux".fluid;
-        fluid = {
-          type = "app";
-          program = "${self.nixosConfigurations.fluid.config.system.build.vm}/bin/run-machine-vm";
+        preview = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [ ./hosts/preview/configuration.nix ];
         };
-        minimal = {
+      };
+      apps."x86_64-linux" = {
+        default = self.apps."x86_64-linux".preview;
+        preview = {
           type = "app";
-          program = "${self.nixosConfigurations.minimal.config.system.build.vm}/bin/run-machine-vm";
+          program = "${self.nixosConfigurations.preview.config.system.build.vm}/bin/run-preview-vm";
         };
       };
     };
