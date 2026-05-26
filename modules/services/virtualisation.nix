@@ -18,6 +18,7 @@
   environment.systemPackages = [
     pkgs.oracle-instantclient
     pkgs.docker-compose
+    pkgs.winboat
     pkgs.freerdp
     pkgs.rlwrap
   ];
