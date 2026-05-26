@@ -15,6 +15,14 @@
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mangowm = {
+      url = "github:mangowm/mango";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{ self, nixpkgs, ... }:
@@ -36,6 +44,7 @@
       nixosConfigurations = {
         fluid = mkSystem ./modules/appearance/desktop-environment/kde.nix;
         minimal = mkSystem ./modules/appearance/desktop-environment/niri.nix;
+        mango = mkSystem ./modules/appearance/desktop-environment/mangowm.nix;
         preview = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
