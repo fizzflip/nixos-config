@@ -10,41 +10,46 @@ Mess? Kinda. Cleaning? Working on that.
 
 ## Features
 
-This repository is structured into easily toggleable modules. Out of the box, it supports:
-
 ### Desktop Environments
+*   **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
+    *   Theming managed via `mutagen`.
+    *   System monitoring bar.
+    *   Nautilus file manager with `ffmpegthumbnailer` support.
+    *   `foot` terminal.
+*   **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
+*   **Other Environments**: Setup modules available for GNOME and Hyprland.
+*   **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
 
-* **Niri (`minimal` profile)**: A modern, scrollable-tile Wayland compositor integrated with **Dank Material Shell (`dms-shell`)**, offering:
-  * Dynamic Material You theming and color palettes via `wallust`.
-  * Interactive status bar with real-time system monitoring, clipboard pasting, and audio wavelength visualizers.
-  * Fast terminal emulator using `foot`.
-* **KDE Plasma (`fluid` profile)**: A feature-rich, beautiful, fluid, and complete desktop experience using Plasma 6 with custom SDDM themes.
-* **Modular Extensibility**: Additional pre-configured modules are ready for **Hyprland** (including custom greeters) and **GNOME**.
+### Boot & Login Manager
+*   **GRUB 2**: Bootloader configured with the `catppuccin-grub` package. Uses OS Prober, a 10-second timeout, and systemd in initrd.
+*   **Plymouth**: Boot splash screen with silent boot logging parameters (`quiet`, `splash`).
+*   **SDDM**: Login manager using `silentSDDM` configured with the `catppuccin-mocha` theme.
 
-### Core Performance Tuning & Kernel
+### Performance & Kernel Tuning
+*   **Kernel**: Linux CachyOS kernel (`nix-cachyos-kernel`) with LTO and `x86_64-v4` optimizations.
+*   **Scheduler**: Sched-ext user-space scheduler utilizing `scx_bpfland`.
+*   **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, and MTU probing.
+*   **I/O Schedulers**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs).
+*   **Hardware Interrupts**: `irqbalance` enabled.
+*   **DDC/CI Support**: `i2c` enabled for monitor control via `ddcutil`.
 
-* **Linux CachyOS Kernel**: Custom optimized kernel utilizing `nix-cachyos-kernel` compiled with LTO (Link-Time Optimization) and tailored specifically for modern **x86_64-v4** instruction set architectures.
-* **BPF Extensible Scheduler (`scx`)**: Utilizes the high-responsiveness `scx_bpfland` user-space scheduler for unparalleled desktop smoothness and latency handling under heavy loads.
-* **Network Optimizations**: Employs **TCP BBR** congestion control, network queue management (`fq`), TCP Fast Open, and MTU probing for stable, low-latency connectivity.
-* **Dynamic Hardware-Aware I/O Scheduling**:
-  * **NVMe SSDs**: Bypasses queue scheduling entirely (`none`) to maximize raw parallel IOPS.
-  * **SATA SSDs**: Implements the lightweight `mq-deadline` scheduler.
-  * **HDDs**: Uses `bfq` (Budget Fair Queueing) for smooth multitasking and fair queue allocation.
-* **Dynamic Interrupt Balancing**: Runs `irqbalance` to distribute hardware interrupts across CPU cores, improving power efficiency and real-time responsiveness.
-* **Hardware Control**: Automatically configures the system `i2c` bus for direct display brightness/colour control via `ddcutil`.
+### Shell Environment
+*   **Interactive Shell**: Fish shell configured with:
+    *   `starship` prompt.
+    *   `zoxide` navigation helper.
+    *   `direnv` / `nix-direnv` workspace integration.
+    *   Plugins: `autopair`, `done` notification, `fzf-fish` search, `grc` colorizer, `foreign-env`.
+    *   Colored man pages.
 
-### Software Management & CLI Arsenal
-
-* **Modern CLI Suite**: High-efficiency developer utilities including **Yazi** (a blazing-fast terminal file manager), `eza` (modern visually-enhanced `ls` replacement), `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, and more.
-* **Declarative Flatpaks**: Flatpak applications managed directly through Nix via the `nix-flatpak` module.
-* **FHS Environments**: An FHS-compatible environment wrapper (`fhs-env.nix`) for running unpatched, pre-compiled Linux binaries out of the box.
+### Packages & CLI Tools
+*   **CLI Utilities**: `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`.
+*   **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
+*   **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
 
 ### Services & Security
-
-* **Specialised Virtualization**: Packaged inside a clean, toggleable boot profile/specialisation containing Docker, KVM/QEMU, virtual machine managers (`virt-manager`), Guest NSS, and spice USB redirection.
-* **Local AI**: Local LLM model integrations.
-* **Privacy-Focused DNS**: DNS-level ad-blocking and privacy utilizing local **AdGuard Home** and **NextDNS** clients.
-* **Secure Authentication**: System-wide Polkit graphical authentication agent via `polkit-gnome`.
+*   **Virtualization**: Docker, KVM/QEMU, `virt-manager`, and Android SDK developer settings (bundled under `specialisation.virtualisation` profile).
+*   **DNS**: AdGuard Home and NextDNS.
+*   **Authentication**: Polkit GNOME authentication agent.
 
 ## Configuration Structure
 
@@ -56,10 +61,12 @@ This repository is structured into easily toggleable modules. Out of the box, it
 ├── README.md             # This guide
 ├── hosts/
 │   ├── common.nix        # Common host attributes (Timezone, Locales)
-│   └── laptop/
-│       ├── configuration.nix      # Host-specific settings & Specialisations
-│       ├── hardware-configuration.nix # Generated machine/partition layout
-│       └── system-packages.nix    # Target channel settings & global apps
+│   ├── laptop/
+│   │   ├── configuration.nix      # Host-specific settings & Specialisations
+│   │   ├── hardware-configuration.nix # Generated machine/partition layout
+│   │   └── system-packages.nix    # Target channel settings & global apps
+│   └── preview/
+│       └── configuration.nix      # Dedicated QEMU VM preview profile
 ├── modules/
 │   ├── base.nix          # Global modules imported on all systems
 │   ├── boot/             # bootloader and plymouth splash modules
@@ -77,15 +84,24 @@ This repository is structured into easily toggleable modules. Out of the box, it
 > [!WARNING]
 > **For First-Time Installers:** This repository is tailored for a specific user and hardware setup. You **must** adapt it to your system before installation to avoid permission issues and boot failures.
 
-### 1. Prepare Partitions
+### 1. Prepare Partitions & Mount
 
-Create and mount your partitions according to your preferred filesystem layout:
+Create and mount your partitions according to your preferred filesystem layout. Ensure the boot loader directory is fully mounted:
 
 * **Root (`/`)**: Mount at `/mnt` (e.g., ext4, btrfs, zfs)
 * **Boot (`/boot`)**: Mount at `/mnt/boot` (e.g., fat32)
 * **Home (`/home`)**: *(Optional)* Mount at `/mnt/home`
 
-### 2. Generate Hardware Configuration
+### 2. Clone the Configuration Flake
+
+Boot into the installation media environment and clone this repository:
+
+```bash
+git clone https://github.com/fizzflip/nixos-config.git /mnt/etc/nixos/config
+cd /mnt/etc/nixos/config
+```
+
+### 3. Generate Hardware Configuration
 
 You need to generate a hardware profile specific to your machine.
 
@@ -98,7 +114,7 @@ nixos-generate-config --show-hardware-config --root /mnt > hosts/laptop/hardware
 
 *Ensure you overwrite the existing `hardware-configuration.nix` in that folder.*
 
-### 3. Personalize User Configuration
+### 4. Personalize User Configuration
 
 This setup currently hardcodes the `mrbot` user in several places and expects password hashes to be stored in external files rather than directly in the Nix code. Follow these steps to set up your own:
 
@@ -119,7 +135,12 @@ This setup currently hardcodes the `mrbot` user in several places and expects pa
 
     ```bash
     mkdir -p /mnt/etc/nixos/passwords
+    
+    # Generate the sha-512 password hash
     mkpasswd -m sha-512 > /mnt/etc/nixos/passwords/<your_username>
+    
+    # Fallback if mkpasswd is not preinstalled on your installer media:
+    # nix-shell -p mkpasswd --run "mkpasswd -m sha-512" > /mnt/etc/nixos/passwords/<your_username>
     ```
 
 4. **Update Flake References:**
@@ -158,7 +179,7 @@ This setup currently hardcodes the `mrbot` user in several places and expects pa
 
 </details>
 
-### 4. Run the Installer
+### 5. Run the Installer
 
 Choose your desired configuration profile from `flake.nix` (e.g., `minimal` or `fluid`).
 
@@ -178,47 +199,43 @@ nixos-install --flake .#minimal --root /mnt --verbose --show-trace
 ## Maintenance & System Operations
 
 ### Rebuilding and Switching
-
-To update or apply changes to your system:
+To apply changes to the system:
 
 ```bash
-# Rebuild & switch using the minimal (Niri) profile
+# Rebuild and switch using Niri profile
 nixos-rebuild switch --flake .#minimal --verbose --show-trace
 
-# Rebuild & switch using the fluid (KDE Plasma) profile
+# Rebuild and switch using KDE Plasma profile
 nixos-rebuild switch --flake .#fluid --verbose --show-trace
 ```
 
 ### Toggle Specialisations (Virtualization & Development)
-
-The virtualization configuration is structured under a clean **Specialisation** block. It can be dynamically loaded at boot-time as a separate system entry or switched on the fly without rebooting:
+The virtualization configuration is defined as a Specialisation block and can be loaded at runtime:
 
 ```bash
-# Apply and switch to the virtualization profile on the fly
+# Switch to the virtualization profile at runtime
 sudo /run/current-system/specialisation/virtualisation/bin/switch
 ```
 
-## Integrated Fish Shell Abbreviations
+### Running the Sandbox Preview VM
+To launch the QEMU virtual machine for configuration evaluation:
 
-For maximum operational efficiency, several pre-defined dynamic abbreviations expand automatically as you type:
+```bash
+# Launch preview environment (configured with Niri and Fish)
+nix run .#preview
 
-| Abbreviation | Expanded Command                                                                 | Purpose                                          |
-| :----------- | :------------------------------------------------------------------------------- | :----------------------------------------------- |
-| `ll`         | `eza -l --icons --git --group-directories-first`                                 | Visual directory listing with details            |
-| `la`         | `eza -la --icons --git --group-directories-first`                                | Visual directory listing including hidden files  |
-| `lt`         | `eza --tree --level=2 --icons --git ...`                                         | Two-level visual directory tree structure        |
-| `edit`       | `sudo -e`                                                                        | Secure system file editing                       |
-| `rfluid`     | `sudo nixos-rebuild boot --flake ~/.nixos-config#fluid --verbose --show-trace`   | Stage Fluid (KDE) rebuild for next boot          |
-| `rminimal`   | `sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace` | Stage Minimal (Niri) rebuild for next boot       |
-| `ufluid`     | `sudo nixos-rebuild boot --flake ~/.nixos-config#fluid ... --upgrade`            | Perform system upgrade on Fluid profile          |
-| `uminimal`   | `sudo nixos-rebuild boot --flake ~/.nixos-config#minimal ... --upgrade`          | Perform system upgrade on Minimal profile        |
-| `nconf`      | `cd ~/.nixos-config`                                                             | Quick jump to NixOS configuration directory      |
-| `nclean`     | `sudo nix-collect-garbage -d`                                                    | Clean old system generations and free disk space |
-| `nlog`       | `git log --oneline -n 10`                                                        | Show recent Git history of configuration changes |
+# Or launch using the default flake application
+nix run
+```
 
-## Useful Documentation & Resources
+VM configuration details:
+*   **CPU & Memory**: 4 CPU cores, 4GB RAM.
+*   **Graphics & Display**: GTK display with hardware OpenGL rendering (`virtio-vga-gl`), set to `1920x1080` resolution.
+*   **Login**: Login as `mrbot` with the password `nixos` (bypasses password files).
 
-* [NixOS Search](https://search.nixos.org) - Look up available Nix packages and configurations options.
-* [MyNixOS](https://mynixos.com) - Browse beautifully formatted option structures and details.
-* [NixOS Manual](https://nixos.org/manual/nixos) - Official guide to system operations.
-* [NixOS Wiki](https://nixos.wiki) - Community wiki for troubleshooting and tips.
+## Documentation Resources
+
+* [NixOS Search](https://search.nixos.org) - Package and option search.
+* [MyNixOS](https://mynixos.com) - Formatted options and parameters list.
+* [NixOS Manual](https://nixos.org/manual/nixos) - Operations guide.
+* [NixOS Wiki](https://nixos.wiki) - Community resources.

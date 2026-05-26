@@ -1,5 +1,6 @@
 { pkgs, ... }:
 {
+  programs.nh.enable = true;
   environment.systemPackages = [
     # Transfer
     pkgs.curl
