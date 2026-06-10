@@ -1,9 +1,5 @@
 { ... }:
 {
-  services.fstrim = {
-    enable = true;
-    interval = "weekly";
-  };
   # Dynamic, hardware-aware I/O scheduler rules
   services.udev.extraRules = ''
     # NVMe SSDs: bypass scheduling entirely to maximize parallel IOPS

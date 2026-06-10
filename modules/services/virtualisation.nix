@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   virtualisation.docker.enable = true;
 
@@ -17,7 +16,6 @@
 
   environment.systemPackages = [
     pkgs.oracle-instantclient
-    pkgs.docker-compose
     pkgs.winboat
     pkgs.freerdp
     pkgs.rlwrap
