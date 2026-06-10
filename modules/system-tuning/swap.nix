@@ -2,8 +2,8 @@
 {
   zramSwap = {
     enable = true;
-    algorithm = "zstd"; # CachyOS uses zstd for optimal compression/speed
-    memoryPercent = 100; # CachyOS typically maps zram 1:1 with physical RAM
+    algorithm = "zstd"; # Uses zstd for optimal compression/speed
+    memoryPercent = 100; # Maps zram 1:1 with physical RAM
   };
   boot = {
     kernelParams = [ "zswap.enabled=0" ];

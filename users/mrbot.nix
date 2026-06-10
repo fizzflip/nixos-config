@@ -5,8 +5,6 @@
     shell = pkgs.fish;
     extraGroups = [
       "networkmanager"
-      "adbusers"
-      "docker"
       "wheel"
       "kvm"
       "i2c"

@@ -1,9 +1,6 @@
 { pkgs, ... }:
-
 {
   programs.nm-applet.enable = true;
-  services.power-profiles-daemon.enable = true;
-
   environment.systemPackages = [
     pkgs.waybar
 
@@ -21,15 +18,5 @@
 
     pkgs.hicolor-icon-theme
     pkgs.adwaita-icon-theme
-  ];
-
-  fonts.packages = [
-    pkgs.noto-fonts
-    pkgs.font-awesome
-    pkgs.material-icons
-    pkgs.noto-fonts-color-emoji
-    pkgs.noto-fonts-cjk-sans
-    pkgs.helvetica-neue-lt-std
-    pkgs.material-design-icons
   ];
 }

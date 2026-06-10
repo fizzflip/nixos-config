@@ -78,6 +78,4 @@
     pkgs.gnomeExtensions.open-bar
     # gnomeExtensions.media-controls
   ];
-
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

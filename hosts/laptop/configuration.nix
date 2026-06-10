@@ -1,5 +1,4 @@
 { inputs, ... }:
-
 {
   nix.settings = {
     experimental-features = [
@@ -18,22 +17,8 @@
     ../common.nix
   ];
 
-  # specialisation.de-kde.configuration = {
-  #   imports = [ (inputs.self + "/modules/appearance/desktop-environment/kde.nix") ];
-  #   system.nixos.label = "NixOS-KDE";
-  # };
-
-  # specialisation.de-niri.configuration = {
-  #   imports = [ (inputs.self + "/modules/appearance/desktop-environment/niri.nix") ];
-  #   system.nixos.label = "NixOS-Niri";
-  # };
-
-  # specialisation.stable-kernel.configuration = {
-  #   boot.kernelPackages = lib.mkForce pkgs.linuxPackages_zen;
-  #   services.scx.enable = lib.mkForce false;
-  # };
-
   specialisation.virtualisation.configuration = {
+    users.users.mrbot.extraGroups = [ "adbusers" "docker" ];
     imports = [
       (inputs.self + "/modules/services/virtualisation.nix")
       (inputs.self + "/modules/services/android.nix")

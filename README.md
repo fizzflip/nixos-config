@@ -3,53 +3,59 @@
 My NixOS daily driver. \
 Mess? Kinda. Cleaning? Working on that.
 
+![DMS on Niri](image.png)
+
 [![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3)](https://nixos.org)
-[![Kernel](https://img.shields.io/badge/Kernel-cachyos--lto--x86__64--v4-orange.svg?logo=linux&color=E25D25)](https://github.com/xddxdd/nix-cachyos-kernel)
+[![Kernel](https://img.shields.io/badge/Kernel-Zen-orange.svg?logo=linux&color=E25D25)](https://en.wikipedia.org/wiki/Zen_kernel)
 [![Shell](https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5)](https://fishshell.com)
 [![Desktop](https://img.shields.io/badge/Desktop-KDE%20%2F%20Niri-blueviolet.svg?logo=niri&color=8A2BE2)](#desktop-environments)
 
 ## Features
 
 ### Desktop Environments
-*   **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
-    *   Theming managed via `mutagen`.
-    *   System monitoring bar.
-    *   Nautilus file manager with `ffmpegthumbnailer` support.
-    *   `foot` terminal.
-*   **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
-*   **Other Environments**: Setup modules available for GNOME and Hyprland.
-*   **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
+
+* **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
+  * Theming managed via `mutagen`.
+  * System monitoring bar.
+  * Nautilus file manager with `ffmpegthumbnailer` support.
+  * `foot` terminal.
+* **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
+* **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
 
 ### Boot & Login Manager
-*   **GRUB 2**: Bootloader configured with the `catppuccin-grub` package. Uses OS Prober, a 10-second timeout, and systemd in initrd.
-*   **Plymouth**: Boot splash screen with silent boot logging parameters (`quiet`, `splash`).
-*   **SDDM**: Login manager using `silentSDDM` configured with the `catppuccin-mocha` theme.
+
+* **GRUB 2**: Bootloader configured with the `catppuccin-grub` package. Uses OS Prober, a 10-second timeout, and systemd in initrd.
+* **Plymouth**: Boot splash screen with silent boot logging parameters (`quiet`, `splash`).
+* **SDDM**: Login manager using `silentSDDM` configured with the `catppuccin-mocha` theme.
 
 ### Performance & Kernel Tuning
-*   **Kernel**: Linux CachyOS kernel (`nix-cachyos-kernel`) with LTO and `x86_64-v4` optimizations.
-*   **Scheduler**: Sched-ext user-space scheduler utilizing `scx_bpfland`.
-*   **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, and MTU probing.
-*   **I/O Schedulers**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs).
-*   **Hardware Interrupts**: `irqbalance` enabled.
-*   **DDC/CI Support**: `i2c` enabled for monitor control via `ddcutil`.
+
+* **Kernel**: Linux Zen kernel (`linuxPackages_zen`).
+* **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, and MTU probing.
+* **I/O Schedulers**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs).
+* **Hardware Interrupts**: `irqbalance` enabled.
+* **DDC/CI Support**: `i2c` enabled for monitor control via `ddcutil`.
 
 ### Shell Environment
-*   **Interactive Shell**: Fish shell configured with:
-    *   `starship` prompt.
-    *   `zoxide` navigation helper.
-    *   `direnv` / `nix-direnv` workspace integration.
-    *   Plugins: `autopair`, `done` notification, `fzf-fish` search, `grc` colorizer, `foreign-env`.
-    *   Colored man pages.
+
+* **Interactive Shell**: Fish shell configured with:
+  * `starship` prompt.
+  * `zoxide` navigation helper.
+  * `direnv` / `nix-direnv` workspace integration.
+  * Plugins: `autopair`, `done` notification, `fzf-fish` search, `grc` colorizer, `foreign-env`.
+  * Colored man pages.
 
 ### Packages & CLI Tools
-*   **CLI Utilities**: `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`.
-*   **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
-*   **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
+
+* **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`.
+* **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
+* **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
 
 ### Services & Security
-*   **Virtualization**: Docker, KVM/QEMU, `virt-manager`, and Android SDK developer settings (bundled under `specialisation.virtualisation` profile).
-*   **DNS**: AdGuard Home and NextDNS.
-*   **Authentication**: Polkit GNOME authentication agent.
+
+* **Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, and a custom Android Studio environment (bundled under `specialisation.virtualisation` profile).
+* **DNS**: NextDNS.
+* **Authentication**: Polkit GNOME authentication agent.
 
 ## Configuration Structure
 
@@ -72,8 +78,8 @@ Mess? Kinda. Cleaning? Working on that.
 │   ├── boot/             # bootloader and plymouth splash modules
 │   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE profiles
 │   ├── packages/         # Core groups (CLI tools, Internet, Media, Dev)
-│   ├── services/         # AdGuard, NextDNS, virtualization, Flatpak wrappers
-│   ├── shell/            # Shell configurations (Fish, Nu, Zsh)
+│   ├── services/         # NextDNS, virtualization, Flatpak wrappers
+│   ├── shell/            # Shell configurations (Fish, Nu)
 │   └── system-tuning/    # Performance tuning, disks, swap, graphics, kernels
 └── users/
     └── mrbot.nix         # User profile definition (groups, shell, password-hashes)
@@ -151,11 +157,10 @@ This setup currently hardcodes the `mrbot` user in several places and expects pa
 5. **Replace Hardcoded Usernames:**
     You must replace `"mrbot"` with your `<your_username>` across the codebase. Specifically check:
     * `hosts/laptop/configuration.nix` (under `nix.settings.trusted-users`)
-    * `modules/appearance/desktop-environment/hyprland.nix` (under `greetd` user)
     * `modules/services/virtualisation.nix` (under `libvirtd.members`)
 
     > [!WARNING]
-    > If you skip this step, your new user will lack permissions to run Nix commands, and features like virtualization or the Hyprland greeter will fail to start.
+    > If you skip this step, your new user will lack permissions to run Nix commands, and features like virtualization will fail to start.
 
 <details>
 <summary>User Template</summary>
@@ -199,6 +204,7 @@ nixos-install --flake .#minimal --root /mnt --verbose --show-trace
 ## Maintenance & System Operations
 
 ### Rebuilding and Switching
+
 To apply changes to the system:
 
 ```bash
@@ -209,7 +215,8 @@ nixos-rebuild switch --flake .#minimal --verbose --show-trace
 nixos-rebuild switch --flake .#fluid --verbose --show-trace
 ```
 
-### Toggle Specialisations (Virtualization & Development)
+### Toggle Specialisation (Virtualization)
+
 The virtualization configuration is defined as a Specialisation block and can be loaded at runtime:
 
 ```bash
@@ -218,6 +225,7 @@ sudo /run/current-system/specialisation/virtualisation/bin/switch
 ```
 
 ### Running the Sandbox Preview VM
+
 To launch the QEMU virtual machine for configuration evaluation:
 
 ```bash
@@ -229,9 +237,10 @@ nix run
 ```
 
 VM configuration details:
-*   **CPU & Memory**: 4 CPU cores, 4GB RAM.
-*   **Graphics & Display**: GTK display with hardware OpenGL rendering (`virtio-vga-gl`), set to `1920x1080` resolution.
-*   **Login**: Login as `mrbot` with the password `nixos` (bypasses password files).
+
+* **CPU & Memory**: 4 CPU cores, 4GB RAM.
+* **Graphics & Display**: GTK display with hardware OpenGL rendering (`virtio-vga-gl`), set to `1920x1080` resolution.
+* **Login**: Login as `mrbot` with the password `nixos` (bypasses password files).
 
 ## Documentation Resources
 
