@@ -1,12 +1,7 @@
 { ... }:
 {
-  nix = {
-    optimise.automatic = true;
-    settings.auto-optimise-store = true;
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
+  programs.nh.clean = {
+    enable = true;
+    dates = "weekly";
   };
 }
