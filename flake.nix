@@ -3,10 +3,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-cachyos-kernel = {
-      url = "github:xddxdd/nix-cachyos-kernel/release";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     silentSDDM = {
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
