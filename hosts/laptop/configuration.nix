@@ -18,6 +18,7 @@
   ];
 
   specialisation.virtualisation.configuration = {
+    users.users.mrbot.extraGroups = [ "adbusers" "docker" ];
     imports = [
       (inputs.self + "/modules/services/virtualisation.nix")
       (inputs.self + "/modules/services/android.nix")

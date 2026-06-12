@@ -18,5 +18,13 @@
 
     pkgs.cascadia-code
     pkgs.maple-mono.NF
+
+    pkgs.noto-fonts
+    pkgs.font-awesome
+    pkgs.material-icons
+    pkgs.noto-fonts-color-emoji
+    pkgs.noto-fonts-cjk-sans
+    pkgs.helvetica-neue-lt-std
+    pkgs.material-design-icons
   ];
 }

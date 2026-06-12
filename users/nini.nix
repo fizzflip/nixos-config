@@ -1,16 +1,9 @@
 { pkgs, ... }:
-
 {
   users.users.nini = {
     isNormalUser = true;
     description = "nini";
     hashedPasswordFile = "/etc/nixos/passwords/nini";
-
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-    ];
-
     packages = [
       pkgs.vscodium-fhs
       pkgs.uv

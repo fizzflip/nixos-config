@@ -16,8 +16,6 @@
 
       # Additional support
       mesa # OpenGL/Vulkan
-      vulkan-tools # Vulkan utilities
-      libvdpau # VDPAU support
       libvdpau-va-gl # VDPAU-to-VA-API bridge
       ocl-icd # OpenCL ICD loader
     ];
@@ -38,6 +36,4 @@
   # Run: nix-shell -p pciutils --run "lspci -nn | grep VGA"
   # Then uncomment and add your device ID:
   # boot.kernelParams = [ "i915.force_probe=YOUR_DEVICE_ID" ];
-
-  hardware.enableAllFirmware = true;
 }

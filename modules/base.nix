@@ -13,4 +13,5 @@
     ./system-tuning/all.nix
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }

@@ -1,5 +1,4 @@
 { pkgs, ... }:
-
 {
   programs.fish = {
     enable = true;
@@ -45,7 +44,7 @@
 
       # Developer convenience helpers
       nconf = "cd ~/.nixos-config";
-      nclean = "sudo nix-collect-garbage -d";
+      nclean = "nh clean all";
       nlog = "git log --oneline -n 10";
     };
   };

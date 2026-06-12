@@ -20,7 +20,6 @@ Mess? Kinda. Cleaning? Working on that.
   * Nautilus file manager with `ffmpegthumbnailer` support.
   * `foot` terminal.
 * **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
-* **Other Environments**: Setup modules available for GNOME and Hyprland.
 * **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
 
 ### Boot & Login Manager
@@ -158,11 +157,10 @@ This setup currently hardcodes the `mrbot` user in several places and expects pa
 5. **Replace Hardcoded Usernames:**
     You must replace `"mrbot"` with your `<your_username>` across the codebase. Specifically check:
     * `hosts/laptop/configuration.nix` (under `nix.settings.trusted-users`)
-    * `modules/appearance/desktop-environment/hyprland.nix` (under `greetd` user)
     * `modules/services/virtualisation.nix` (under `libvirtd.members`)
 
     > [!WARNING]
-    > If you skip this step, your new user will lack permissions to run Nix commands, and features like virtualization or the Hyprland greeter will fail to start.
+    > If you skip this step, your new user will lack permissions to run Nix commands, and features like virtualization will fail to start.
 
 <details>
 <summary>User Template</summary>
