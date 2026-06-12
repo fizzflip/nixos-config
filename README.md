@@ -6,7 +6,7 @@ Mess? Kinda. Cleaning? Working on that.
 ![DMS on Niri](image.png)
 
 [![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3)](https://nixos.org)
-[![Kernel](https://img.shields.io/badge/Kernel-cachyos--lto--x86__64--v4-orange.svg?logo=linux&color=E25D25)](https://github.com/xddxdd/nix-cachyos-kernel)
+[![Kernel](https://img.shields.io/badge/Kernel-Zen-orange.svg?logo=linux&color=E25D25)](https://en.wikipedia.org/wiki/Zen_kernel)
 [![Shell](https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5)](https://fishshell.com)
 [![Desktop](https://img.shields.io/badge/Desktop-KDE%20%2F%20Niri-blueviolet.svg?logo=niri&color=8A2BE2)](#desktop-environments)
 
@@ -31,8 +31,7 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Performance & Kernel Tuning
 
-* **Kernel**: Linux CachyOS kernel (`nix-cachyos-kernel`) with LTO and `x86_64-v4` optimizations.
-* **Scheduler**: Sched-ext user-space scheduler utilizing `scx_bpfland`.
+* **Kernel**: Linux Zen kernel (`linuxPackages_zen`).
 * **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, and MTU probing.
 * **I/O Schedulers**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs).
 * **Hardware Interrupts**: `irqbalance` enabled.
@@ -49,13 +48,13 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Packages & CLI Tools
 
-* **CLI Utilities**: `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`.
+* **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`.
 * **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
 * **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
 
 ### Services & Security
 
-* **Virtualization**: Docker, KVM/QEMU, `virt-manager`, and Android SDK developer settings (bundled under `specialisation.virtualisation` profile).
+* **Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, and a custom Android Studio environment (bundled under `specialisation.virtualisation` profile).
 * **DNS**: AdGuard Home and NextDNS.
 * **Authentication**: Polkit GNOME authentication agent.
 
@@ -218,7 +217,7 @@ nixos-rebuild switch --flake .#minimal --verbose --show-trace
 nixos-rebuild switch --flake .#fluid --verbose --show-trace
 ```
 
-### Toggle Specialisations (Virtualization & Development)
+### Toggle Specialisation (Virtualization)
 
 The virtualization configuration is defined as a Specialisation block and can be loaded at runtime:
 
