@@ -54,7 +54,7 @@ Mess? Kinda. Cleaning? Working on that.
 ### Services & Security
 
 * **Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, and a custom Android Studio environment (bundled under `specialisation.virtualisation` profile).
-* **DNS**: AdGuard Home and NextDNS.
+* **DNS**: NextDNS.
 * **Authentication**: Polkit GNOME authentication agent.
 
 ## Configuration Structure
@@ -78,8 +78,8 @@ Mess? Kinda. Cleaning? Working on that.
 │   ├── boot/             # bootloader and plymouth splash modules
 │   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE profiles
 │   ├── packages/         # Core groups (CLI tools, Internet, Media, Dev)
-│   ├── services/         # AdGuard, NextDNS, virtualization, Flatpak wrappers
-│   ├── shell/            # Shell configurations (Fish, Nu, Zsh)
+│   ├── services/         # NextDNS, virtualization, Flatpak wrappers
+│   ├── shell/            # Shell configurations (Fish, Nu)
 │   └── system-tuning/    # Performance tuning, disks, swap, graphics, kernels
 └── users/
     └── mrbot.nix         # User profile definition (groups, shell, password-hashes)
