@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   fonts.packages = [
     pkgs.nerd-fonts.noto
     pkgs.nerd-fonts.fira-code
@@ -24,7 +22,7 @@
     pkgs.material-icons
     pkgs.noto-fonts-color-emoji
     pkgs.noto-fonts-cjk-sans
-    pkgs.helvetica-neue-lt-std
+    # pkgs.helvetica-neue-lt-std
     pkgs.material-design-icons
   ];
 }

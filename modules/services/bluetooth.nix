@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   # Disabled by default — set enable = true to re-enable.
   hardware.bluetooth = {
     enable = true;

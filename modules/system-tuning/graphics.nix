@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   # Enable OpenGL/Graphics
   hardware.graphics = {
     enable = true;
@@ -7,7 +6,7 @@
     extraPackages = with pkgs; [
       # Core drivers for 11th Gen (Tiger Lake)
       intel-media-driver # LIBVA_DRIVER_NAME=iHD (primary for Gen 9+)
-      intel-ocl # OpenCL support
+
       intel-gmmlib # Graphics Memory Management Library
       intel-compute-runtime # OpenCL compute runtime
 
