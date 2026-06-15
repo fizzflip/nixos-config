@@ -5,6 +5,8 @@ Mess? Kinda. Cleaning? Working on that.
 
 ![DMS on Niri](image.png)
 
+[Wallpaper](https://wallhaven.cc/w/6lqvql) / [Creator](https://wallhaven.cc/user/Trashbuff)
+
 [![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3)](https://nixos.org)
 [![Kernel](https://img.shields.io/badge/Kernel-Zen-orange.svg?logo=linux&color=E25D25)](https://en.wikipedia.org/wiki/Zen_kernel)
 [![Shell](https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5)](https://fishshell.com)
