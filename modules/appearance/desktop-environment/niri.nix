@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   imports = [
     ../components/dms.nix
     ../components/sddm.nix
@@ -8,6 +6,7 @@
   ];
 
   programs.niri.enable = true;
+  programs.dconf.enable = true;
 
   xdg.portal = {
     enable = true;

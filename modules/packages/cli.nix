@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   programs.nh.enable = true;
   environment.systemPackages = [
     # Transfer
@@ -32,5 +31,8 @@
 
     # Archive Tools
     pkgs._7zz-rar
+
+    pkgs.imagemagick
+    pkgs.chafa
   ];
 }

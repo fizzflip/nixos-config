@@ -16,7 +16,11 @@
     };
   };
   outputs =
-    inputs@{ self, nixpkgs, ... }:
+    inputs@{
+      self,
+      nixpkgs,
+      ...
+    }:
     let
       baseModules = [
         ./hosts/laptop/configuration.nix

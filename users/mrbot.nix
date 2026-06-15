@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   users.users.mrbot = {
     isNormalUser = true;
     shell = pkgs.fish;

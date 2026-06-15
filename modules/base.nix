@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   imports = [
     ./shell/fish.nix
     ./appearance/fonts.nix

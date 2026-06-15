@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   users.users.nini = {
     isNormalUser = true;
     description = "nini";

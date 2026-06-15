@@ -5,6 +5,8 @@ Mess? Kinda. Cleaning? Working on that.
 
 ![DMS on Niri](image.png)
 
+[Wallpaper](https://wallhaven.cc/w/6lqvql) / [Creator](https://wallhaven.cc/user/Trashbuff)
+
 [![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3)](https://nixos.org)
 [![Kernel](https://img.shields.io/badge/Kernel-Zen-orange.svg?logo=linux&color=E25D25)](https://en.wikipedia.org/wiki/Zen_kernel)
 [![Shell](https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5)](https://fishshell.com)
@@ -17,7 +19,7 @@ Mess? Kinda. Cleaning? Working on that.
 * **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
   * Theming managed via `mutagen`.
   * System monitoring bar.
-  * Nautilus file manager with `ffmpegthumbnailer` support.
+  * Nautilus file manager with `ffmpegthumbnailer` and GNOME Sushi support.
   * `foot` terminal.
 * **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
 * **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
@@ -33,7 +35,7 @@ Mess? Kinda. Cleaning? Working on that.
 * **Kernel**: Linux Zen kernel (`linuxPackages_zen`).
 * **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, and MTU probing.
 * **I/O Schedulers**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs).
-* **Hardware Interrupts**: `irqbalance` enabled.
+* **Scheduler**: Extensible `scx-loader` framework utilizing `scx_lavd` scheduler by default.
 * **DDC/CI Support**: `i2c` enabled for monitor control via `ddcutil`.
 
 ### Shell Environment
@@ -47,7 +49,7 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Packages & CLI Tools
 
-* **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`.
+* **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`, `imagemagick`, `chafa`.
 * **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
 * **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
 

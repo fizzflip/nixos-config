@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   security = {
     # userland niceness
     rtkit.enable = true;

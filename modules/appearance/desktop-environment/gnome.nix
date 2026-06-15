@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   # Enable GNOME DE
   services = {
     displayManager.gdm = {
@@ -34,7 +32,6 @@
 
   # GNOME Extensions/Themes/Stuff
   environment.systemPackages = [
-
     # Blur goes brrr
     pkgs.gnomeExtensions.blur-my-shell
     pkgs.gnomeExtensions.dash-to-dock
