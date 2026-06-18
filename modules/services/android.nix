@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   myCustomSdk = pkgs.androidenv.composeAndroidPackages {
-    platformVersions = [ "37" ];
+    platformVersions = [ "CinnamonBun" ];
     buildToolsVersions = [ "37.0.0" ];
     includeSystemImages = false;
     includeEmulator = false;
