@@ -35,7 +35,7 @@ Mess? Kinda. Cleaning? Working on that.
 * **Kernel**: Linux Zen kernel (`linuxPackages_zen`).
 * **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, and MTU probing.
 * **I/O Schedulers**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs).
-* **Hardware Interrupts**: `irqbalance` enabled.
+* **Scheduler**: Extensible `scx-loader` framework utilizing `scx_lavd` scheduler by default.
 * **DDC/CI Support**: `i2c` enabled for monitor control via `ddcutil`.
 
 ### Shell Environment
