@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   fonts.packages = [
     pkgs.nerd-fonts.noto
     pkgs.nerd-fonts.fira-code

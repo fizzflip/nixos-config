@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   programs.fish = {
     enable = true;
 
@@ -38,7 +37,7 @@
       # System upgrade & profile-aware rebuild
       rfluid = "sudo nixos-rebuild boot --flake ~/.nixos-config#fluid --verbose --show-trace";
       rminimal = "sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace";
-      
+
       ufluid = "sudo nixos-rebuild boot --flake ~/.nixos-config#fluid --verbose --show-trace --upgrade";
       uminimal = "sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace --upgrade";
 
@@ -66,13 +65,15 @@
   # Modern developer CLI plugins for Fish
   environment.systemPackages = with pkgs; [
     # Core CLI tools needed by plugins
-    fzf grc eza
+    fzf
+    grc
+    eza
 
     # Fish plugins
-    fishPlugins.autopair    # Auto-closes parenthesis, brackets, and quotes
-    fishPlugins.done        # Notifies when long-running terminal commands complete
-    fishPlugins.fzf-fish    # Fast terminal search and navigation with fzf
-    fishPlugins.grc         # Generic colorizer for command line output
+    fishPlugins.autopair # Auto-closes parenthesis, brackets, and quotes
+    fishPlugins.done # Notifies when long-running terminal commands complete
+    fishPlugins.fzf-fish # Fast terminal search and navigation with fzf
+    fishPlugins.grc # Generic colorizer for command line output
     fishPlugins.foreign-env # Safely source POSIX/bash scripts in Fish
   ];
 }

@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   nix.settings = {
     experimental-features = [
       "nix-command"
@@ -18,7 +17,10 @@
   ];
 
   specialisation.virtualisation.configuration = {
-    users.users.mrbot.extraGroups = [ "adbusers" "docker" ];
+    users.users.mrbot.extraGroups = [
+      "adbusers"
+      "docker"
+    ];
     imports = [
       (inputs.self + "/modules/services/virtualisation.nix")
       (inputs.self + "/modules/services/android.nix")

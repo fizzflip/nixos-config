@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   imports = [
     ../components/dms.nix
     ../components/sddm.nix

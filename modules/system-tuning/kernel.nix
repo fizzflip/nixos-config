@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # # Enable the sched_ext framework and set bpfland as the default

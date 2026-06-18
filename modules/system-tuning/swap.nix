@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   zramSwap = {
     enable = true;
     algorithm = "zstd"; # Uses zstd for optimal compression/speed

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   environment.systemPackages = [
     pkgs.nautilus
     pkgs.ffmpeg-headless

@@ -1,4 +1,8 @@
-{ pkgs, lib, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ../../modules/appearance/desktop-environment/niri.nix

@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{ pkgs, ... }: {
   imports = [
     ../components/sddm.nix
     ../../services/bluetooth.nix
