@@ -6,7 +6,7 @@
     config = {
       # lavd is mathematically the best for a 2-core laptop
       default_sched = "scx_lavd";
-      default_mode = "auto";
+      default_mode = "Auto";
 
       scheds.scx_lavd = {
         # --autopower reads your laptop's battery/AC state directly via EPP

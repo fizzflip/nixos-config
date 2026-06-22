@@ -31,5 +31,8 @@
 
     # Archive Tools
     pkgs._7zz-rar
+
+    pkgs.imagemagick
+    pkgs.chafa
   ];
 }
