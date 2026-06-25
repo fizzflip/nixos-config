@@ -11,5 +11,7 @@
     pkgs.foliate
     pkgs.obsidian
     pkgs.mochi
+
+    pkgs.libreoffice-fresh
   ];
 }

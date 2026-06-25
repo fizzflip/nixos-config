@@ -34,5 +34,7 @@
 
     pkgs.imagemagick
     pkgs.chafa
+
+    pkgs.fresh-editor
   ];
 }
