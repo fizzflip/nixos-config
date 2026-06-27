@@ -19,7 +19,7 @@ Mess? Kinda. Cleaning? Working on that.
 * **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
   * Theming managed via `mutagen`.
   * System monitoring bar.
-  * Nautilus file manager with `ffmpegthumbnailer` support.
+  * Nautilus file manager with `ffmpegthumbnailer` and GNOME Sushi support.
   * `foot` terminal.
 * **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
 * **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
@@ -49,7 +49,8 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Packages & CLI Tools
 
-* **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`.
+* **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`, `imagemagick`, `chafa`.
+* **Office & Media**: `libreoffice-fresh`, `fresh-editor`.
 * **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
 * **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
 
