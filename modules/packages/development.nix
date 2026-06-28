@@ -13,7 +13,7 @@
     pkgs.libgcc
     pkgs.nodejs
     pkgs.python3
-    pkgs.vscodium-fhs
+    pkgs.zed-editor
     pkgs.antigravity-fhs
     pkgs.jetbrains.idea
     pkgs.jetbrains.pycharm
