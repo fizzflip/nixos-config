@@ -6,7 +6,6 @@
     pkgs.git
     pkgs.gcc
     pkgs.bun
-    pkgs.zulu
     pkgs.yarn
     pkgs.pnpm
     pkgs.devenv
