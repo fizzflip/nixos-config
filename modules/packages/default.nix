@@ -1,8 +1,8 @@
 { ... }: {
   imports = [
     ./cli.nix
-    ./development.nix
     ./media.nix
     ./internet.nix
+    ./development.nix
   ];
 }
