@@ -8,6 +8,7 @@
       "kvm"
       "i2c"
       "input"
+      "wireshark"
     ];
     hashedPasswordFile = "/etc/nixos/passwords/mrbot";
   };

@@ -1,7 +1,12 @@
 { pkgs, ... }: {
   imports = [ ./cisco-packet-tracer.nix ];
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+    usbmon.enable = true;
+    dumpcap.enable = true;
+  };
   environment.systemPackages = [
-    pkgs.wireshark
     pkgs.figma-agent
     pkgs.figma-linux
   ];
