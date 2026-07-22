@@ -53,6 +53,14 @@
     }
   ];
 
+  # Kernel Parameters to reduce wakeups, audit overhead, and tty logging
+  boot.kernelParams = [
+    "audit=0"
+    "nmi_watchdog=0"
+    "quiet"
+    "loglevel=3"
+  ];
+
   # Load network congestion control modules
   boot.kernelModules = [ "tcp_bbr" ];
 
