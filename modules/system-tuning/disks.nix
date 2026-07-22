@@ -14,4 +14,7 @@
   # Enable i2c for ddcutil (display brightness/colour via DDC/CI)
   # Loads i2c-dev module, creates the i2c group, sets udev rules
   hardware.i2c.enable = true;
+
+  # Enable periodic SSD TRIM service (complements btrfs discard=async and handles ext4/vfat)
+  services.fstrim.enable = true;
 }
