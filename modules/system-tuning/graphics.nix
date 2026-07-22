@@ -31,6 +31,11 @@
     VK_ICD_FILENAMES = "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json";
   };
 
-  # Enable Intel GuC/HuC hardware submission & video scheduling offload
-  boot.kernelParams = [ "i915.enable_guc=3" ];
+  # Enable Intel GuC/HuC hardware submission, Framebuffer Compression (FBC), PSR2, and Fastboot
+  boot.kernelParams = [
+    "i915.enable_guc=3"
+    "i915.enable_fbc=1"
+    "i915.enable_psr=2"
+    "i915.fastboot=1"
+  ];
 }

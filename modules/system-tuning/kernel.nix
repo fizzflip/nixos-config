@@ -53,12 +53,15 @@
     }
   ];
 
-  # Kernel Parameters to reduce wakeups, audit overhead, and tty logging
+  # Kernel Parameters to reduce wakeups, audit overhead, force PCIe ASPM, NVMe APST power states, and disable mitigations
   boot.kernelParams = [
     "audit=0"
     "nmi_watchdog=0"
     "quiet"
     "loglevel=3"
+    "pcie_aspm=force"
+    "nvme_core.default_ps_max_latency_us=0"
+    "mitigations=off"
   ];
 
   # Load network congestion control modules
