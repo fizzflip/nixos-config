@@ -18,10 +18,11 @@ Mess? Kinda. Cleaning? Working on that.
 
 * **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
   * Theming managed via `mutagen`.
-  * System monitoring bar.
+  * System monitoring and audio wavelength bar.
   * Nautilus file manager with `ffmpegthumbnailer` and GNOME Sushi support.
-  * `foot` terminal.
+  * `foot` terminal, `nomacs` image viewer, and `xwayland-satellite`.
 * **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
+* **GNOME (`modules/appearance/desktop-environment/gnome.nix`)**: Available GNOME profile with GTK themes and extensions.
 * **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
 
 ### Boot & Login Manager
@@ -50,12 +51,13 @@ Mess? Kinda. Cleaning? Working on that.
 ### Packages & CLI Tools
 
 * **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`, `imagemagick`, `chafa`.
+* **Browsers & Dev**: Helium Browser, Mullvad Browser, Zed Editor, VSCodium FHS, JetBrains IDEs, Typst toolchain.
 * **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
 * **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
 
 ### Services & Security
 
-* **Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, and a custom Android Studio environment (bundled under `specialisation.virtualisation` profile).
+* **Lab & Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, Android Studio & Waydroid (`android.nix`), Wireshark, Cisco Packet Tracer, and Figma (`specialisation.lab` profile).
 * **DNS**: NextDNS.
 * **Authentication**: Polkit GNOME authentication agent.
 
@@ -78,13 +80,14 @@ Mess? Kinda. Cleaning? Working on that.
 ├── modules/
 │   ├── base.nix          # Global modules imported on all systems
 │   ├── boot/             # bootloader and plymouth splash modules
-│   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE profiles
-│   ├── packages/         # Core groups (CLI tools, Internet, Media, Dev)
-│   ├── services/         # NextDNS, virtualization, Flatpak wrappers
+│   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE/GNOME profiles
+│   ├── packages/         # Core groups (CLI tools, Internet, Media, Dev, Lab)
+│   ├── services/         # NextDNS, virtualization, Android, Flatpak wrappers
 │   ├── shell/            # Shell configurations (Fish, Nu)
-│   └── system-tuning/    # Performance tuning, disks, swap, graphics, kernels
+│   └── system-tuning/    # Performance tuning, disks, swap, graphics, kernels, security
 └── users/
-    └── mrbot.nix         # User profile definition (groups, shell, password-hashes)
+    ├── mrbot.nix         # Primary user profile definition
+    └── nini.nix          # Secondary user profile definition
 ```
 
 ## Installation Guide
@@ -158,8 +161,9 @@ This setup currently hardcodes the `mrbot` user in several places and expects pa
 
 5. **Replace Hardcoded Usernames:**
     You must replace `"mrbot"` with your `<your_username>` across the codebase. Specifically check:
-    * `hosts/laptop/configuration.nix` (under `nix.settings.trusted-users`)
+    * `hosts/laptop/configuration.nix` (under `nix.settings.trusted-users` and `specialisation.lab`)
     * `modules/services/virtualisation.nix` (under `libvirtd.members`)
+    * `modules/system-tuning/kernel.nix` (under `security.sudo.extraRules`)
 
     > [!WARNING]
     > If you skip this step, your new user will lack permissions to run Nix commands, and features like virtualization will fail to start.
@@ -217,13 +221,13 @@ nixos-rebuild switch --flake .#minimal --verbose --show-trace
 nixos-rebuild switch --flake .#fluid --verbose --show-trace
 ```
 
-### Toggle Specialisation (Virtualization)
+### Toggle Specialisation (Lab & Virtualization)
 
-The virtualization configuration is defined as a Specialisation block and can be loaded at runtime:
+The lab configuration is defined as a Specialisation block and can be loaded at runtime:
 
 ```bash
-# Switch to the virtualization profile at runtime
-sudo /run/current-system/specialisation/virtualisation/bin/switch
+# Switch to the lab profile at runtime
+sudo /run/current-system/specialisation/lab/bin/switch
 ```
 
 ### Running the Sandbox Preview VM
@@ -250,3 +254,4 @@ VM configuration details:
 * [MyNixOS](https://mynixos.com) - Formatted options and parameters list.
 * [NixOS Manual](https://nixos.org/manual/nixos) - Operations guide.
 * [NixOS Wiki](https://nixos.wiki) - Community resources.
+
