@@ -14,6 +14,7 @@
   };
 
   services.upower.enable = true;
+  security.pam.services.dankshell = { };
 
   environment.systemPackages = [
     pkgs.libnotify
