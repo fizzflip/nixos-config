@@ -16,6 +16,4 @@
 
   # CRITICAL: Stop NetworkManager or DHCP from overriding your 127.0.0.1 setting
   networking.networkmanager.dns = "none";
-  # If you don't use NetworkManager and use standard dhcpcd instead, use this:
-  # networking.dhcpcd.extraConfig = "nohook resolv.conf";
 }
