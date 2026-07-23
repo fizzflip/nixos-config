@@ -107,7 +107,7 @@
     # Accounts daemon hardening (Exposure 5.5 MEDIUM -> 2.2 OK)
     accounts-daemon.serviceConfig = {
       ProtectHome = "read-only";
-      PrivateTmp = true;
+      PrivateTmp = lib.mkDefault true;
       ProtectKernelLogs = true;
       ProtectClock = true;
       NoNewPrivileges = true;

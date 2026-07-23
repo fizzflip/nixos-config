@@ -1,4 +1,9 @@
-{ pkgs, ... }: {
+{
+  pkgs,
+  lib,
+  ...
+}:
+{
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   services.scx-loader = {
@@ -53,7 +58,7 @@
     }
   ];
 
-  # Kernel Parameters to reduce wakeups, audit overhead, force PCIe ASPM, NVMe APST power states, and disable mitigations
+  # Kernel Parameters to reduce wakeups, audit overhead, force PCIe ASPM, NVMe APST power states, AHCI LPM, THP madvise, PSI tracking, USB autosuspend, and disable mitigations
   boot.kernelParams = [
     "audit=0"
     "nmi_watchdog=0"
@@ -61,6 +66,10 @@
     "loglevel=3"
     "pcie_aspm=force"
     "nvme_core.default_ps_max_latency_us=0"
+    "ahci.mobile_lpm=1"
+    "transparent_hugepage=madvise"
+    "psi=1"
+    "usbcore.autosuspend=2"
     "mitigations=off"
   ];
 
@@ -75,5 +84,17 @@
     "net.ipv4.tcp_congestion_control" = "bbr";
     "net.ipv4.tcp_fastopen" = 3;
     "net.ipv4.tcp_mtu_probing" = 1;
+    "net.ipv4.tcp_tw_reuse" = 1;
+    "net.ipv4.tcp_slow_start_after_idle" = 0;
+
+    # Network Socket Buffer Tuning (Max 16MB buffer bounds)
+    "net.core.rmem_max" = 16777216;
+    "net.core.wmem_max" = 16777216;
+    "net.ipv4.tcp_rmem" = "4096 87380 16777216";
+    "net.ipv4.tcp_wmem" = "4096 65536 16777216";
+
+    # IPv6 Privacy Extensions (Safely typed as string "2" with lib.mkDefault)
+    "net.ipv6.conf.all.use_tempaddr" = lib.mkDefault "2";
+    "net.ipv6.conf.default.use_tempaddr" = lib.mkDefault "2";
   };
 }

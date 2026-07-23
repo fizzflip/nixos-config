@@ -17,4 +17,10 @@
 
   # Enable periodic SSD TRIM service (complements btrfs discard=async and handles ext4/vfat)
   services.fstrim.enable = true;
+
+  # Mount /tmp on compressed tmpfs in RAM/ZRAM to reduce SSD write wear
+  boot.tmp = {
+    useTmpfs = true;
+    tmpfsSize = "50%";
+  };
 }

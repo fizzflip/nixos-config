@@ -19,6 +19,8 @@
     "fs.protected_fifos" = 2;
     "fs.protected_regular" = 2;
     "fs.suid_dumpable" = 0;
+    "fs.inotify.max_user_watches" = 524288;
+    "fs.inotify.max_user_instances" = 1024;
 
     # Kernel Protection
     "kernel.yama.ptrace_scope" = 1;
