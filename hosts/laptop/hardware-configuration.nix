@@ -32,6 +32,7 @@
       "compress-force=zstd:1"
       "discard=async"
       "space_cache=v2"
+      "commit=60"
     ];
   };
 

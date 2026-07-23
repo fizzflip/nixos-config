@@ -15,5 +15,10 @@
     SystemMaxFileSize=20M
     MaxRetentionSec=1month
   '';
-  nix.settings.auto-optimise-store = true;
+  nix.settings = {
+    auto-optimise-store = true;
+    keep-outputs = false;
+    keep-derivations = false;
+  };
+  systemd.coredump.enable = false;
 }

@@ -11,6 +11,17 @@ let
 in
 {
   nixpkgs.config.android_sdk.accept_license = true;
+  nixpkgs.overlays = [
+    (final: prev: {
+      waydroid = prev.waydroid.overrideAttrs (oldAttrs: {
+        postPatch = (oldAttrs.postPatch or "") + ''
+          sed -i 's/iptables-legacy/iptables-nft/g' data/scripts/waydroid-net.sh
+          sed -i 's/ip6tables-legacy/ip6tables-nft/g' data/scripts/waydroid-net.sh
+        '';
+      });
+    })
+  ];
+
   virtualisation.waydroid.enable = true;
   environment.systemPackages = [
     myAndroidStudio
