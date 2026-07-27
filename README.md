@@ -17,8 +17,9 @@ Mess? Kinda. Cleaning? Working on that.
 ### Desktop Environments
 
 * **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
-  * Theming managed via `mutagen`.
+  * Dynamic theming via `dms-shell` and `wallust`.
   * System monitoring and audio wavelength bar.
+  * PAM service configuration for `dankshell` authentication.
   * Nautilus file manager with `ffmpegthumbnailer` and GNOME Sushi support.
   * `foot` terminal, `nomacs` image viewer, and `xwayland-satellite`.
 * **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
@@ -33,10 +34,12 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Performance & Kernel Tuning
 
-* **Kernel**: Linux Zen kernel (`linuxPackages_zen`).
-* **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, and MTU probing.
-* **I/O Schedulers**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs).
-* **Scheduler**: Extensible `scx-loader` framework utilizing `scx_lavd` scheduler by default.
+* **Kernel**: Linux Zen kernel (`linuxPackages_zen`) with disabled CPU mitigations (`mitigations=off`).
+* **Graphics & Display**: Intel iGPU hardware acceleration (GuC/HuC submission, `iHD` driver, VPL runtime), Framebuffer Compression (FBC), PSR2, and Fastboot.
+* **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, MTU probing, and socket buffer tuning.
+* **I/O Schedulers & Disks**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs), periodic SSD TRIM, and tmpfs `/tmp`.
+* **Scheduler**: Extensible `scx-loader` framework utilizing `scx_lavd` scheduler by default with `scx_bpfland` fallback options.
+* **Memory & Swap**: ZRAM swap with `zstd` compression (1:1 RAM ratio) and tuned swappiness (`vm.swappiness=150`).
 * **DDC/CI Support**: `i2c` enabled for monitor control via `ddcutil`.
 
 ### Shell Environment
@@ -57,7 +60,9 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Services & Security
 
-* **Lab & Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, Android Studio & Waydroid (`android.nix`), Wireshark, Cisco Packet Tracer, and Figma (`specialisation.lab` profile).
+* **Lab & Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, Android Studio & Waydroid (`android.nix`), Wireshark, Cisco Packet Tracer, Figma, and IBM Bob IDE (`specialisation.lab` profile).
+* **Systemd Service Sandboxing**: Dedicated security overrides reducing systemd-analyze exposure levels for `nextdns`, `mandb`, `iwd`, `scx_loader`, `nscd`, and `systemd-rfkill`.
+* **Kernel & Sysctl Security**: Kernel image protection (`protectKernelImage`), restricted ptrace scope, sysctl network and filesystem security hardening.
 * **DNS**: NextDNS.
 * **Authentication**: Polkit GNOME authentication agent.
 
@@ -79,12 +84,13 @@ Mess? Kinda. Cleaning? Working on that.
 │       └── configuration.nix      # Dedicated QEMU VM preview profile
 ├── modules/
 │   ├── base.nix          # Global modules imported on all systems
-│   ├── boot/             # bootloader and plymouth splash modules
+│   ├── boot/             # Bootloader and Plymouth splash modules
 │   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE/GNOME profiles
 │   ├── packages/         # Core groups (CLI tools, Internet, Media, Dev, Lab)
+│   │   └── lab/          # Modularized lab tools (IBM Bob, Wireshark, Figma, Packet Tracer)
 │   ├── services/         # NextDNS, virtualization, Android, Flatpak wrappers
 │   ├── shell/            # Shell configurations (Fish, Nu)
-│   └── system-tuning/    # Performance tuning, disks, swap, graphics, kernels, security
+│   └── system-tuning/    # Performance, graphics, disks, swap, kernel, security, & service hardening
 └── users/
     ├── mrbot.nix         # Primary user profile definition
     └── nini.nix          # Secondary user profile definition
