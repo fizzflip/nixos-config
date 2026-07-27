@@ -23,8 +23,8 @@
     ];
     imports = [
       (inputs.self + "/modules/services/virtualisation.nix")
+      (inputs.self + "/modules/packages/lab/default.nix")
       (inputs.self + "/modules/services/android.nix")
-      (inputs.self + "/modules/packages/lab.nix")
     ];
   };
 

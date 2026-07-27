@@ -9,7 +9,7 @@
     ./services/fhs-env.nix
     ./services/flatpaks.nix
     ./services/networking.nix
-    ./system-tuning/all.nix
+    ./system-tuning/default.nix
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
