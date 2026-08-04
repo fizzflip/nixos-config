@@ -46,7 +46,7 @@
     pkgs.gnomeExtensions.user-themes
     # marble-shell-theme
     # flat-remix-gnome
-    pkgs.orchis-theme
+    # pkgs.orchis-theme
     # pkgs.whitesur-gtk-theme
     # pkgs.whitesur-cursors
     # pkgs.whitesur-icon-theme

@@ -37,7 +37,7 @@
     pkgs.gnome-disk-utility
 
     # GTK Theme
-    pkgs.orchis-theme
+    # pkgs.orchis-theme
     pkgs.phinger-cursors
 
     # Colors

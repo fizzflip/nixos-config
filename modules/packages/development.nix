@@ -13,7 +13,7 @@
     pkgs.nodejs
     pkgs.python3
     pkgs.zed-editor
-    pkgs.antigravity-fhs
+    pkgs.antigravity-ide-fhs
     pkgs.jetbrains.idea
     pkgs.jetbrains.pycharm
 
