@@ -57,7 +57,9 @@ in
       WLR_RENDERER = "pixman";
       LIBGL_ALWAYS_SOFTWARE = "1";
     };
-    users.users.${username}.hashedPasswordFile = lib.mkForce null;
-    users.users.${username}.password = "nixos";
+    users.users.${username} = {
+      hashedPasswordFile = lib.mkForce null;
+      password = "nixos";
+    };
   };
 }
