@@ -1,25 +1,20 @@
 {
+  config,
   pkgs,
   lib,
   ...
 }:
+let
+  username = config.my.user.name;
+in
 {
-  imports = [
-    ../../modules/appearance/desktop-environment/niri.nix
-    ../../modules/appearance/components/dms.nix
-    ../../modules/shell/fish.nix
-    ../../modules/appearance/fonts.nix
-    ../../users/mrbot.nix
-  ];
-
-  nixpkgs.config.allowUnfree = true;
   system.stateVersion = "25.05";
   networking.hostName = "preview";
 
   # Dummy file systems and bootloader for evaluation (VM builder will override this)
   fileSystems."/" = {
-    device = "/dev/disk/by-label/nixos";
-    fsType = "ext4";
+    device = lib.mkForce "/dev/disk/by-label/nixos";
+    fsType = lib.mkForce "ext4";
   };
   boot.loader.grub.devices = [ "nodev" ];
 
@@ -62,7 +57,7 @@
       WLR_RENDERER = "pixman";
       LIBGL_ALWAYS_SOFTWARE = "1";
     };
-    users.users.mrbot.hashedPasswordFile = lib.mkForce null;
-    users.users.mrbot.password = "nixos";
+    users.users.${username}.hashedPasswordFile = lib.mkForce null;
+    users.users.${username}.password = "nixos";
   };
 }

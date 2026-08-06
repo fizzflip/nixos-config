@@ -66,6 +66,15 @@ Mess? Kinda. Cleaning? Working on that.
 * **DNS**: NextDNS.
 * **Authentication**: Polkit GNOME authentication agent.
 
+## Configuration Options
+
+* **`my.user.name`** (`string`) - Primary system username.
+* **`my.user.hashedPasswordFile`** (`path` or `null`) - Defaults to `/etc/nixos/passwords/${my.user.name}`.
+* **`my.user.extraGroups`** (`list of strings`) - Default groups.
+* **`my.user.shell`** (`package`) - Default: `pkgs.fish`.
+* **`my.desktop.environment`** (`enum: niri, kde, gnome, none`) - Desktop environment.
+* **`my.configPath`** (`string`) - Path to NixOS config repo, default `~/.nixos-config`.
+
 ## Configuration Structure
 
 ```text
@@ -78,21 +87,23 @@ Mess? Kinda. Cleaning? Working on that.
 │   ├── common.nix        # Common host attributes (Timezone, Locales)
 │   ├── laptop/
 │   │   ├── configuration.nix      # Host-specific settings & Specialisations
-│   │   ├── hardware-configuration.nix # Generated machine/partition layout
-│   │   └── system-packages.nix    # Target channel settings & global apps
+│   │   └── hardware-configuration.nix # Generated machine/partition layout
 │   └── preview/
 │       └── configuration.nix      # Dedicated QEMU VM preview profile
 ├── modules/
 │   ├── base.nix          # Global modules imported on all systems
-│   ├── boot/             # Bootloader and Plymouth splash modules
 │   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE/GNOME profiles
+│   │   └── desktop-environment/ # Desktop environment dispatcher
+│   ├── boot/             # Bootloader and Plymouth splash modules
+│   ├── core/             # Core configuration options
+│   │   └── options.nix   # Custom option declarations (my.* namespace)
 │   ├── packages/         # Core groups (CLI tools, Internet, Media, Dev, Lab)
 │   │   └── lab/          # Modularized lab tools (IBM Bob, Wireshark, Figma, Packet Tracer)
 │   ├── services/         # NextDNS, virtualization, Android, Flatpak wrappers
 │   ├── shell/            # Shell configurations (Fish, Nu)
 │   └── system-tuning/    # Performance, graphics, disks, swap, kernel, security, & service hardening
 └── users/
-    ├── mrbot.nix         # Primary user profile definition
+    ├── default.nix       # Dynamic primary user profile definition
     └── nini.nix          # Secondary user profile definition
 ```
 
@@ -133,75 +144,28 @@ nixos-generate-config --show-hardware-config --root /mnt > hosts/laptop/hardware
 
 ### 4. Personalize User Configuration
 
-This setup currently hardcodes the `mrbot` user in several places and expects password hashes to be stored in external files rather than directly in the Nix code. Follow these steps to set up your own:
+1. Open `flake.nix`.
+2. Change `my.user.name = "mrbot"` to your username in each profile.
+3. Generate and store your password:
 
-1. **Create your user profile:**
-    Copy the existing user profile or create a new one based on the template below.
+   ```bash
+   mkdir -p /mnt/etc/nixos/passwords
+   
+   # Generate the sha-512 password hash
+   mkpasswd -m sha-512 > /mnt/etc/nixos/passwords/<your_username>
+   
+   # Fallback if mkpasswd is not preinstalled on your installer media:
+   # nix-shell -p mkpasswd --run "mkpasswd -m sha-512" > /mnt/etc/nixos/passwords/<your_username>
+   ```
 
-    ```bash
-    cp users/mrbot.nix users/<your_username>.nix
-    ```
-
-2. **Configure your settings (`users/<your_username>.nix`):**
-    * Update `users.users.<your_username>`.
-    * Update `hashedPasswordFile` to point to `/etc/nixos/passwords/<your_username>`.
-    * Customize your packages and preferred shell.
-
-3. **Generate and Store Your Password:**
-    Instead of storing the password directly in the nix file, this configuration relies on an external file. Create this file on your mounted system:
-
-    ```bash
-    mkdir -p /mnt/etc/nixos/passwords
-    
-    # Generate the sha-512 password hash
-    mkpasswd -m sha-512 > /mnt/etc/nixos/passwords/<your_username>
-    
-    # Fallback if mkpasswd is not preinstalled on your installer media:
-    # nix-shell -p mkpasswd --run "mkpasswd -m sha-512" > /mnt/etc/nixos/passwords/<your_username>
-    ```
-
-4. **Update Flake References:**
-    Open `flake.nix` and update the base modules list (`baseModules`) to point to your new user file instead of `./users/mrbot.nix`.
-    > [!NOTE]
-    > If you decide to rename the `laptop` host directory to something else (e.g., `desktop`), you must also update all paths referencing `hosts/laptop/...` in your `flake.nix`.
-
-5. **Replace Hardcoded Usernames:**
-    You must replace `"mrbot"` with your `<your_username>` across the codebase. Specifically check:
-    * `hosts/laptop/configuration.nix` (under `nix.settings.trusted-users` and `specialisation.lab`)
-    * `modules/services/virtualisation.nix` (under `libvirtd.members`)
-    * `modules/system-tuning/kernel.nix` (under `security.sudo.extraRules`)
-
-    > [!WARNING]
-    > If you skip this step, your new user will lack permissions to run Nix commands, and features like virtualization will fail to start.
-
-<details>
-<summary>User Template</summary>
-
-```nix
-{ pkgs, ... }:
-{
-  users.users.<username> = {
-    isNormalUser = true;
-    hashedPasswordFile = "/etc/nixos/passwords/<username>";
-    extraGroups = [
-      "wheel" "kvm" "video" "audio" "networkmanager"
-    ];
-    shell = pkgs.fish; # your preferred shell
-    packages = with pkgs; [
-      # your custom user packages
-    ];
-  };
-}
-```
-
-</details>
+4. That's it - no more grep-replacing across the codebase!
 
 ### 5. Run the Installer
 
 Choose your desired configuration profile from `flake.nix` (e.g., `minimal` or `fluid`).
 
 > [!IMPORTANT]
-> **Nix flakes ignore files that are not tracked by Git!** If you renamed or added new files (like your `<username>.nix` or the hardware config), you must stage them. Otherwise, the installer will throw a missing file error.
+> **Nix flakes ignore files that are not tracked by Git!** If you renamed or added new files (like the hardware config), you must stage them. Otherwise, the installer will throw a missing file error.
 >
 > ```bash
 > git add .
@@ -260,4 +224,3 @@ VM configuration details:
 * [MyNixOS](https://mynixos.com) - Formatted options and parameters list.
 * [NixOS Manual](https://nixos.org/manual/nixos) - Operations guide.
 * [NixOS Wiki](https://nixos.wiki) - Community resources.
-

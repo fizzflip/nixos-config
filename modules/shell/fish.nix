@@ -1,4 +1,12 @@
-{ pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}:
+let
+  cfgPath = config.my.configPath;
+in
+{
   programs.fish = {
     enable = true;
 
@@ -35,14 +43,14 @@
       edit = "sudo -e";
 
       # System upgrade & profile-aware rebuild
-      rfluid = "sudo nixos-rebuild boot --flake ~/.nixos-config#fluid --verbose --show-trace";
-      rminimal = "sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace";
+      rfluid = "sudo nixos-rebuild boot --flake ${cfgPath}#fluid --verbose --show-trace";
+      rminimal = "sudo nixos-rebuild boot --flake ${cfgPath}#minimal --verbose --show-trace";
 
-      ufluid = "sudo nixos-rebuild boot --flake ~/.nixos-config#fluid --verbose --show-trace --upgrade";
-      uminimal = "sudo nixos-rebuild boot --flake ~/.nixos-config#minimal --verbose --show-trace --upgrade";
+      ufluid = "sudo nixos-rebuild boot --flake ${cfgPath}#fluid --verbose --show-trace --upgrade";
+      uminimal = "sudo nixos-rebuild boot --flake ${cfgPath}#minimal --verbose --show-trace --upgrade";
 
       # Developer convenience helpers
-      nconf = "cd ~/.nixos-config";
+      nconf = "cd ${cfgPath}";
       nclean = "nh clean all";
       nlog = "git log --oneline -n 10";
     };

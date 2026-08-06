@@ -1,4 +1,5 @@
 {
+  config,
   pkgs,
   lib,
   ...
@@ -48,7 +49,7 @@
 
   security.sudo.extraRules = [
     {
-      users = [ "mrbot" ];
+      users = [ config.my.user.name ];
       commands = [
         {
           command = "/run/current-system/sw/bin/scxctl";

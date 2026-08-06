@@ -1,49 +1,57 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ../components/dms.nix
     ../components/sddm.nix
     ../components/nautilus.nix
   ];
 
-  programs.niri.enable = true;
-  programs.dconf.enable = true;
+  config = lib.mkIf (config.my.desktop.environment == "niri") {
+    programs.niri.enable = true;
+    programs.dconf.enable = true;
 
-  xdg.portal = {
-    enable = true;
-    # xdg-desktop-portal-gtk: handles file pickers, inhibit (sleep/screen), and
-    # other portal interfaces not supported by the wlr backend.
-    # programs.niri.enable already sets up the core Niri portal — don't set wlr.enable here.
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = [ "gtk" ];
+    xdg.portal = {
+      enable = true;
+      # xdg-desktop-portal-gtk: handles file pickers, inhibit (sleep/screen), and
+      # other portal interfaces not supported by the wlr backend.
+      # programs.niri.enable already sets up the core Niri portal — don't set wlr.enable here.
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      config.common.default = [ "gtk" ];
+    };
+
+    security = {
+      polkit.enable = true;
+      # soteria.enable = true;
+    };
+
+    # Auto-mounting stuff
+    services = {
+      devmon.enable = true;
+      gvfs.enable = true;
+      udisks2.enable = true;
+    };
+
+    environment.systemPackages = [
+      pkgs.foot
+
+      pkgs.polkit_gnome
+      pkgs.xwayland-satellite
+      pkgs.gnome-disk-utility
+
+      # GTK Theme
+      # pkgs.orchis-theme
+      pkgs.phinger-cursors
+
+      # Colors
+      pkgs.wallust
+
+      # Image viewer
+      pkgs.nomacs
+    ];
   };
-
-  security = {
-    polkit.enable = true;
-    # soteria.enable = true;
-  };
-
-  # Auto-mounting stuff
-  services = {
-    devmon.enable = true;
-    gvfs.enable = true;
-    udisks2.enable = true;
-  };
-
-  environment.systemPackages = [
-    pkgs.foot
-
-    pkgs.polkit_gnome
-    pkgs.xwayland-satellite
-    pkgs.gnome-disk-utility
-
-    # GTK Theme
-    # pkgs.orchis-theme
-    pkgs.phinger-cursors
-
-    # Colors
-    pkgs.wallust
-
-    # Image viewer
-    pkgs.nomacs
-  ];
 }

@@ -1,9 +1,14 @@
-{ pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}:
+{
   virtualisation.docker.enable = true;
 
   # Virt-manager
   programs.virt-manager.enable = true;
-  users.groups.libvirtd.members = [ "mrbot" ];
+  users.groups.libvirtd.members = [ config.my.user.name ];
   virtualisation = {
     libvirtd.nss = {
       enable = true;

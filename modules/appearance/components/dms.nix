@@ -1,28 +1,36 @@
-{ pkgs, ... }: {
-  programs = {
-    dms-shell = {
-      enable = true;
-      systemd = {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  config = lib.mkIf (config.my.desktop.environment == "niri") {
+    programs = {
+      dms-shell = {
         enable = true;
-        restartIfChanged = true;
+        systemd = {
+          enable = true;
+          restartIfChanged = true;
+        };
+        enableClipboardPaste = true;
+        enableDynamicTheming = true;
+        enableAudioWavelength = true;
+        enableSystemMonitoring = true;
       };
-      enableClipboardPaste = true;
-      enableDynamicTheming = true;
-      enableAudioWavelength = true;
-      enableSystemMonitoring = true;
     };
+
+    services.upower.enable = true;
+    security.pam.services.dankshell = { };
+
+    environment.systemPackages = [
+      pkgs.libnotify
+      pkgs.pulseaudio
+      pkgs.lm_sensors
+      pkgs.pavucontrol
+      pkgs.brightnessctl
+      pkgs.hicolor-icon-theme
+      pkgs.adwaita-icon-theme
+    ];
   };
-
-  services.upower.enable = true;
-  security.pam.services.dankshell = { };
-
-  environment.systemPackages = [
-    pkgs.libnotify
-    pkgs.pulseaudio
-    pkgs.lm_sensors
-    pkgs.pavucontrol
-    pkgs.brightnessctl
-    pkgs.hicolor-icon-theme
-    pkgs.adwaita-icon-theme
-  ];
 }

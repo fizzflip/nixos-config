@@ -25,24 +25,38 @@
       baseModules = [
         ./hosts/laptop/configuration.nix
         ./modules/base.nix
-        ./users/mrbot.nix
       ];
       mkSystem =
-        desktopModule:
+        {
+          myConfig ? { },
+          extraModules ? [ ],
+        }:
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
-          modules = baseModules ++ [ desktopModule ];
+          modules = baseModules ++ [ myConfig ] ++ extraModules;
         };
     in
     {
       nixosConfigurations = {
-        fluid = mkSystem ./modules/appearance/desktop-environment/kde.nix;
-        minimal = mkSystem ./modules/appearance/desktop-environment/niri.nix;
-        preview = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = [ ./hosts/preview/configuration.nix ];
+        fluid = mkSystem {
+          myConfig = {
+            my.user.name = "mrbot";
+            my.desktop.environment = "kde";
+          };
+        };
+        minimal = mkSystem {
+          myConfig = {
+            my.user.name = "mrbot";
+            my.desktop.environment = "niri";
+          };
+        };
+        preview = mkSystem {
+          myConfig = {
+            my.user.name = "mrbot";
+            my.desktop.environment = "niri";
+          };
+          extraModules = [ ./hosts/preview/configuration.nix ];
         };
       };
       apps."x86_64-linux" = {

@@ -1,17 +1,25 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   imports = [
     ../components/sddm.nix
     ../../services/bluetooth.nix
   ];
 
-  services.desktopManager.plasma6.enable = true;
-  environment.plasma6.excludePackages = [ pkgs.kdePackages.plasma-browser-integration ];
+  config = lib.mkIf (config.my.desktop.environment == "kde") {
+    services.desktopManager.plasma6.enable = true;
+    environment.plasma6.excludePackages = [ pkgs.kdePackages.plasma-browser-integration ];
 
-  environment.systemPackages = [
-    pkgs.kdePackages.kcalc
-    pkgs.kdePackages.partitionmanager
-    # pkgs.python312Packages.kde-material-you-colors
-  ];
+    environment.systemPackages = [
+      pkgs.kdePackages.kcalc
+      pkgs.kdePackages.partitionmanager
+      # pkgs.python312Packages.kde-material-you-colors
+    ];
 
-  # fwupd now enabled in base.nix for all profiles
+    # fwupd now enabled in base.nix for all profiles
+  };
 }
