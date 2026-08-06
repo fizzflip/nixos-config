@@ -55,5 +55,11 @@ in
       default = "~/.nixos-config";
       description = "Path to the NixOS config repo (used in shell abbreviations).";
     };
+
+    packages.minimal = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "When enabled, installs only core CLI tools and desktop essentials, omitting heavy IDEs, media, internet applications, and flatpaks.";
+    };
   };
 }

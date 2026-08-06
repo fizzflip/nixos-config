@@ -55,8 +55,21 @@
           myConfig = {
             my.user.name = "mrbot";
             my.desktop.environment = "niri";
+            my.packages.minimal = true;
           };
           extraModules = [ ./hosts/preview/configuration.nix ];
+        };
+        preview-full = mkSystem {
+          myConfig = {
+            my.user.name = "mrbot";
+            my.desktop.environment = "niri";
+            my.packages.minimal = false;
+          };
+          extraModules = [
+            ./hosts/preview/configuration.nix
+            ./modules/packages/lab/default.nix
+            ./modules/services/virtualisation.nix
+          ];
         };
       };
       apps."x86_64-linux" = {
@@ -64,6 +77,10 @@
         preview = {
           type = "app";
           program = "${self.nixosConfigurations.preview.config.system.build.vm}/bin/run-preview-vm";
+        };
+        preview-full = {
+          type = "app";
+          program = "${self.nixosConfigurations.preview-full.config.system.build.vm}/bin/run-preview-vm";
         };
       };
     };

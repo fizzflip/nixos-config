@@ -1,4 +1,5 @@
-{ lib, ... }: {
+{ config, lib, ... }:
+lib.mkIf (!config.my.packages.minimal) {
   services.flatpak = {
     enable = true;
     packages = [

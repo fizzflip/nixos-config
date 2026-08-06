@@ -74,6 +74,7 @@ Mess? Kinda. Cleaning? Working on that.
 * **`my.user.shell`** (`package`) - Default: `pkgs.fish`.
 * **`my.desktop.environment`** (`enum: niri, kde, gnome, none`) - Desktop environment.
 * **`my.configPath`** (`string`) - Path to NixOS config repo, default `~/.nixos-config`.
+* **`my.packages.minimal`** (`bool`) - Omits heavy IDEs, browsers, media apps, and Flatpaks when set to `true`.
 
 ## Configuration Structure
 
@@ -205,11 +206,13 @@ sudo /run/current-system/specialisation/lab/bin/switch
 To launch the QEMU virtual machine for configuration evaluation:
 
 ```bash
-# Launch preview environment (configured with Niri and Fish)
+# Launch Minimal preview environment (lightweight, bare essentials only)
 nix run .#preview
-
 # Or launch using the default flake application
 nix run
+
+# Launch Full preview environment (contains all IDEs, media apps, flatpaks, and Lab tools)
+nix run .#preview-full
 ```
 
 VM configuration details:

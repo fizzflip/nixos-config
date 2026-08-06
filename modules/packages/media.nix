@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ config, lib, pkgs, ... }:
+lib.mkIf (!config.my.packages.minimal) {
   environment.systemPackages = [
     # Video/Audio
     pkgs.mpv
