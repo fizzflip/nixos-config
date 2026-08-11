@@ -6,7 +6,6 @@
 }:
 {
   config = lib.mkIf (config.my.desktop.environment == "gnome") {
-    # Enable GNOME DE
     services = {
       displayManager.gdm = {
         enable = true;
