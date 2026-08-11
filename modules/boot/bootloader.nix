@@ -2,6 +2,7 @@
   boot = {
     loader.grub = {
       enable = true;
+      font = "${pkgs.catppuccin-grub}/font.pf2";
       devices = [ "nodev" ];
       theme = pkgs.catppuccin-grub;
       default = "saved";
