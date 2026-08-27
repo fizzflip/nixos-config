@@ -5,7 +5,7 @@
   ...
 }:
 {
-  boot.kernelPackages = pkgs.linuxPackages_testing;
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   services.scx-loader = {
     enable = true;
