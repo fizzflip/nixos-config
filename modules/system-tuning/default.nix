@@ -8,5 +8,6 @@
     ./cleanup.nix
     ./power.nix
     ./swap.nix
+    ./preload.nix
   ];
 }
