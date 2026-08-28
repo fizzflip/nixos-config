@@ -16,65 +16,65 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Desktop Environments
 
-* **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
-  * Dynamic theming via `dms-shell` and `wallust`.
-  * System monitoring and audio wavelength bar.
-  * PAM service configuration for `dankshell` authentication.
-  * Nautilus file manager with `ffmpegthumbnailer` and GNOME Sushi support.
-  * `foot` terminal, `nomacs` image viewer, and `xwayland-satellite`.
-* **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
-* **GNOME (`modules/appearance/desktop-environment/gnome.nix`)**: Available GNOME profile with GTK themes and extensions.
-* **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
+- **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
+  - Dynamic theming via `dms-shell` and `wallust`.
+  - System monitoring and audio wavelength bar.
+  - PAM service configuration for `dankshell` authentication.
+  - Nautilus file manager with `ffmpegthumbnailer` and GNOME Sushi support.
+  - `foot` terminal, `nomacs` image viewer, and `xwayland-satellite`.
+- **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
+- **GNOME (`modules/appearance/desktop-environment/gnome.nix`)**: Available GNOME profile with GTK themes and extensions.
+- **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
 
 ### Boot & Login Manager
 
-* **GRUB 2**: Bootloader configured with the `catppuccin-grub` package. Uses OS Prober, a 10-second timeout, and systemd in initrd.
-* **Plymouth**: Boot splash screen with silent boot logging parameters (`quiet`, `splash`).
-* **SDDM**: Login manager using `silentSDDM` configured with the `catppuccin-mocha` theme.
+- **GRUB 2**: Bootloader configured with the `catppuccin-grub` package. Uses OS Prober, a 10-second timeout, and systemd in initrd.
+- **Plymouth**: Boot splash screen with silent boot logging parameters (`quiet`, `splash`).
+- **SDDM**: Login manager using `silentSDDM` configured with the `catppuccin-mocha` theme.
 
 ### Performance & Kernel Tuning
 
-* **Kernel**: Linux Zen kernel (`linuxPackages_zen`) with disabled CPU mitigations (`mitigations=off`).
-* **Graphics & Display**: Intel iGPU hardware acceleration (GuC/HuC submission, `iHD` driver, VPL runtime), Framebuffer Compression (FBC), PSR2, and Fastboot.
-* **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, MTU probing, and socket buffer tuning.
-* **I/O Schedulers & Disks**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs), periodic SSD TRIM, and tmpfs `/tmp`.
-* **Scheduler**: Extensible `scx-loader` framework utilizing `scx_lavd` scheduler by default with `scx_bpfland` fallback options.
-* **Memory & Swap**: ZRAM swap with `zstd` compression (1:1 RAM ratio) and tuned swappiness (`vm.swappiness=150`).
-* **DDC/CI Support**: `i2c` enabled for monitor control via `ddcutil`.
+- **Kernel**: Linux Zen kernel (`linuxPackages_zen`) with disabled CPU mitigations (`mitigations=off`).
+- **Graphics & Display**: Intel iGPU hardware acceleration (GuC/HuC submission, `iHD` driver, VPL runtime), Framebuffer Compression (FBC), PSR2, and Fastboot.
+- **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, MTU probing, and socket buffer tuning.
+- **I/O Schedulers & Disks**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs), periodic SSD TRIM, and tmpfs `/tmp`.
+- **Scheduler**: Extensible `scx-loader` framework utilizing `scx_lavd` scheduler by default with `scx_bpfland` fallback options.
+- **Memory & Swap**: ZRAM swap with `zstd` compression (1:1 RAM ratio) and tuned swappiness (`vm.swappiness=150`).
+- **DDC/CI Support**: `i2c` enabled for monitor control via `ddcutil`.
 
 ### Shell Environment
 
-* **Interactive Shell**: Fish shell configured with:
-  * `starship` prompt.
-  * `zoxide` navigation helper.
-  * `direnv` / `nix-direnv` workspace integration.
-  * Plugins: `autopair`, `done` notification, `fzf-fish` search, `grc` colorizer, `foreign-env`.
-  * Colored man pages.
+- **Interactive Shell**: Fish shell configured with:
+  - `starship` prompt.
+  - `zoxide` navigation helper.
+  - `direnv` / `nix-direnv` workspace integration.
+  - Plugins: `autopair`, `done` notification, `fzf-fish` search, `grc` colorizer, `foreign-env`.
+  - Colored man pages.
 
 ### Packages & CLI Tools
 
-* **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`, `imagemagick`, `chafa`.
-* **Browsers & Dev**: Helium Browser, Mullvad Browser, Zed Editor, VSCodium FHS, JetBrains IDEs, Typst toolchain.
-* **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
-* **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
+- **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`, `imagemagick`, `chafa`.
+- **Browsers & Dev**: Helium Browser, Mullvad Browser, Zed Editor, VSCodium FHS, JetBrains IDEs, Typst toolchain.
+- **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
+- **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
 
 ### Services & Security
 
-* **Lab & Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, Android Studio & Waydroid (`android.nix`), Wireshark, Cisco Packet Tracer, Figma, and IBM Bob IDE (`specialisation.lab` profile).
-* **Systemd Service Sandboxing**: Dedicated security overrides reducing systemd-analyze exposure levels for `nextdns`, `mandb`, `iwd`, `scx_loader`, `nscd`, and `systemd-rfkill`.
-* **Kernel & Sysctl Security**: Kernel image protection (`protectKernelImage`), restricted ptrace scope, sysctl network and filesystem security hardening.
-* **DNS**: NextDNS.
-* **Authentication**: Polkit GNOME authentication agent.
+- **Lab & Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, Android Studio & Waydroid (`android.nix`), Wireshark, Cisco Packet Tracer, Figma, and IBM Bob IDE (`specialisation.lab` profile).
+- **Systemd Service Sandboxing**: Dedicated security overrides reducing systemd-analyze exposure levels for `nextdns`, `mandb`, `iwd`, `scx_loader`, `nscd`, and `systemd-rfkill`.
+- **Kernel & Sysctl Security**: Kernel image protection (`protectKernelImage`), restricted ptrace scope, sysctl network and filesystem security hardening.
+- **DNS**: NextDNS.
+- **Authentication**: Polkit GNOME authentication agent.
 
 ## Configuration Options
 
-* **`my.user.name`** (`string`) - Primary system username.
-* **`my.user.hashedPasswordFile`** (`path` or `null`) - Defaults to `/etc/nixos/passwords/${my.user.name}`.
-* **`my.user.extraGroups`** (`list of strings`) - Default groups.
-* **`my.user.shell`** (`package`) - Default: `pkgs.fish`.
-* **`my.desktop.environment`** (`enum: niri, kde, gnome, none`) - Desktop environment.
-* **`my.configPath`** (`string`) - Path to NixOS config repo, default `~/.nixos-config`.
-* **`my.packages.minimal`** (`bool`) - Omits heavy IDEs, browsers, media apps, and Flatpaks when set to `true`.
+- **`my.user.name`** (`string`) - Primary system username.
+- **`my.user.hashedPasswordFile`** (`path` or `null`) - Defaults to `/etc/nixos/passwords/${my.user.name}`.
+- **`my.user.extraGroups`** (`list of strings`) - Default groups.
+- **`my.user.shell`** (`package`) - Default: `pkgs.fish`.
+- **`my.desktop.environment`** (`enum: niri, kde, gnome, none`) - Desktop environment.
+- **`my.configPath`** (`string`) - Path to NixOS config repo, default `~/.nixos-config`.
+- **`my.packages.minimal`** (`bool`) - Omits heavy IDEs, browsers, media apps, and Flatpaks when set to `true`.
 
 ## Configuration Structure
 
@@ -117,9 +117,9 @@ Mess? Kinda. Cleaning? Working on that.
 
 Create and mount your partitions according to your preferred filesystem layout. Ensure the boot loader directory is fully mounted:
 
-* **Root (`/`)**: Mount at `/mnt` (e.g., ext4, btrfs, zfs)
-* **Boot (`/boot`)**: Mount at `/mnt/boot` (e.g., fat32)
-* **Home (`/home`)**: *(Optional)* Mount at `/mnt/home`
+- **Root (`/`)**: Mount at `/mnt` (e.g., ext4, btrfs, zfs)
+- **Boot (`/boot`)**: Mount at `/mnt/boot` (e.g., fat32)
+- **Home (`/home`)**: _(Optional)_ Mount at `/mnt/home`
 
 ### 2. Clone the Configuration Flake
 
@@ -141,7 +141,7 @@ You need to generate a hardware profile specific to your machine.
 nixos-generate-config --show-hardware-config --root /mnt > hosts/laptop/hardware-configuration.nix
 ```
 
-*Ensure you overwrite the existing `hardware-configuration.nix` in that folder.*
+_Ensure you overwrite the existing `hardware-configuration.nix` in that folder._
 
 ### 4. Personalize User Configuration
 
@@ -151,10 +151,10 @@ nixos-generate-config --show-hardware-config --root /mnt > hosts/laptop/hardware
 
    ```bash
    mkdir -p /mnt/etc/nixos/passwords
-   
+
    # Generate the sha-512 password hash
    mkpasswd -m sha-512 > /mnt/etc/nixos/passwords/<your_username>
-   
+
    # Fallback if mkpasswd is not preinstalled on your installer media:
    # nix-shell -p mkpasswd --run "mkpasswd -m sha-512" > /mnt/etc/nixos/passwords/<your_username>
    ```
@@ -217,13 +217,13 @@ nix run .#preview-full
 
 VM configuration details:
 
-* **CPU & Memory**: 4 CPU cores, 4GB RAM.
-* **Graphics & Display**: GTK display with hardware OpenGL rendering (`virtio-vga-gl`), set to `1920x1080` resolution.
-* **Login**: Login as `mrbot` with the password `nixos` (bypasses password files).
+- **CPU & Memory**: 4 CPU cores, 4GB RAM.
+- **Graphics & Display**: GTK display with hardware OpenGL rendering (`virtio-vga-gl`), set to `1920x1080` resolution.
+- **Login**: Login as `mrbot` with the password `nixos` (bypasses password files).
 
 ## Documentation Resources
 
-* [NixOS Search](https://search.nixos.org) - Package and option search.
-* [MyNixOS](https://mynixos.com) - Formatted options and parameters list.
-* [NixOS Manual](https://nixos.org/manual/nixos) - Operations guide.
-* [NixOS Wiki](https://nixos.wiki) - Community resources.
+- [NixOS Search](https://search.nixos.org) - Package and option search.
+- [MyNixOS](https://mynixos.com) - Formatted options and parameters list.
+- [NixOS Manual](https://nixos.org/manual/nixos) - Operations guide.
+- [NixOS Wiki](https://nixos.wiki) - Community resources.
