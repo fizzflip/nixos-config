@@ -8,13 +8,13 @@ lib.mkIf (!config.my.packages.minimal) {
   environment.systemPackages = [
     # Video/Audio
     pkgs.mpv
-    pkgs.ffmpeg-full
     pkgs.yt-dlp
     pkgs.freetube
+    pkgs.ffmpeg-full
 
     # Reading/Note-taking
+    pkgs.mochi
     pkgs.foliate
     pkgs.obsidian
-    pkgs.mochi
   ];
 }

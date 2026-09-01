@@ -13,9 +13,9 @@
     pkgs.yazi
 
     # Searching
+    pkgs.fd
     pkgs.bat
     pkgs.skim
-    pkgs.fd
     pkgs.ripgrep
 
     # Monitoring
@@ -32,7 +32,9 @@
     # Archive Tools
     pkgs._7zz-rar
 
-    pkgs.imagemagick
+    # Image manipulation
     pkgs.chafa
+    pkgs.inkscape
+    pkgs.imagemagick
   ];
 }
