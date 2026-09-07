@@ -10,11 +10,11 @@
     info.enable = false;
     doc.enable = false;
   };
-  services.journald.extraConfig = ''
-    SystemMaxUse=100M
-    SystemMaxFileSize=20M
-    MaxRetentionSec=1month
-  '';
+  services.journald.settings.Journal = {
+    SystemMaxUse = "100M";
+    SystemMaxFileSize = "20M";
+    MaxRetentionSec = "1month";
+  };
   nix.settings = {
     auto-optimise-store = true;
     keep-outputs = false;

@@ -1,4 +1,4 @@
-{ lib, ... }: {
+{ ... }: {
   security = {
     # Protect kernel image (prevents kexec and modifying kernel memory via /dev/mem)
     protectKernelImage = true;
