@@ -2,13 +2,21 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
+let
+  isCachyOS = lib.hasInfix "cachyos" (config.boot.kernelPackages.kernel.pname or "");
+in
 {
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  nixpkgs.overlays = [
+    inputs.nix-cachyos-kernel.overlays.pinned
+  ];
+
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-x86_64-v4;
 
   services.scx-loader = {
-    enable = true;
+    enable = !isCachyOS;
     config = {
       # lavd is mathematically the best for a 2-core laptop
       default_sched = "scx_lavd";
@@ -47,7 +55,7 @@
     };
   };
 
-  security.sudo.extraRules = [
+  security.sudo.extraRules = lib.mkIf config.services.scx-loader.enable [
     {
       users = [ config.my.user.name ];
       commands = [

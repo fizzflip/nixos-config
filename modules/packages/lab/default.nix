@@ -1,6 +1,6 @@
 { ... }: {
   imports = [
-    ./cisco-packet-tracer.nix
+    # ./cisco-packet-tracer.nix
     ./wireshark.nix
   ];
 }
