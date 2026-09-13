@@ -5,18 +5,12 @@
   inputs,
   ...
 }:
-let
-  isCachyOS = lib.hasInfix "cachyos" (config.boot.kernelPackages.kernel.pname or "");
-in
 {
-  nixpkgs.overlays = [
-    inputs.nix-cachyos-kernel.overlays.pinned
-  ];
-
-  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-bore-x86_64-v4;
+  nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
+  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-x86_64-v4;
 
   services.scx-loader = {
-    enable = !isCachyOS;
+    enable = true;
     config = {
       # lavd is mathematically the best for a 2-core laptop
       default_sched = "scx_lavd";
