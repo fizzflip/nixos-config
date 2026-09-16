@@ -11,6 +11,8 @@
     pkgs.dust
     pkgs.ncdu
     pkgs.yazi
+    pkgs.file
+    pkgs.atril
 
     # Searching
     pkgs.fd
