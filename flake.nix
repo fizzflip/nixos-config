@@ -12,7 +12,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    gaze.url = "github:GunduLabs/gaze";
+    gaze = {
+      url = "github:GunduLabs/gaze";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     nixos-hardware = {

@@ -4,15 +4,12 @@
     # Transfer
     pkgs.curl
     pkgs.aria2
-    pkgs.localsend
-    pkgs.megabasterd
 
     # File management
     pkgs.dust
     pkgs.ncdu
     pkgs.yazi
     pkgs.file
-    pkgs.atril
 
     # Searching
     pkgs.fd
@@ -26,7 +23,6 @@
     pkgs.fastfetch
 
     # Nix
-    pkgs.nil
     pkgs.nixd
     pkgs.nixfmt
     pkgs.nix-tree
@@ -36,7 +32,6 @@
 
     # Image manipulation
     pkgs.chafa
-    pkgs.inkscape
     pkgs.imagemagick
   ];
 }

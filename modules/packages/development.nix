@@ -9,12 +9,9 @@ lib.mkIf (!config.my.packages.minimal) {
     pkgs.uv
     pkgs.gh
     pkgs.git
-    pkgs.gcc
     pkgs.bun
     pkgs.yarn
     pkgs.pnpm
-    pkgs.devenv
-    pkgs.libgcc
     pkgs.nodejs
     pkgs.python3
     pkgs.zed-editor

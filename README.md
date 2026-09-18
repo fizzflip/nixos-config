@@ -8,7 +8,7 @@ Mess? Kinda. Cleaning? Working on that.
 [Wallpaper](https://wallhaven.cc/w/6lqvql) / [Creator](https://wallhaven.cc/user/Trashbuff)
 
 [![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3)](https://nixos.org)
-[![Kernel](https://img.shields.io/badge/Kernel-Zen-orange.svg?logo=linux&color=E25D25)](https://en.wikipedia.org/wiki/Zen_kernel)
+[![Kernel](https://img.shields.io/badge/Kernel-CachyOS-orange.svg?logo=linux&color=E25D25)](https://cachyos.org)
 [![Shell](https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5)](https://fishshell.com)
 [![Desktop](https://img.shields.io/badge/Desktop-KDE%20%2F%20Niri-blueviolet.svg?logo=niri&color=8A2BE2)](#desktop-environments)
 
@@ -34,7 +34,7 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Performance & Kernel Tuning
 
-- **Kernel**: Linux Zen kernel (`linuxPackages_zen`) with disabled CPU mitigations (`mitigations=off`).
+- **Kernel**: CachyOS kernel (`x86_64-v4`) with `sched-ext` and disabled CPU mitigations (`mitigations=off`).
 - **Graphics & Display**: Intel iGPU hardware acceleration (GuC/HuC submission, `iHD` driver, VPL runtime), Framebuffer Compression (FBC), PSR2, and Fastboot.
 - **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, MTU probing, and socket buffer tuning.
 - **I/O Schedulers & Disks**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs), periodic SSD TRIM, and tmpfs `/tmp`.
@@ -54,7 +54,7 @@ Mess? Kinda. Cleaning? Working on that.
 ### Packages & CLI Tools
 
 - **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`, `imagemagick`, `chafa`.
-- **Browsers & Dev**: Helium Browser, Mullvad Browser, Zed Editor, VSCodium FHS, JetBrains IDEs, Typst toolchain.
+- **Browsers & Dev**: Helium Browser, Mullvad Browser, Zed Editor, Antigravity IDE, Typst toolchain.
 - **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
 - **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
 

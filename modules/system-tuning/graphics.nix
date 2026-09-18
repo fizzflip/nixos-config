@@ -6,21 +6,11 @@
     extraPackages = with pkgs; [
       # Core drivers for 11th Gen (Tiger Lake)
       intel-media-driver # LIBVA_DRIVER_NAME=iHD (primary for Gen 9+)
-
-      intel-gmmlib # Graphics Memory Management Library
-      intel-compute-runtime # OpenCL compute runtime
-
-      # VPL (replaces deprecated media-sdk)
-      vpl-gpu-rt # For hardware video encoding/decoding
-
-      # Additional support
-      mesa # OpenGL/Vulkan
-      libvdpau-va-gl # VDPAU-to-VA-API bridge
-      ocl-icd # OpenCL ICD loader
+      vpl-gpu-rt         # For hardware video encoding/decoding
+      libvdpau-va-gl     # VDPAU-to-VA-API bridge
     ];
     extraPackages32 = with pkgs.pkgsi686Linux; [
       intel-media-driver
-      mesa
       libvdpau-va-gl
     ];
   };

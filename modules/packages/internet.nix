@@ -16,5 +16,8 @@ lib.mkIf (!config.my.packages.minimal) {
 
     # Torrent
     pkgs.qbittorrent-enhanced
+
+    # Local Sharing
+    pkgs.localsend
   ];
 }

@@ -10,11 +10,14 @@
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ config.my.user.name ];
   virtualisation = {
-    libvirtd.nss = {
+    libvirtd = {
       enable = true;
-      enableGuest = true;
+      qemu.package = pkgs.qemu_kvm;
+      nss = {
+        enable = true;
+        enableGuest = true;
+      };
     };
-    libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
 

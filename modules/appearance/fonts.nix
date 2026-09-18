@@ -1,12 +1,11 @@
 { pkgs, ... }: {
   fonts.packages = [
-    pkgs.nerd-fonts.noto
     pkgs.nerd-fonts.fira-code
     pkgs.nerd-fonts.jetbrains-mono
     pkgs.nerd-fonts.mononoki
 
     pkgs.stix-two
-    pkgs.iosevka
+    pkgs.iosevka-bin
 
     pkgs.corefonts
     pkgs.open-sans

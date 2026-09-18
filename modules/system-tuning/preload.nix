@@ -5,7 +5,7 @@
 
   services.preload-ng = {
     enable = true;
-    usePrecompiled = false; # Compile natively from C source
+    usePrecompiled = true; # Use upstream precompiled binary
 
     settings = {
       # Time quantum in seconds for process data gathering

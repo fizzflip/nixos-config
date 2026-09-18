@@ -10,11 +10,15 @@ lib.mkIf (!config.my.packages.minimal) {
     pkgs.mpv
     pkgs.yt-dlp
     pkgs.freetube
-    pkgs.ffmpeg-full
+    pkgs.ffmpeg-headless
 
     # Reading/Note-taking
     pkgs.mochi
     pkgs.foliate
     pkgs.obsidian
+    pkgs.atril
+
+    # Graphics & Vector Design
+    pkgs.inkscape
   ];
 }
