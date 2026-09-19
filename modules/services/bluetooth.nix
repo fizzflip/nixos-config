@@ -1,5 +1,5 @@
 { ... }: {
-  # Disabled by default — set enable = true to re-enable.
+  # Disabled by default - set enable = true to re-enable.
   hardware.bluetooth = {
     enable = false;
     # powerOnBoot = true; # auto-power on at boot

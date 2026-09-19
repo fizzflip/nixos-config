@@ -13,10 +13,8 @@
           enable = true;
           restartIfChanged = true;
         };
-        # enableClipboardPaste = true;
         enableDynamicTheming = true;
         enableAudioWavelength = true;
-        # enableSystemMonitoring = true;
       };
     };
 

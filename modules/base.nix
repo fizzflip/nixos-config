@@ -4,7 +4,6 @@
     ./core/options.nix
     ./boot/plymouth.nix
     ./boot/bootloader.nix
-    ./services/gaze.nix
     ./services/sound.nix
     ./services/nextdns.nix
     ./services/fhs-env.nix

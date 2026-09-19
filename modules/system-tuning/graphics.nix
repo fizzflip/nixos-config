@@ -6,8 +6,8 @@
     extraPackages = with pkgs; [
       # Core drivers for 11th Gen (Tiger Lake)
       intel-media-driver # LIBVA_DRIVER_NAME=iHD (primary for Gen 9+)
-      vpl-gpu-rt         # For hardware video encoding/decoding
-      libvdpau-va-gl     # VDPAU-to-VA-API bridge
+      vpl-gpu-rt # For hardware video encoding/decoding
+      libvdpau-va-gl # VDPAU-to-VA-API bridge
     ];
     extraPackages32 = with pkgs.pkgsi686Linux; [
       intel-media-driver

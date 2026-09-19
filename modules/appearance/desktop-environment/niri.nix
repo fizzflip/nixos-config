@@ -19,7 +19,7 @@
       enable = true;
       # xdg-desktop-portal-gtk: handles file pickers, inhibit (sleep/screen), and
       # other portal interfaces not supported by the wlr backend.
-      # programs.niri.enable already sets up the core Niri portal — don't set wlr.enable here.
+      # programs.niri.enable already sets up the core Niri portal - don't set wlr.enable here.
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
       config.common.default = [ "gtk" ];
     };

@@ -18,9 +18,6 @@
     environment.systemPackages = [
       pkgs.kdePackages.kcalc
       pkgs.kdePackages.partitionmanager
-      # pkgs.python312Packages.kde-material-you-colors
     ];
-
-    # fwupd now enabled in base.nix for all profiles
   };
 }

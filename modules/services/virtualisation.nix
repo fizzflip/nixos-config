@@ -23,7 +23,6 @@
 
   environment.systemPackages = [
     pkgs.oracle-instantclient
-    # pkgs.winboat
     pkgs.freerdp
     pkgs.rlwrap
   ];
