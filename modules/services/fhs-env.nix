@@ -1,16 +1,14 @@
 { pkgs, ... }: {
   programs.nix-ld = {
     enable = true;
-    libraries = [
+    libraries = (pkgs.steam-run.args.multiPkgs pkgs) ++ [
       pkgs.glib
-      pkgs.glibc
       pkgs.nss
       pkgs.nspr
       pkgs.dbus
       pkgs.atk
       pkgs.at-spi2-atk
       pkgs.at-spi2-core
-      pkgs.libdrm
       pkgs.expat
       pkgs.libxkbcommon
       pkgs.pango
@@ -23,8 +21,6 @@
       pkgs.libxfixes
       pkgs.libxrandr
       pkgs.libxcb
-      pkgs.libgbm
-      pkgs.libGL
       pkgs.stdenv.cc.cc.lib
     ];
   };

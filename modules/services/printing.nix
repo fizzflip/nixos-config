@@ -1,9 +1,14 @@
-{ ... }: {
-  # Disabled by default - set enable = true to re-enable.
-  # nssmdns4 is pre-configured so .local hostnames resolve when printing is active.
+{ pkgs, ... }: {
+  # Enable CUPS
   services.printing.enable = true;
+
+  # Enable HP drivers (includes the proprietary plugin)
+  services.printing.drivers = [ pkgs.hplipWithPlugin ];
+
+  # Enable Avahi for network printer discovery (crucial for Wi-Fi printers)
   services.avahi = {
     enable = true;
-    nssmdns4 = true; # resolves printer.local hostnames when avahi is enabled
+    nssmdns4 = true;
+    openFirewall = true;
   };
 }
