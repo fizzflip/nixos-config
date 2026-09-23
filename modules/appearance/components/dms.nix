@@ -13,8 +13,6 @@
           enable = true;
           restartIfChanged = true;
         };
-        enableDynamicTheming = true;
-        enableAudioWavelength = true;
       };
     };
 
