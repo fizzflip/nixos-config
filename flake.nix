@@ -39,7 +39,6 @@
     }:
     let
       baseModules = [
-        ./hosts/laptop/configuration.nix
         ./modules/base.nix
       ];
       mkSystem =
@@ -60,12 +59,14 @@
             my.user.name = "mrbot";
             my.desktop.environment = "kde";
           };
+          extraModules = [ ./hosts/laptop/configuration.nix ];
         };
         minimal = mkSystem {
           myConfig = {
             my.user.name = "mrbot";
             my.desktop.environment = "niri";
           };
+          extraModules = [ ./hosts/laptop/configuration.nix ];
         };
         preview = mkSystem {
           myConfig = {

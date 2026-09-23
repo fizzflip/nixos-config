@@ -144,6 +144,7 @@ stdenv.mkDerivation rec {
         cat > $out/bin/grayjay <<EOF
     #!/bin/sh
     mkdir -p "\$HOME/.local/share/Grayjay"
+    mkdir -p /tmp/grayjay-launch /tmp/grayjay-cef-launch
     cd "\$HOME/.local/share/Grayjay"
     exec $out/opt/grayjay/Grayjay "\$@"
     EOF

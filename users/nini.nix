@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf config.my.users.nini.enable {
   users.users.nini = {
     isNormalUser = true;
     description = "nini";

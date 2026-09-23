@@ -9,10 +9,13 @@
     ./services/fhs-env.nix
     ./services/flatpaks.nix
     ./services/networking.nix
+    # ./services/printing.nix
     ./system-tuning/default.nix
     ../hosts/common.nix
     ../users/default.nix
+    ../users/nini.nix
     ./shell/fish.nix
+    # ./shell/nu.nix
     ./packages/default.nix
     ./appearance/fonts.nix
     ./appearance/desktop-environment/default.nix

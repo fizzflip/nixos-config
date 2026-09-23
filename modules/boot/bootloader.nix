@@ -28,13 +28,12 @@
   boot.kernelParams = [
     "quiet"
     "splash"
-    "boot.shell_on_fail"
+    "loglevel=3"
     "udev.log_priority=3"
     "rd.systemd.show_status=auto"
 
     "8250.nr_uarts=0"
     "tpm_tis.interrupts=0"
-    "tpm.disable_pcr_read=1"
   ];
   boot.initrd.kernelModules = [ "i915" ];
 }

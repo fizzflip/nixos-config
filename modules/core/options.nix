@@ -15,7 +15,7 @@ in
     };
 
     user.hashedPasswordFile = lib.mkOption {
-      type = lib.types.nullOr lib.types.path;
+      type = lib.types.nullOr lib.types.str;
       default = "/etc/nixos/passwords/${cfg.user.name}";
       description = "Path to the user's hashed password file.";
     };
@@ -49,6 +49,10 @@ in
       default = "none";
       description = "Desktop environment to enable.";
     };
+
+    services.printing.enable = lib.mkEnableOption "CUPS printing service and discovery";
+
+    users.nini.enable = lib.mkEnableOption "Secondary user profile nini";
 
     configPath = lib.mkOption {
       type = lib.types.str;

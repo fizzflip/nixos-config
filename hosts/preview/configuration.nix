@@ -13,13 +13,13 @@ in
 
   # Dummy file systems and bootloader for evaluation (VM builder will override this)
   fileSystems."/" = {
-    device = lib.mkForce "/dev/disk/by-label/nixos";
-    fsType = lib.mkForce "ext4";
+    device = "/dev/disk/by-label/nixos";
+    fsType = "ext4";
   };
   boot.loader.grub.devices = [ "nodev" ];
 
-  # Use default kernel
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages;
+  # Use default kernel for VM
+  boot.kernelPackages = pkgs.linuxPackages;
 
   # Enable graphics (Mesa drivers) - required for Wayland to start!
   hardware.graphics.enable = true;

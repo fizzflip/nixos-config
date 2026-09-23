@@ -7,7 +7,7 @@
 }:
 {
   nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
-  boot.kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-x86_64-v4;
+  boot.kernelPackages = lib.mkDefault pkgs.cachyosKernels.linuxPackages-cachyos-latest-x86_64-v4;
 
   services.scx-loader = {
     enable = true;
@@ -54,7 +54,7 @@
       users = [ config.my.user.name ];
       commands = [
         {
-          command = "/run/current-system/sw/bin/scxctl";
+          command = "${pkgs.scx-loader}/bin/scxctl";
           options = [ "NOPASSWD" ];
         }
       ];
@@ -65,8 +65,6 @@
   boot.kernelParams = [
     "audit=0"
     "nmi_watchdog=0"
-    "quiet"
-    "loglevel=3"
     "pcie_aspm=force"
     "nvme_core.default_ps_max_latency_us=0"
     "ahci.mobile_lpm=1"

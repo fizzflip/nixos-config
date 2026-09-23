@@ -1,15 +1,21 @@
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-    nushell
-    nushellPlugins.formats
-    nushellPlugins.gstat
-    nushellPlugins.highlight
-    nushellPlugins.query
-    nushellPlugins.polars
-    nushellPlugins.skim
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf (config.my.user.shell == pkgs.nushell) {
+  environment.systemPackages = [
+    pkgs.nushell
+    pkgs.nushellPlugins.formats
+    pkgs.nushellPlugins.gstat
+    pkgs.nushellPlugins.highlight
+    pkgs.nushellPlugins.query
+    pkgs.nushellPlugins.polars
+    pkgs.nushellPlugins.skim
   ];
 
-  environment.shells = with pkgs; [
-    nushell
+  environment.shells = [
+    pkgs.nushell
   ];
 }

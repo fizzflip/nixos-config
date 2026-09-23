@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf config.my.services.printing.enable {
   # Enable CUPS
   services.printing.enable = true;
 
