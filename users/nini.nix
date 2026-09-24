@@ -15,9 +15,9 @@ lib.mkIf config.my.users.nini.enable {
     isNormalUser = true;
     description = "nini";
     hashedPasswordFile = lib.mkDefault (
-      if builtins.pathExists /etc/nixos/passwords/nini then "/etc/nixos/passwords/nini" else null
+      if builtins.pathExists "/etc/nixos/passwords/nini" then "/etc/nixos/passwords/nini" else null
     );
-    initialPassword = "nini";
+    initialHashedPassword = "$6$REDACTED$REDACTEDHASHFORHISTORYCLEANUP0000000000000000000000000000000000000000000000000000000000";
     extraGroups = [
       "podman"
       "kvm"

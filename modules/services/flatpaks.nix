@@ -20,11 +20,13 @@ lib.mkIf (!config.my.packages.minimal) {
       "network-online.target"
       "nextdns.service"
     ];
+    unitConfig = {
+      # Disable the burst limit so RestartSec is used immediately
+      StartLimitIntervalSec = 0;
+    };
     serviceConfig = {
       Restart = "on-failure";
       RestartSec = lib.mkForce "10s";
-      # Disable the burst limit so RestartSec is used immediately
-      StartLimitIntervalSec = 0;
     };
   };
 }

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="bg_nini" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#313244"/>
+      <stop offset="100%" stop-color="#181825"/>
+    </linearGradient>
+    <linearGradient id="accent_nini" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f5c2e7"/>
+      <stop offset="100%" stop-color="#cba6f7"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="64" fill="url(#bg_nini)"/>
+  <!-- Head -->
+  <circle cx="64" cy="50" r="22" fill="#f5c2e7"/>
+  <!-- Hair / Ears accent -->
+  <path d="M 46 42 Q 64 24 82 42 Q 74 30 64 30 Q 54 30 46 42 Z" fill="#cba6f7"/>
+  <!-- Eyes -->
+  <circle cx="56" cy="52" r="3" fill="#1e1e2e"/>
+  <circle cx="72" cy="52" r="3" fill="#1e1e2e"/>
+  <!-- Smile -->
+  <path d="M 60 60 Q 64 64 68 60" stroke="#1e1e2e" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <!-- Body -->
+  <path d="M 36 108 C 36 82, 92 82, 92 108 C 92 118, 36 118, 36 108 Z" fill="url(#accent_nini)"/>
+  <!-- Sparkle stars -->
+  <polygon points="96,28 98,34 104,36 98,38 96,44 94,38 88,36 94,34" fill="#f9e2af"/>
+  <polygon points="26,60 27,64 31,65 27,66 26,70 25,66 21,65 25,64" fill="#f9e2af"/>
+</svg>
