@@ -1,9 +1,18 @@
-{ ... }: {
+{ config, lib, ... }: {
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+    wireplumber.extraConfig = lib.mkIf (!config.hardware.bluetooth.enable) {
+      "10-disable-bluetooth" = {
+        "wireplumber.profiles" = {
+          "main" = {
+            "hardware.bluetooth" = "disabled";
+          };
+        };
+      };
+    };
   };
   services.pulseaudio.enable = false;
 

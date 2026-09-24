@@ -16,7 +16,11 @@ in
 
     user.hashedPasswordFile = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
-      default = "/etc/nixos/passwords/${cfg.user.name}";
+      default =
+        let
+          path = "/etc/nixos/passwords/${cfg.user.name}";
+        in
+        if builtins.pathExists path then path else null;
       description = "Path to the user's hashed password file.";
     };
 

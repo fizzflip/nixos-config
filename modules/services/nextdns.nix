@@ -6,7 +6,6 @@
       "/var/secrets/nextdns.conf"
       "-cache-size"
       "10MB" # Enables local caching
-      "-auto-activate" # Finds the lowest latency server
       "-bogus-priv" # Stops leaking local lookups
     ];
   };

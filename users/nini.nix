@@ -15,9 +15,9 @@ lib.mkIf config.my.users.nini.enable {
     isNormalUser = true;
     description = "nini";
     hashedPasswordFile = lib.mkDefault (
-      if builtins.pathExists /etc/nixos/passwords/nini then "/etc/nixos/passwords/nini" else null
+      if builtins.pathExists "/etc/nixos/passwords/nini" then "/etc/nixos/passwords/nini" else null
     );
-    initialPassword = "nini";
+    initialHashedPassword = "$6$hOO/0lRLLWfwNp6h$B2LSv0GFi1NC1aABLYJ.3CZUpIBXCp5xfkKpBdw9f9nlTXb15Ao3WWuKob2SYVXov/ml0/RGorosWqmNUsha70";
     extraGroups = [
       "podman"
       "kvm"

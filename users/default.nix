@@ -7,6 +7,9 @@ in
     isNormalUser = true;
     shell = cfg.shell;
     extraGroups = cfg.extraGroups;
-    hashedPasswordFile = cfg.hashedPasswordFile;
+    hashedPasswordFile =
+      if cfg.hashedPasswordFile != null && builtins.pathExists cfg.hashedPasswordFile
+      then cfg.hashedPasswordFile
+      else null;
   };
 }

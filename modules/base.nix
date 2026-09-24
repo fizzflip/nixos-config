@@ -26,5 +26,6 @@
     NIXOS_OZONE_WL = "1";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
   };
-  services.dbus.implementation = "broker";
+  # Use reference dbus implementation to prevent dbus-broker duplicate service shadowing error spam
+  services.dbus.implementation = "dbus";
 }
