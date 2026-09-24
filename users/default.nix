@@ -3,6 +3,10 @@ let
   cfg = config.my.user;
 in
 {
+  imports = [
+    ./nini.nix
+  ];
+
   users.users.${cfg.name} = {
     isNormalUser = true;
     shell = cfg.shell;

@@ -5,11 +5,6 @@
   ...
 }:
 {
-  imports = [
-    ../components/sddm.nix
-    ../../services/bluetooth.nix
-  ];
-
   config = lib.mkIf (config.my.desktop.environment == "kde") {
     services.desktopManager.plasma6.enable = true;
     services.speechd.enable = lib.mkForce false;

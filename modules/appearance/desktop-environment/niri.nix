@@ -7,7 +7,6 @@
 {
   imports = [
     ../components/dms.nix
-    ../components/sddm.nix
     ../components/nautilus.nix
   ];
 
