@@ -2,8 +2,14 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
+let
+  winpodx = inputs.winpodx.packages.${pkgs.stdenv.hostPlatform.system}.winpodx.overridePythonAttrs (_: {
+    doCheck = false;
+  });
+in
 lib.mkIf config.my.users.nini.enable {
   users.users.nini = {
     isNormalUser = true;
@@ -17,12 +23,9 @@ lib.mkIf config.my.users.nini.enable {
       "kvm"
     ];
     packages = [
-      pkgs.winboat
+      winpodx
       pkgs.freerdp
       pkgs.podman-compose
-      pkgs.vscodium-fhs
-      pkgs.uv
-      pkgs.python3
       pkgs.google-chrome
     ];
   };
