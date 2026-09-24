@@ -72,6 +72,9 @@
     "psi=1"
     "usbcore.autosuspend=2"
     "mitigations=off"
+    "split_lock_mitigate=0"
+    "nowatchdog"
+    "rcutree.enable_rcu_lazy=1"
   ];
 
   # Load network congestion control modules
@@ -79,6 +82,9 @@
 
   boot.kernel.sysctl = {
     "vm.max_map_count" = 2147483642;
+    "kernel.sched_autogroup_enabled" = 1;
+    "vm.compaction_proactiveness" = 0;
+    "vm.page_lock_unfairness" = 1;
 
     # TCP BBR Congestion Control & Network Optimizations
     "net.core.default_qdisc" = "fq";
