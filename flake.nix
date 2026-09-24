@@ -30,6 +30,10 @@
       url = "github:miguel-b-p/preload-ng";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    winpodx = {
+      url = "github:kernalix7/winpodx";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{

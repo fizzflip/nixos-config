@@ -61,11 +61,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1790116829,
-        "narHash": "sha256-VPD7WgQi0C9UM6hJRL0J2Tmn99rKUN6LZjArT6QSaXw=",
+        "lastModified": 1790136667,
+        "narHash": "sha256-jDZGTIxMg4l8Z0vHYZAYl9oUJeZvPx0pGSm6CvtSXv8=",
         "owner": "schembriaiden",
         "repo": "helium-browser-nix-flake",
-        "rev": "9a95ab5bc0a151c9969ce2f7a5b99aabf284489b",
+        "rev": "cb5943d09f182b66493d1988ebefe3f504e4fe1d",
         "type": "github"
       },
       "original": {
@@ -148,11 +148,11 @@
     },
     "nixpkgs-darwin": {
       "locked": {
-        "lastModified": 1789485310,
-        "narHash": "sha256-VsDMTLSkAAJmbNha6sGNzlF33X7RESWLl3SnjDQu+4U=",
+        "lastModified": 1790071232,
+        "narHash": "sha256-S27lKsLB2rrtg/OfNIRsFTJJWXv1FLAhapm/P8HM2V8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "0c32f40fe3e2a9adfc427fd5abc061a31043ea44",
+        "rev": "e9b6aa075c9364c5d152b7657c41349998391daf",
         "type": "github"
       },
       "original": {
@@ -179,11 +179,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1790046670,
-        "narHash": "sha256-MYiI+CzL0tuWgRPjGsKCDHqYs2T3OzMlMQWOYWG0qso=",
+        "lastModified": 1790185690,
+        "narHash": "sha256-xJ+X4hBtOcAFGBOe5nAMyMUeF9foJBmIOu3NjBqBycU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6774f7bc253789b113a4f39285dc0fa100abeacc",
+        "rev": "4975466d324710c576dc11ad614684e6bd8cad8e",
         "type": "github"
       },
       "original": {
@@ -222,7 +222,8 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "preload-ng": "preload-ng",
-        "silentSDDM": "silentSDDM"
+        "silentSDDM": "silentSDDM",
+        "winpodx": "winpodx"
       }
     },
     "silentSDDM": {
@@ -290,6 +291,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "winpodx": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1789716274,
+        "narHash": "sha256-diuewYKU3YoHz4XBcZP6GNcK+4qY4VboLuImejsPkx4=",
+        "owner": "kernalix7",
+        "repo": "winpodx",
+        "rev": "2077c099d8f1b2ecaaed40575c387a3e22be0f65",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kernalix7",
+        "repo": "winpodx",
         "type": "github"
       }
     }

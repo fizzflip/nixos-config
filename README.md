@@ -60,7 +60,7 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Services & Security
 
-- **Lab & Virtualization**: Docker, KVM/QEMU, `virt-manager`, `winboat`, Android Studio & Waydroid (`android.nix`), Wireshark, Cisco Packet Tracer, Figma, and IBM Bob IDE (`specialisation.lab` profile).
+- **Lab & Virtualization**: Podman (Docker-compatible), KVM/QEMU, `virt-manager`, `winpodx`, Android Studio & Waydroid (`android.nix`), Wireshark, Cisco Packet Tracer, Figma, and IBM Bob IDE (`specialisation.lab` profile).
 - **Systemd Service Sandboxing**: Dedicated security overrides reducing systemd-analyze exposure levels for `nextdns`, `mandb`, `iwd`, `scx_loader`, `nscd`, and `systemd-rfkill`.
 - **Kernel & Sysctl Security**: Kernel image protection (`protectKernelImage`), restricted ptrace scope, sysctl network and filesystem security hardening.
 - **DNS**: NextDNS.

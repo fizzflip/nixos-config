@@ -1,10 +1,20 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }:
+let
+  winpodx = inputs.winpodx.packages.${pkgs.stdenv.hostPlatform.system}.winpodx.overridePythonAttrs (_: {
+    doCheck = false;
+  });
+in
 {
-  virtualisation.docker.enable = true;
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
+  };
 
   # Virt-manager
   programs.virt-manager.enable = true;
@@ -25,5 +35,7 @@
     pkgs.oracle-instantclient
     pkgs.freerdp
     pkgs.rlwrap
+    pkgs.podman-compose
+    winpodx
   ];
 }

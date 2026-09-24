@@ -32,6 +32,7 @@
   specialisation.lab.configuration = {
     users.users.${config.my.user.name}.extraGroups = [
       "adbusers"
+      "podman"
       "docker"
     ];
     imports = [
