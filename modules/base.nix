@@ -1,25 +1,21 @@
 { inputs, ... }: {
   nixpkgs.config.allowUnfree = true;
+
   imports = [
+    # Core system options & shared settings
     ./core/options.nix
-    ./boot/plymouth.nix
-    ./boot/bootloader.nix
-    ./services/sound.nix
-    ./services/nextdns.nix
-    ./services/fhs-env.nix
-    ./services/flatpaks.nix
-    ./services/networking.nix
-    ./services/podman.nix
-    # ./services/printing.nix
-    ./system-tuning/default.nix
     ../hosts/common.nix
     ../users/default.nix
-    ../users/nini.nix
-    ./shell/fish.nix
-    # ./shell/nu.nix
+
+    # Subsystem categories
+    ./boot/default.nix
+    ./services/default.nix
+    ./system-tuning/default.nix
+    ./shell/default.nix
     ./packages/default.nix
-    ./appearance/fonts.nix
-    ./appearance/desktop-environment/default.nix
+    ./appearance/default.nix
+
+    # External flake modules
     inputs.nix-flatpak.nixosModules.nix-flatpak
   ];
   environment.sessionVariables = {

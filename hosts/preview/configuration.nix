@@ -28,15 +28,6 @@ in
   services.xserver.enable = true;
   services.displayManager.sddm.wayland.enable = lib.mkForce false;
 
-  # Basic networking and sound required for a desktop
-  networking.networkmanager.enable = true;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    pulse.enable = true;
-  };
-
   services.qemuGuest.enable = true;
   services.spice-vdagentd.enable = true;
 
