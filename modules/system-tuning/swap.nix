@@ -2,12 +2,13 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd"; # Uses zstd for optimal compression/speed
-    memoryPercent = 100; # Maps zram 1:1 with physical RAM
+    memoryPercent = 150; # 150% virtual swap pool (12GB) backed by zstd compression
+    priority = 100; # Ensure ZRAM always takes highest priority over any disk swap
   };
   boot = {
     kernelParams = [ "zswap.enabled=0" ];
     kernel.sysctl = {
-      "vm.swappiness" = 150; # Aggressively push data to zram
+      "vm.swappiness" = 180; # Aggressively push cold anonymous pages to zram before evicting cache
       "vm.watermark_boost_factor" = 0; # Prevents latency spikes during memory fragmentation
       "vm.watermark_scale_factor" = 125; # Keeps the kernel from stressing out when RAM gets low
       "vm.page-cluster" = 0; # Crucial: Disables swap read-ahead

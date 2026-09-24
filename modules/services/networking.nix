@@ -11,6 +11,7 @@
 
   # Network configuration
   systemd.services.NetworkManager-wait-online.enable = false;
+  networking.modemmanager.enable = false; # Disable cellular modem daemon to save boot time and memory
   networking.networkmanager = {
     enable = true;
     wifi = {

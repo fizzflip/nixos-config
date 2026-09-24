@@ -9,6 +9,7 @@
     nixos.enable = false;
     info.enable = false;
     doc.enable = false;
+    man.cache.enable = false;
   };
   services.journald.settings.Journal = {
     SystemMaxUse = "100M";
