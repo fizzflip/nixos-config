@@ -1,22 +1,10 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }:
-let
-  winpodx = inputs.winpodx.packages.${pkgs.stdenv.hostPlatform.system}.winpodx.overridePythonAttrs (_: {
-    doCheck = false;
-  });
-in
 {
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-    defaultNetwork.settings.dns_enabled = true;
-  };
-
-  # Virt-manager
+  # Virt-manager & Libvirt
   programs.virt-manager.enable = true;
   users.groups.libvirtd.members = [ config.my.user.name ];
   virtualisation = {
@@ -36,6 +24,5 @@ in
     pkgs.freerdp
     pkgs.rlwrap
     pkgs.podman-compose
-    winpodx
   ];
 }

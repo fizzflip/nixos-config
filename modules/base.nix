@@ -9,6 +9,7 @@
     ./services/fhs-env.nix
     ./services/flatpaks.nix
     ./services/networking.nix
+    ./services/podman.nix
     # ./services/printing.nix
     ./system-tuning/default.nix
     ../hosts/common.nix

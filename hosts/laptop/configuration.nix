@@ -29,6 +29,9 @@
     ./hardware-configuration.nix
   ];
 
+  # Enable secondary user nini with WinBoat and Podman in base system
+  my.users.nini.enable = true;
+
   specialisation.lab.configuration = {
     users.users.${config.my.user.name}.extraGroups = [
       "adbusers"
