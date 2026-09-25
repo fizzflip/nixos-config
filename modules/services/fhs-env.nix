@@ -1,42 +1,42 @@
 { pkgs, ... }: {
   programs.nix-ld = {
     enable = true;
-    libraries = with pkgs; [
-      stdenv.cc.cc.lib
-      zlib
-      fuse3
-      glib
-      nss
-      nspr
-      dbus
-      atk
-      at-spi2-atk
-      at-spi2-core
-      expat
-      libxkbcommon
-      pango
-      cairo
-      alsa-lib
-      openssl
-      curl
-      systemd
-      libglvnd
-      mesa
-      vulkan-loader
-      wayland
-      wayland-protocols
-      libdecor
-      libx11
-      libxcomposite
-      libxdamage
-      libxext
-      libxfixes
-      libxrandr
-      libxcb
-      libxcursor
-      libxi
-      libxrender
-      libxtst
+    libraries = [
+      pkgs.stdenv.cc.cc.lib
+      pkgs.zlib
+      pkgs.fuse3
+      pkgs.glib
+      pkgs.nss
+      pkgs.nspr
+      pkgs.dbus
+      pkgs.atk
+      pkgs.at-spi2-atk
+      pkgs.at-spi2-core
+      pkgs.expat
+      pkgs.libxkbcommon
+      pkgs.pango
+      pkgs.cairo
+      pkgs.alsa-lib
+      pkgs.openssl
+      pkgs.curl
+      pkgs.systemd
+      pkgs.libglvnd
+      pkgs.mesa
+      pkgs.vulkan-loader
+      pkgs.wayland
+      pkgs.wayland-protocols
+      pkgs.libdecor
+      pkgs.libx11
+      pkgs.libxcomposite
+      pkgs.libxdamage
+      pkgs.libxext
+      pkgs.libxfixes
+      pkgs.libxrandr
+      pkgs.libxcb
+      pkgs.libxcursor
+      pkgs.libxi
+      pkgs.libxrender
+      pkgs.libxtst
     ];
   };
 
