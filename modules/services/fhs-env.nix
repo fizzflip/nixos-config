@@ -23,6 +23,9 @@
       libglvnd
       mesa
       vulkan-loader
+      wayland
+      wayland-protocols
+      libdecor
       libx11
       libxcomposite
       libxdamage
@@ -36,4 +39,8 @@
       libxtst
     ];
   };
+
+  environment.systemPackages = [
+    pkgs.steam-run
+  ];
 }

@@ -12,6 +12,7 @@
 
   config = lib.mkIf (config.my.desktop.environment == "niri") {
     programs.niri.enable = true;
+    programs.xwayland.enable = true;
     programs.dconf.enable = true;
 
     xdg.portal = {

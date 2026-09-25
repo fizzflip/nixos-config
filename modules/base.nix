@@ -21,6 +21,7 @@
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    SDL_VIDEODRIVER = "wayland,x11";
   };
   # Use reference dbus implementation to prevent dbus-broker duplicate service shadowing error spam
   services.dbus.implementation = "dbus";
