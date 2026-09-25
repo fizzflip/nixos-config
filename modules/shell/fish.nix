@@ -71,17 +71,17 @@ in
   programs.starship.enable = true;
 
   # Modern developer CLI plugins for Fish
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
     # Core CLI tools needed by plugins
-    fzf
-    grc
-    eza
+    pkgs.fzf
+    pkgs.grc
+    pkgs.eza
 
     # Fish plugins
-    fishPlugins.autopair # Auto-closes parenthesis, brackets, and quotes
-    fishPlugins.done # Notifies when long-running terminal commands complete
-    fishPlugins.fzf-fish # Fast terminal search and navigation with fzf
-    fishPlugins.grc # Generic colorizer for command line output
-    fishPlugins.foreign-env # Safely source POSIX/bash scripts in Fish
+    pkgs.fishPlugins.autopair # Auto-closes parenthesis, brackets, and quotes
+    pkgs.fishPlugins.done # Notifies when long-running terminal commands complete
+    pkgs.fishPlugins.fzf-fish # Fast terminal search and navigation with fzf
+    pkgs.fishPlugins.grc # Generic colorizer for command line output
+    pkgs.fishPlugins.foreign-env # Safely source POSIX/bash scripts in Fish
   ];
 }

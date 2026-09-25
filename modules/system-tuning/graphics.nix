@@ -3,15 +3,15 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [
+    extraPackages = [
       # Core drivers for 11th Gen (Tiger Lake)
-      intel-media-driver # LIBVA_DRIVER_NAME=iHD (primary for Gen 9+)
-      vpl-gpu-rt # For hardware video encoding/decoding
-      libvdpau-va-gl # VDPAU-to-VA-API bridge
+      pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD (primary for Gen 9+)
+      pkgs.vpl-gpu-rt # For hardware video encoding/decoding
+      pkgs.libvdpau-va-gl # VDPAU-to-VA-API bridge
     ];
-    extraPackages32 = with pkgs.pkgsi686Linux; [
-      intel-media-driver
-      libvdpau-va-gl
+    extraPackages32 = [
+      pkgs.pkgsi686Linux.intel-media-driver
+      pkgs.pkgsi686Linux.libvdpau-va-gl
     ];
   };
 
