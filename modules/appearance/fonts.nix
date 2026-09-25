@@ -5,7 +5,6 @@
     pkgs.nerd-fonts.mononoki
 
     pkgs.stix-two
-    pkgs.iosevka-bin
 
     pkgs.corefonts
     pkgs.open-sans
@@ -13,7 +12,6 @@
     pkgs.dm-sans
     pkgs.dm-mono
 
-    pkgs.cascadia-code
     pkgs.maple-mono.NF
 
     pkgs.noto-fonts
