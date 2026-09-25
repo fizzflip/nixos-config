@@ -11,17 +11,23 @@
   ];
 
   config = lib.mkIf (config.my.desktop.environment == "niri") {
-    programs.niri.enable = true;
+    programs.niri = {
+      enable = true;
+      # Route FileChooser portal to xdg-desktop-portal-gtk instead of Nautilus
+      useNautilus = false;
+    };
     programs.xwayland.enable = true;
     programs.dconf.enable = true;
 
     xdg.portal = {
       enable = true;
-      # xdg-desktop-portal-gtk: handles file pickers, inhibit (sleep/screen), and
-      # other portal interfaces not supported by the wlr backend.
-      # programs.niri.enable already sets up the core Niri portal - don't set wlr.enable here.
+      # xdg-desktop-portal-gnome is automatically added by programs.niri.enable for screencast/remotedesktop
+      # xdg-desktop-portal-gtk handles FileChooser, Access, Notification, and Inhibit
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-      config.common.default = [ "gtk" ];
+      config.niri = {
+        # Route idle/sleep inhibition to GTK (systemd-logind); GNOME portal fails without gnome-session
+        "org.freedesktop.impl.portal.Inhibit" = "gtk";
+      };
     };
 
     security = {
