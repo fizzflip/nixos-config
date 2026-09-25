@@ -19,5 +19,8 @@
       pkgs.gst_all_1.gst-plugins-ugly
     ];
     environment.pathsToLink = [ "/share/thumbnailers" ];
+    xdg.mime.defaultApplications = {
+      "inode/directory" = "org.gnome.Nautilus.desktop";
+    };
   };
 }
