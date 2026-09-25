@@ -29,9 +29,9 @@
       max-jobs = "auto";
       cores = 0;
 
-      # Optimize binary cache network downloads
-      download-buffer-size = 134217728; # 128 MiB buffer for high-bandwidth chunk downloads
-      http-connections = 50; # Parallel HTTP connection pool
+      # Optimize binary cache network downloads safely for memory-constrained hardware
+      download-buffer-size = 33554432; # 32 MiB buffer for high-bandwidth chunk downloads
+      http-connections = 25; # Balanced parallel HTTP connection pool
       connect-timeout = 5; # Fast failure on unreachable mirrors
       stalled-download-timeout = 10;
       builders-use-substitutes = true;

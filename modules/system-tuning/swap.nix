@@ -2,7 +2,7 @@
   zramSwap = {
     enable = true;
     algorithm = "zstd"; # Uses zstd for optimal compression/speed
-    memoryPercent = 150; # 150% virtual swap pool (12GB) backed by zstd compression
+    memoryPercent = 100; # Maps zram 1:1 with physical RAM (8GB virtual swap) backed by zstd compression
     priority = 100; # Ensure ZRAM always takes highest priority over any disk swap
   };
   boot = {
