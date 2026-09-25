@@ -8,5 +8,6 @@
     ./podman.nix
     ./printing.nix
     ./bluetooth.nix
+    ./virtualisation.nix
   ];
 }

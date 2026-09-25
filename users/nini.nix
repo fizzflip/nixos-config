@@ -6,9 +6,7 @@
   ...
 }:
 let
-  winpodx = inputs.winpodx.packages.${pkgs.stdenv.hostPlatform.system}.winpodx.overridePythonAttrs (_: {
-    doCheck = false;
-  });
+  winappsPkgs = inputs.winapps.packages.${pkgs.stdenv.hostPlatform.system};
 in
 lib.mkIf config.my.users.nini.enable {
   users.users.nini = {
@@ -19,13 +17,14 @@ lib.mkIf config.my.users.nini.enable {
     );
     initialHashedPassword = "$6$REDACTED$REDACTEDHASHFORHISTORYCLEANUP0000000000000000000000000000000000000000000000000000000000";
     extraGroups = [
-      "podman"
+      "libvirtd"
       "kvm"
     ];
     packages = [
-      winpodx
+      # WinApps integration
+      winappsPkgs.winapps
+      winappsPkgs.winapps-launcher
       pkgs.freerdp
-      pkgs.podman-compose
       pkgs.google-chrome
     ];
   };

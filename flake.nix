@@ -30,8 +30,8 @@
       url = "github:miguel-b-p/preload-ng";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    winpodx = {
-      url = "github:kernalix7/winpodx";
+    winapps = {
+      url = "github:winapps-org/winapps";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -85,11 +85,11 @@
             my.user.name = "mrbot";
             my.desktop.environment = "niri";
             my.packages.minimal = false;
+            my.services.virtualisation.enable = true;
           };
           extraModules = [
             ./hosts/preview/configuration.nix
             ./modules/packages/lab/default.nix
-            ./modules/services/virtualisation.nix
           ];
         };
       };
