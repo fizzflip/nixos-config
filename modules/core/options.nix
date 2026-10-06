@@ -29,7 +29,6 @@ in
       default = [
         "networkmanager"
         "wheel"
-        "kvm"
         "i2c"
         "input"
         "wireshark"
@@ -56,11 +55,7 @@ in
 
     services.printing.enable = lib.mkEnableOption "CUPS printing service and discovery";
 
-    services.virtualisation.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = cfg.users.nini.enable;
-      description = "Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM.";
-    };
+    services.virtualisation.enable = lib.mkEnableOption "Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM";
 
     users.nini.enable = lib.mkEnableOption "Secondary user profile nini";
 
