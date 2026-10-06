@@ -31,10 +31,17 @@ in
     # Virt-manager GUI
     programs.virt-manager.enable = true;
 
-    # Grant primary user libvirt & kvm permissions
-    users.users.${config.my.user.name}.extraGroups = [
-      "libvirtd"
-      "kvm"
-    ];
+    # Grant active users libvirt & kvm permissions
+    users.users = {
+      ${config.my.user.name}.extraGroups = [
+        "libvirtd"
+        "kvm"
+      ];
+    } // lib.optionalAttrs config.my.users.nini.enable {
+      nini.extraGroups = [
+        "libvirtd"
+        "kvm"
+      ];
+    };
   };
 }

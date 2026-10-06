@@ -16,10 +16,7 @@ lib.mkIf config.my.users.nini.enable {
       if builtins.pathExists "/etc/nixos/passwords/nini" then "/etc/nixos/passwords/nini" else null
     );
     initialHashedPassword = "$6$REDACTED$REDACTEDHASHFORHISTORYCLEANUP0000000000000000000000000000000000000000000000000000000000";
-    extraGroups = [
-      "libvirtd"
-      "kvm"
-    ];
+    extraGroups = [ ];
     packages = [
       # WinApps integration
       winappsPkgs.winapps
