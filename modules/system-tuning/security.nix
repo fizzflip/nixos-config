@@ -5,7 +5,9 @@
 
     # Userland security
     rtkit.enable = true;
-    sudo = {
+    sudo.enable = false;
+    sudo-rs = {
+      enable = true;
       wheelNeedsPassword = true;
       execWheelOnly = true;
     };

@@ -7,7 +7,7 @@
 }:
 {
   nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
-  boot.kernelPackages = lib.mkDefault pkgs.cachyosKernels.linuxPackages-cachyos-latest-x86_64-v4;
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_testing;
 
   services.scx-loader = {
     enable = true;
@@ -49,7 +49,7 @@
     };
   };
 
-  security.sudo.extraRules = lib.mkIf config.services.scx-loader.enable [
+  security.sudo-rs.extraRules = lib.mkIf config.services.scx-loader.enable [
     {
       users = [ config.my.user.name ];
       commands = [
@@ -61,13 +61,12 @@
     }
   ];
 
-  # Kernel Parameters to reduce wakeups, audit overhead, force PCIe ASPM, NVMe APST power states, AHCI LPM, THP madvise, PSI tracking, USB autosuspend, and disable mitigations
+  # Kernel Parameters to reduce wakeups, audit overhead, enable PCIe ASPM powersave, THP madvise, PSI tracking, USB autosuspend, and disable mitigations
   boot.kernelParams = [
     "audit=0"
     "nmi_watchdog=0"
     "pcie_aspm=force"
-    "nvme_core.default_ps_max_latency_us=0"
-    "ahci.mobile_lpm=1"
+    "pcie_aspm.policy=powersave"
     "transparent_hugepage=madvise"
     "psi=1"
     "usbcore.autosuspend=2"

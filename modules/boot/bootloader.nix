@@ -14,6 +14,7 @@
     };
     initrd = {
       systemd.enable = true;
+      systemd.emergencyAccess = true;
       verbose = false;
     };
     consoleLogLevel = 3;

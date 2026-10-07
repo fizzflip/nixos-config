@@ -12,8 +12,9 @@ in
     shell = cfg.shell;
     extraGroups = cfg.extraGroups;
     hashedPasswordFile =
-      if cfg.hashedPasswordFile != null && builtins.pathExists cfg.hashedPasswordFile
-      then cfg.hashedPasswordFile
-      else null;
+      if cfg.hashedPasswordFile != null && builtins.pathExists cfg.hashedPasswordFile then
+        cfg.hashedPasswordFile
+      else
+        null;
   };
 }

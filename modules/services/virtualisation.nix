@@ -15,13 +15,15 @@ in
         enable = true;
         qemu = {
           package = pkgs.qemu_kvm; # Lightweight KVM-only x86_64 build without multi-arch bloat
-          runAsRoot = false;       # Non-root daemon execution for hardened security
-          swtpm.enable = true;     # Software TPM 2.0 for modern Windows (WinApps / Win 11)
+          runAsRoot = false; # Non-root daemon execution for hardened security
+          swtpm.enable = true; # Software TPM 2.0 for modern Windows (WinApps / Win 11)
+          vhostUserPackages = [ pkgs.virtiofsd ]; # Standalone Rust daemon required by QEMU >= 8.0 & WinApps
         };
-        onBoot = "ignore";         # Don't auto-start VMs on boot: zero idle CPU & RAM overhead
-        onShutdown = "shutdown";   # Graceful guest shutdown on host poweroff
+        parallelShutdown = 2;
+        onBoot = "ignore"; # Don't auto-start VMs on boot: zero idle CPU & RAM overhead
+        onShutdown = "shutdown"; # Graceful guest shutdown on host poweroff
         nss = {
-          enable = true;           # Resolve guest VM hostnames via NSS
+          enable = true; # Resolve guest VM hostnames via NSS
           enableGuest = true;
         };
       };
@@ -37,7 +39,8 @@ in
         "libvirtd"
         "kvm"
       ];
-    } // lib.optionalAttrs config.my.users.nini.enable {
+    }
+    // lib.optionalAttrs config.my.users.nini.enable {
       nini.extraGroups = [
         "libvirtd"
         "kvm"

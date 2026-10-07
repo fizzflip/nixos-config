@@ -21,21 +21,22 @@ in
         "User.${config.my.user.name}" = {
           preferred-session = if config.my.desktop.environment == "kde" then "plasma" else "niri";
         };
-      } // lib.optionalAttrs (config.my.users.nini.enable) {
+      }
+      // lib.optionalAttrs (config.my.users.nini.enable) {
         "User.nini" = {
           preferred-session = if config.my.desktop.environment == "kde" then "plasma" else "niri";
         };
       };
       profileIcons = {
         ${config.my.user.name} = ./avatars/mrbot.svg;
-      } // lib.optionalAttrs (builtins.hasAttr "nini" config.users.users) {
+      }
+      // lib.optionalAttrs (builtins.hasAttr "nini" config.users.users) {
         nini = ./avatars/nini.svg;
       };
     };
 
     systemd.services.display-manager = {
       environment = {
-        WLR_NO_HARDWARE_CURSORS = "1";
         XCURSOR_PATH = "/run/current-system/sw/share/icons";
         XCURSOR_THEME = "Bibata-Modern-Classic";
         XCURSOR_SIZE = "24";

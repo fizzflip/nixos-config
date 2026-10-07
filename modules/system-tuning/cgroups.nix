@@ -2,7 +2,7 @@
   # Userspace Out-Of-Memory (OOM) Daemon with Pressure Stall Information (PSI) monitoring
   systemd.oomd = {
     enable = true;
-    enableUserSlices = true;
+    enableUserSlices = false;
     enableSystemSlice = true;
     settings.OOM = {
       DefaultMemoryPressureDurationSec = "20s";

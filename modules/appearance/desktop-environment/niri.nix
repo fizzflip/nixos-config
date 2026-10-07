@@ -21,18 +21,46 @@
 
     xdg.portal = {
       enable = true;
-      # xdg-desktop-portal-gnome is automatically added by programs.niri.enable for screencast/remotedesktop
-      # xdg-desktop-portal-gtk handles FileChooser, Access, Notification, and Inhibit
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+        pkgs.xdg-desktop-portal-gnome
+      ];
       config.niri = {
+        default = [
+          "gnome"
+          "gtk"
+        ];
+        # Route FileChooser to GTK to prevent D-Bus freeze when Nautilus is not a running daemon
+        "org.freedesktop.impl.portal.FileChooser" = "gtk";
+        # Niri natively implements Mutter ScreenCast and RemoteDesktop D-Bus interfaces
+        "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+        "org.freedesktop.impl.portal.Screenshot" = "gnome";
         # Route idle/sleep inhibition to GTK (systemd-logind); GNOME portal fails without gnome-session
         "org.freedesktop.impl.portal.Inhibit" = "gtk";
+        "org.freedesktop.impl.portal.Access" = "gtk";
+        "org.freedesktop.impl.portal.Notification" = "gtk";
+        "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
       };
     };
 
     security = {
       polkit.enable = true;
       # soteria.enable = true;
+    };
+
+    # Systemd user service to autostart Polkit authentication agent in Niri session
+    systemd.user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
     };
 
     # Auto-mounting stuff
@@ -49,7 +77,7 @@
       pkgs.xwayland-satellite
       pkgs.gnome-disk-utility
 
-      # GTK Theme
+      # GTK Theme & Cursors
       # pkgs.orchis-theme
       pkgs.bibata-cursors
 
@@ -58,6 +86,10 @@
 
       # Image viewer
       pkgs.nomacs
+
+      # Icon themes required by polkit-gnome and GTK dialogs
+      pkgs.adwaita-icon-theme
+      pkgs.hicolor-icon-theme
     ];
   };
 }

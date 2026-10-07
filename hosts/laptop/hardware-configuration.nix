@@ -7,7 +7,7 @@
 }:
 let
   btrfsCommonOptions = [
-    "compress=zstd:3"
+    "compress=zstd:1"
     "noatime"
     "discard=async"
     "ssd"
@@ -56,8 +56,8 @@ in
     device = "/dev/disk/by-uuid/68CB-26B3";
     fsType = "vfat";
     options = [
-      "fmask=0022"
-      "dmask=0022"
+      "fmask=0077"
+      "dmask=0077"
     ];
   };
 

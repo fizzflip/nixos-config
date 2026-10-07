@@ -18,6 +18,13 @@
   # Enable periodic SSD TRIM service (complements btrfs discard=async and handles ext4/vfat)
   services.fstrim.enable = true;
 
+  # Periodic Btrfs scrub for silent bit-rot detection on NVMe storage
+  services.btrfs.autoScrub = {
+    enable = true;
+    interval = "monthly";
+    fileSystems = [ "/" ];
+  };
+
   # Mount /tmp on compressed tmpfs in RAM/ZRAM to reduce SSD write wear
   boot.tmp = {
     useTmpfs = true;

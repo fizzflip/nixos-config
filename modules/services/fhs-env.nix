@@ -40,6 +40,10 @@
     ];
   };
 
+  # Seamless direct AppImage execution and FUSE permissions
+  programs.appimage.binfmt = true;
+  programs.fuse.userAllowOther = true;
+
   environment.systemPackages = [
     pkgs.steam-run
   ];
