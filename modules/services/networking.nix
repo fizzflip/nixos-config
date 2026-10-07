@@ -1,4 +1,9 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}:
+{
   networking.hostName = lib.mkDefault "machine"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -21,9 +26,19 @@
     };
   };
 
+  # Enable IPv4 forwarding for Waydroid and VM bridge routing
+  boot.kernel.sysctl = {
+    "net.ipv4.ip_forward" = 1;
+  };
+
   # Open ports in the firewall
   networking.firewall = {
     enable = true;
+    # Trust VM and container bridge interfaces so DNS (53) & DHCP (67) are never dropped
+    trustedInterfaces = [
+      "virbr0"
+      "waydroid0"
+    ];
     # Port 53317: LocalSend file transfer and discovery (opened only when full package suite is installed)
     allowedTCPPorts = lib.mkIf (!config.my.packages.minimal) [ 53317 ];
     allowedUDPPorts = lib.mkIf (!config.my.packages.minimal) [ 53317 ];

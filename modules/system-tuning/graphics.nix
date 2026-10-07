@@ -5,8 +5,9 @@
     enable32Bit = true;
     extraPackages = [
       # Core drivers for 11th Gen (Tiger Lake)
-      pkgs.intel-media-driver # LIBVA_DRIVER_NAME=iHD (primary for Gen 9+)
-      pkgs.vpl-gpu-rt # For hardware video encoding/decoding
+      pkgs.intel-media-driver # Primary driver for Gen 9+
+      pkgs.vpl-gpu-rt # Hardware video encoding/decoding
+      pkgs.intel-compute-runtime # Gen 12+ OpenCL NEO & Level Zero compute runtime
       pkgs.libvdpau-va-gl # VDPAU-to-VA-API bridge
     ];
     extraPackages32 = [
@@ -15,18 +16,16 @@
     ];
   };
 
-  # Use iHD driver (intel-media-driver) for modern Intel and Mesa optimizations
+  # Mesa optimizations (let libva auto-detect iHD driver naturally)
   environment.sessionVariables = {
-    LIBVA_DRIVER_NAME = "iHD";
     MESA_GL_THREAD = "true";
     MESA_DISK_CACHE_SINGLE_FILE = "1";
   };
 
-  # Enable Intel GuC/HuC hardware submission, Framebuffer Compression (FBC), PSR2, and Fastboot
+  # Enable Intel GuC/HuC hardware submission, Framebuffer Compression (FBC), and stable PSR1
   boot.kernelParams = [
     "i915.enable_guc=3"
     "i915.enable_fbc=1"
-    "i915.enable_psr=2"
-    "i915.fastboot=1"
+    "i915.enable_psr=1"
   ];
 }

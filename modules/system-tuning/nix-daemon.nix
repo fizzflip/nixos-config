@@ -9,6 +9,8 @@
       experimental-features = [
         "nix-command"
         "flakes"
+        "auto-allocate-uids"
+        "cgroups"
       ];
       trusted-users = [
         "root"
@@ -31,6 +33,10 @@
 
       # Optimize binary cache network downloads safely for memory-constrained hardware
       download-buffer-size = 33554432; # 32 MiB buffer for high-bandwidth chunk downloads
+      tarball-ttl = 604800; # 7 days
+      warn-dirty = false;
+      auto-allocate-uids = true;
+      use-cgroups = true;
       http-connections = 25; # Balanced parallel HTTP connection pool
       connect-timeout = 5; # Fast failure on unreachable mirrors
       stalled-download-timeout = 10;
@@ -45,4 +51,7 @@
       ];
     };
   };
+
+  # Cage nix-daemon into the low-weight CPU/IO slice to prevent interactive desktop stutter
+  systemd.services.nix-daemon.serviceConfig.Slice = "background.slice";
 }
