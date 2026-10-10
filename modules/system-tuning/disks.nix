@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   # Dynamic, hardware-aware I/O scheduler rules
   services.udev.extraRules = ''
     # NVMe SSDs: bypass scheduling entirely to maximize parallel IOPS on block namespace devices
@@ -9,6 +9,12 @@
 
     # HDDs / Mechanical: use BFQ for fair queuing
     ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
+
+    # Enable Runtime PM for SCSI/ATA block devices
+    ACTION=="add", SUBSYSTEM=="scsi", ENV{DEVTYPE}=="scsi_device", ATTR{power/control}="auto"
+
+    # Mechanical HDD aggressive power saving: 5-minute spindown (60 * 5s = 300s) and APM 127 on rotational disks
+    ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -B 127 -S 60 /dev/%k"
   '';
 
   # Enable i2c for ddcutil (display brightness/colour via DDC/CI)

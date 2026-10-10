@@ -17,10 +17,12 @@
     pkgs.skim
     pkgs.ripgrep
 
-    # Monitoring
+    # Monitoring & Power Diagnostics
     pkgs.btop
     pkgs.htop
     pkgs.fastfetch
+    pkgs.powertop
+    pkgs.hdparm
 
     # Nix
     pkgs.nixd
