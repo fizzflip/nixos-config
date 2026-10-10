@@ -15,7 +15,7 @@ lib.mkIf (!config.my.packages.minimal) {
     pkgs.nodejs
     pkgs.python3
     pkgs.zed-editor
-    pkgs.antigravity-ide-fhs
+    pkgs.antigravity-cli
     # pkgs.jetbrains.idea
     # pkgs.jetbrains.pycharm
 
