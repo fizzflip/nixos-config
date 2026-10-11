@@ -16,8 +16,8 @@ in
         qemu = {
           package = pkgs.qemu_kvm; # Lightweight KVM-only x86_64 build without multi-arch bloat
           runAsRoot = false; # Non-root daemon execution for hardened security
-          swtpm.enable = true; # Software TPM 2.0 for modern Windows (WinApps / Win 11)
-          vhostUserPackages = [ pkgs.virtiofsd ]; # Standalone Rust daemon required by QEMU >= 8.0 & WinApps
+          swtpm.enable = true; # Software TPM 2.0 for modern Windows (Win 11) and secure guests
+          vhostUserPackages = [ pkgs.virtiofsd ]; # Standalone Rust daemon required by QEMU >= 8.0 for virtio-fs
         };
         parallelShutdown = 2;
         onBoot = "ignore"; # Don't auto-start VMs on boot: zero idle CPU & RAM overhead
@@ -27,24 +27,16 @@ in
           enableGuest = true;
         };
       };
-      spiceUSBRedirection.enable = true; # USB passthrough for virt-manager & WinApps
+      spiceUSBRedirection.enable = true; # USB passthrough for virt-manager
     };
 
     # Virt-manager GUI
     programs.virt-manager.enable = true;
 
-    # Grant active users libvirt & kvm permissions
-    users.users = {
-      ${config.my.user.name}.extraGroups = [
-        "libvirtd"
-        "kvm"
-      ];
-    }
-    // lib.optionalAttrs config.my.users.nini.enable {
-      nini.extraGroups = [
-        "libvirtd"
-        "kvm"
-      ];
-    };
+    # Grant primary user libvirt & kvm permissions
+    users.users.${config.my.user.name}.extraGroups = [
+      "libvirtd"
+      "kvm"
+    ];
   };
 }
