@@ -2,12 +2,8 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }:
-let
-  winappsPkgs = inputs.winapps.packages.${pkgs.stdenv.hostPlatform.system};
-in
 lib.mkIf config.my.users.nini.enable {
   users.users.nini = {
     isNormalUser = true;
@@ -18,10 +14,6 @@ lib.mkIf config.my.users.nini.enable {
     initialHashedPassword = "$6$REDACTED$REDACTEDHASHFORHISTORYCLEANUP0000000000000000000000000000000000000000000000000000000000";
     extraGroups = [ ];
     packages = [
-      # WinApps integration
-      winappsPkgs.winapps
-      winappsPkgs.winapps-launcher
-      pkgs.freerdp
       pkgs.google-chrome
     ];
   };
