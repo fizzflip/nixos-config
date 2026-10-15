@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  systemd.tmpfiles.rules = [
+    "L+ /usr/share/fonts - - - - /run/current-system/sw/share/X11/fonts"
+  ];
+
   fonts = {
     fontDir.enable = true;
     fontconfig = {

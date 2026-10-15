@@ -4,5 +4,6 @@
     ./media.nix
     ./internet.nix
     ./development.nix
+    ./artcraft.nix
   ];
 }

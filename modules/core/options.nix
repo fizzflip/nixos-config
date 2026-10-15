@@ -70,5 +70,28 @@ in
       default = false;
       description = "When enabled, installs only core CLI tools and desktop essentials, omitting heavy IDEs, media, internet applications, and flatpaks.";
     };
+
+    packages.artcraft = {
+      enable = lib.mkOption {
+        type = lib.types.bool;
+        default = !config.my.packages.minimal;
+        description = "Enable the ArtCraft productivity suite (PdfCraft, WordCraft).";
+      };
+      pdfcraft = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Install PdfCraft (offline PDF reader & editor).";
+      };
+      wordcraft = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Install WordCraft (clean-room Microsoft Word alternative).";
+      };
+      setDefaultMimeTypes = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Register ArtCraft apps as default MIME handlers for PDF and document formats.";
+      };
+    };
   };
 }
