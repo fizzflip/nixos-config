@@ -38,5 +38,20 @@ in
       "libvirtd"
       "kvm"
     ];
+
+    # Windows guest VM support (virtio-win ISO pool symlink, virt-viewer, nested KVM, MSR protection)
+    environment.systemPackages = lib.mkIf cfg.windows.enable [
+      pkgs.virt-viewer
+    ];
+
+    boot.extraModprobeConfig = lib.mkIf cfg.windows.enable ''
+      options kvm_intel nested=1
+      options kvm_amd nested=1
+      options kvm ignore_msrs=1 report_ignored_msrs=0
+    '';
+
+    systemd.tmpfiles.rules = lib.mkIf cfg.windows.enable [
+      "L+ /var/lib/libvirt/images/virtio-win.iso - - - - ${pkgs.virtio-win.src}"
+    ];
   };
 }
