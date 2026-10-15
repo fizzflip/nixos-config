@@ -86,7 +86,10 @@ let
       meta = {
         description = "${desktopName}: ${description} (ArtCraft suite)";
         homepage = "https://github.com/storytold/${pname}";
-        license = [ lib.licenses.asl20 lib.licenses.mit ];
+        license = [
+          lib.licenses.asl20
+          lib.licenses.mit
+        ];
         mainProgram = pname;
         platforms = [ "x86_64-linux" ];
       };
@@ -108,47 +111,47 @@ let
     desktopName = "WordCraft";
   };
 
-  selectedPackages =
-    (lib.optional cfg.pdfcraft pdfcraft)
-    ++ (lib.optional cfg.wordcraft wordcraft);
+  selectedPackages = (lib.optional cfg.pdfcraft pdfcraft) ++ (lib.optional cfg.wordcraft wordcraft);
 in
 {
   config = lib.mkIf cfg.enable {
     environment.systemPackages = selectedPackages;
 
-    xdg.mime.defaultApplications = lib.mkIf cfg.setDefaultMimeTypes (lib.mkMerge [
-      (lib.mkIf cfg.pdfcraft {
-        "application/pdf" = [
-          "ai.storyteller.pdfcraft.desktop"
-          "pdfcraft.desktop"
-        ];
-        "application/x-pdf" = [
-          "ai.storyteller.pdfcraft.desktop"
-          "pdfcraft.desktop"
-        ];
-        "application/vnd.pdf" = [
-          "ai.storyteller.pdfcraft.desktop"
-          "pdfcraft.desktop"
-        ];
-      })
-      (lib.mkIf cfg.wordcraft {
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [
-          "ai.storyteller.wordcraft.desktop"
-          "wordcraft.desktop"
-        ];
-        "application/msword" = [
-          "ai.storyteller.wordcraft.desktop"
-          "wordcraft.desktop"
-        ];
-        "application/vnd.oasis.opendocument.text" = [
-          "ai.storyteller.wordcraft.desktop"
-          "wordcraft.desktop"
-        ];
-        "application/rtf" = [
-          "ai.storyteller.wordcraft.desktop"
-          "wordcraft.desktop"
-        ];
-      })
-    ]);
+    xdg.mime.defaultApplications = lib.mkIf cfg.setDefaultMimeTypes (
+      lib.mkMerge [
+        (lib.mkIf cfg.pdfcraft {
+          "application/pdf" = [
+            "ai.storyteller.pdfcraft.desktop"
+            "pdfcraft.desktop"
+          ];
+          "application/x-pdf" = [
+            "ai.storyteller.pdfcraft.desktop"
+            "pdfcraft.desktop"
+          ];
+          "application/vnd.pdf" = [
+            "ai.storyteller.pdfcraft.desktop"
+            "pdfcraft.desktop"
+          ];
+        })
+        (lib.mkIf cfg.wordcraft {
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" = [
+            "ai.storyteller.wordcraft.desktop"
+            "wordcraft.desktop"
+          ];
+          "application/msword" = [
+            "ai.storyteller.wordcraft.desktop"
+            "wordcraft.desktop"
+          ];
+          "application/vnd.oasis.opendocument.text" = [
+            "ai.storyteller.wordcraft.desktop"
+            "wordcraft.desktop"
+          ];
+          "application/rtf" = [
+            "ai.storyteller.wordcraft.desktop"
+            "wordcraft.desktop"
+          ];
+        })
+      ]
+    );
   };
 }
