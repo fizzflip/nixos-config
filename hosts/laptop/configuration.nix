@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  pkgs,
   ...
 }:
 {
@@ -21,6 +22,16 @@
     imports = [
       (inputs.self + "/modules/packages/lab/default.nix")
       (inputs.self + "/modules/services/android.nix")
+    ];
+  };
+
+  specialisation.windows.configuration = {
+    my.services.virtualisation = {
+      enable = true;
+      windows.enable = true;
+    };
+    environment.systemPackages = [
+      pkgs.freerdp
     ];
   };
 

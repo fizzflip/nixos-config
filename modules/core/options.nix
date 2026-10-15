@@ -55,7 +55,12 @@ in
 
     services.printing.enable = lib.mkEnableOption "CUPS printing service and discovery";
 
-    services.virtualisation.enable = lib.mkEnableOption "Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM";
+    services.virtualisation = {
+      enable = lib.mkEnableOption "Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM";
+      windows = {
+        enable = lib.mkEnableOption "Windows guest VM support (virtio-win ISO pool symlink, virt-viewer, nested KVM, MSR protection)";
+      };
+    };
 
     users.nini.enable = lib.mkEnableOption "Secondary user profile nini";
 
