@@ -97,21 +97,41 @@ let
 
   pdfcraft = mkArtcraftApp {
     pname = "pdfcraft";
-    version = "0.8.0";
-    hash = "sha256-P0/V3dmYAqPTSUdMYc89q9H7cZjqDfANJMwxBRa9HCo=";
+    version = "0.9.0";
+    hash = "sha256-/199o2oQiTQOP9umlrKGzDF6yPBwXMjETBxJ2cpMVOA=";
     description = "Read, organize, combine, split, annotate and secure PDFs";
     desktopName = "PdfCraft";
   };
 
   wordcraft = mkArtcraftApp {
     pname = "wordcraft";
-    version = "0.7.0";
-    hash = "sha256-YwCfiOPbrqcKwTePq8hVWuFHddMoKRdcXaJVGr4Dky8=";
+    version = "0.8.0";
+    hash = "sha256-Ds4Hzz2RuSPf2A+QMQ4EmDveZvAnnGtg3c6JWW3eDd8=";
     description = "Clean-room open-source word processor";
     desktopName = "WordCraft";
   };
 
-  selectedPackages = (lib.optional cfg.pdfcraft pdfcraft) ++ (lib.optional cfg.wordcraft wordcraft);
+  vectorcraft = mkArtcraftApp {
+    pname = "vectorcraft";
+    version = "0.13.1";
+    hash = "sha256-NcD89tP56/9vM9JX/3Du9BQpbzfw2B8oTm+XDiD9ssg=";
+    description = "Clean-room open-source vector design & illustration editor";
+    desktopName = "VectorCraft";
+  };
+
+  photocraft = mkArtcraftApp {
+    pname = "photocraft";
+    version = "0.10.0";
+    hash = "sha256-xdRVeF2cLq9pW/jmMnxNbSOjnduVamEU8MW2Qyb5hOE=";
+    description = "Clean-room open-source non-destructive RAW photo editor";
+    desktopName = "PhotoCraft";
+  };
+
+  selectedPackages =
+    (lib.optional cfg.pdfcraft pdfcraft)
+    ++ (lib.optional cfg.wordcraft wordcraft)
+    ++ (lib.optional cfg.vectorcraft vectorcraft)
+    ++ (lib.optional cfg.photocraft photocraft);
 in
 {
   config = lib.mkIf cfg.enable {
@@ -149,6 +169,20 @@ in
           "application/rtf" = [
             "ai.storyteller.wordcraft.desktop"
             "wordcraft.desktop"
+          ];
+        })
+        (lib.mkIf cfg.vectorcraft {
+          "image/svg+xml" = [
+            "ai.storyteller.vectorcraft.desktop"
+            "vectorcraft.desktop"
+          ];
+          "image/svg+xml-compressed" = [
+            "ai.storyteller.vectorcraft.desktop"
+            "vectorcraft.desktop"
+          ];
+          "application/illustrator" = [
+            "ai.storyteller.vectorcraft.desktop"
+            "vectorcraft.desktop"
           ];
         })
       ]
