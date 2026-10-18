@@ -17,8 +17,5 @@ lib.mkIf (!config.my.packages.minimal) {
     pkgs.foliate
     pkgs.obsidian
     pkgs.atril
-
-    # Graphics & Vector Design
-    pkgs.inkscape
   ];
 }

@@ -80,7 +80,7 @@ in
       enable = lib.mkOption {
         type = lib.types.bool;
         default = !config.my.packages.minimal;
-        description = "Enable the ArtCraft productivity suite (PdfCraft, WordCraft).";
+        description = "Enable the ArtCraft productivity suite (PdfCraft, WordCraft, VectorCraft, PhotoCraft).";
       };
       pdfcraft = lib.mkOption {
         type = lib.types.bool;
@@ -92,10 +92,20 @@ in
         default = true;
         description = "Install WordCraft (clean-room Microsoft Word alternative).";
       };
+      vectorcraft = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Install VectorCraft (clean-room vector graphics editor & Inkscape alternative).";
+      };
+      photocraft = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = "Install PhotoCraft (clean-room RAW photo editor and organizer).";
+      };
       setDefaultMimeTypes = lib.mkOption {
         type = lib.types.bool;
         default = true;
-        description = "Register ArtCraft apps as default MIME handlers for PDF and document formats.";
+        description = "Register ArtCraft apps as default MIME handlers for PDF, document formats, and vector graphics (SVG).";
       };
     };
   };

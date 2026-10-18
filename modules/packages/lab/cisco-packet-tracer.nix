@@ -4,13 +4,23 @@
   ...
 }:
 let
-  customPacketTracer = pkgs.ciscoPacketTracer9.override {
-    requireFile =
-      _:
+  version = "9.0.1";
+  debName = "CiscoPacketTracer_901_Ubuntu_64bit.deb";
+  debHash = "sha256-NoPdh+d5iFNyrpo1wabllNEvST5knnxpdAhynBRZR5s=";
+  localDebCache = "/var/cache/cisco/${debName}";
+
+  # Automated resolution: use local cached deb if present, else fetch from verified mirror
+  debSource =
+    if builtins.pathExists localDebCache then
+      localDebCache
+    else
       pkgs.fetchurl {
-        url = "https://github.com/andknownmaly/packettracer/releases/download/9.0.0/CiscoPacketTracer_900_Ubuntu_64bit.deb";
-        sha256 = "086r5qbvvf8qarp554j4q4044vgswv3xfzv2iyvdqdzwqzac16nx";
+        url = "https://archive.org/download/packettracer901/${debName}";
+        hash = debHash;
       };
+
+  customPacketTracer = pkgs.ciscoPacketTracer9.override {
+    requireFile = _: debSource;
   };
 in
 {

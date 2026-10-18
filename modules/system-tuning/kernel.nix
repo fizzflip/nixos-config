@@ -2,11 +2,9 @@
   config,
   pkgs,
   lib,
-  inputs,
   ...
 }:
 {
-  nixpkgs.overlays = [ inputs.nix-cachyos-kernel.overlays.pinned ];
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_testing;
 
   services.scx-loader = {
