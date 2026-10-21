@@ -97,32 +97,32 @@ let
 
   pdfcraft = mkArtcraftApp {
     pname = "pdfcraft";
-    version = "0.9.0";
-    hash = "sha256-/199o2oQiTQOP9umlrKGzDF6yPBwXMjETBxJ2cpMVOA=";
+    version = "0.10.1";
+    hash = "sha256-dGQWjSpV2s2ZWbOMRhnjSG9EO0Wc77iBooomDnr52ak=";
     description = "Read, organize, combine, split, annotate and secure PDFs";
     desktopName = "PdfCraft";
   };
 
   wordcraft = mkArtcraftApp {
     pname = "wordcraft";
-    version = "0.8.0";
-    hash = "sha256-Ds4Hzz2RuSPf2A+QMQ4EmDveZvAnnGtg3c6JWW3eDd8=";
+    version = "0.9.0";
+    hash = "sha256-j1B4AulxsWr6G23FZTF+swiF/7Kuwul206HdqkfFKdQ=";
     description = "Clean-room open-source word processor";
     desktopName = "WordCraft";
   };
 
   vectorcraft = mkArtcraftApp {
     pname = "vectorcraft";
-    version = "0.13.1";
-    hash = "sha256-NcD89tP56/9vM9JX/3Du9BQpbzfw2B8oTm+XDiD9ssg=";
+    version = "0.14.0";
+    hash = "sha256-WzSgXxI8pMxhHozmmoMQba7Y6iiLr2Phq7maQss7SG0=";
     description = "Clean-room open-source vector design & illustration editor";
     desktopName = "VectorCraft";
   };
 
   photocraft = mkArtcraftApp {
     pname = "photocraft";
-    version = "0.10.0";
-    hash = "sha256-xdRVeF2cLq9pW/jmMnxNbSOjnduVamEU8MW2Qyb5hOE=";
+    version = "0.11.1";
+    hash = "sha256-DhSZtJm4vYCpY44xXA8ckn0GBqxc1Yv72kNPUCXICkk=";
     description = "Clean-room open-source non-destructive RAW photo editor";
     desktopName = "PhotoCraft";
   };
