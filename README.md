@@ -51,16 +51,37 @@ Mess? Kinda. Cleaning? Working on that.
   - Plugins: `autopair`, `done` notification, `fzf-fish` search, `grc` colorizer, `foreign-env`.
   - Colored man pages.
 
-### Packages & CLI Tools
+### Packages & Productivity Suite
 
+- **ArtCraft Productivity Suite**: Pure-Rust clean-room creative and office suite by Brandon Thomas (`storytold`), wrapped with native Wayland (`WINIT_UNIX_BACKEND=wayland`), Vulkan acceleration (`WGPU_BACKEND=vulkan`), system font bridging (`/usr/share/fonts`), and prioritized XDG MIME defaults:
+  - **PdfCraft**: PDF reader, annotator, page splitter, and organizer.
+  - **WordCraft**: Clean-room word processor (DOCX, ODT, RTF).
+  - **DeckCraft**: Clean-room presentation & slide deck editor (PPTX, PPT, ODP).
+  - **GridCraft**: Clean-room spreadsheet & workbook editor (XLSX, XLS, ODS, CSV, TSV).
+  - **VectorCraft**: Clean-room vector graphics design & SVG illustration editor.
+  - **PhotoCraft**: Clean-room RAW photo and non-destructive image editor.
+- **Development & Toolchains**: Zed Editor, Antigravity IDE, Typst toolchain (`typst`, `typstyle`, `typst-live`), Node.js, Bun, pnpm, Python (`uv`), Git, GitHub CLI (`gh`).
+- **Browsers & Communication**: Helium Browser, Mullvad Browser, Thunderbird, LocalSend, qBittorrent-enhanced.
+- **Media & Knowledge**: Foliate, Obsidian, Atril, FreeTube, mpv, yt-dlp, headless FFmpeg.
 - **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`, `imagemagick`, `chafa`.
-- **Browsers & Dev**: Helium Browser, Mullvad Browser, Zed Editor, Antigravity IDE, Typst toolchain.
 - **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
 - **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
 
-### Services & Security
+### Services, Virtualization & Security
 
-- **Lab & Virtualization**: Podman (Docker-compatible), KVM/QEMU, `virt-manager`, Android Studio & Waydroid (`android.nix`), Wireshark, Cisco Packet Tracer, Figma, and IBM Bob IDE (`specialisation.lab` profile).
+- **Lab & Container Specialisation (`specialisation.lab`)**:
+  - Podman (Docker-compatible container engine).
+  - Libvirt/KVM virtualization with `virt-manager` and SWTPM 2.0.
+  - Android development stack & Waydroid (`modules/services/android.nix`).
+  - Network inspection and database tools: Wireshark, Oracle Instant Client, FreeRDP, `rlwrap`.
+- **Windows Virtualization Specialisation (`specialisation.windows`)**:
+  - High-performance Windows 10/11 guest virtualization in QEMU/KVM:
+    - UEFI OVMF with TPM 2.0 (`swtpm`).
+    - Automated `virtio-win.iso` driver pool symlink (`/var/lib/libvirt/images/virtio-win.iso`).
+    - SPICE USB redirection & `virt-viewer` client.
+    - Nested Intel KVM (`kvm_intel.nested=1`) & MSR protection ignore.
+    - FreeRDP (`freerdp`) for remote desktop connectivity.
+- **Printing**: Optional CUPS printing service and discovery (`my.services.printing.enable`).
 - **Systemd Service Sandboxing**: Dedicated security overrides reducing systemd-analyze exposure levels for `nextdns`, `mandb`, `iwd`, `scx_loader`, `nscd`, and `systemd-rfkill`.
 - **Kernel & Sysctl Security**: Kernel image protection (`protectKernelImage`), restricted ptrace scope, sysctl network and filesystem security hardening.
 - **DNS**: NextDNS.
@@ -68,13 +89,29 @@ Mess? Kinda. Cleaning? Working on that.
 
 ## Configuration Options
 
-- **`my.user.name`** (`string`) - Primary system username.
-- **`my.user.hashedPasswordFile`** (`path` or `null`) - Defaults to `/etc/nixos/passwords/${my.user.name}`.
-- **`my.user.extraGroups`** (`list of strings`) - Default groups.
-- **`my.user.shell`** (`package`) - Default: `pkgs.fish`.
-- **`my.desktop.environment`** (`enum: niri, kde, gnome, none`) - Desktop environment.
-- **`my.configPath`** (`string`) - Path to NixOS config repo, default `~/.nixos-config`.
-- **`my.packages.minimal`** (`bool`) - Omits heavy IDEs, browsers, media apps, and Flatpaks when set to `true`.
+Custom options declared under the `my.*` namespace in [`modules/core/options.nix`](file:///home/mrbot/.nixos-config/modules/core/options.nix):
+
+| Option | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `my.user.name` | `string` | _required_ | Primary system username. |
+| `my.user.hashedPasswordFile` | `path` or `null` | `/etc/nixos/passwords/${my.user.name}` | Path to the user's hashed password file. |
+| `my.user.extraGroups` | `list of strings` | `["networkmanager" "wheel" "i2c" "input" "wireshark"]` | Extra groups for the primary user. |
+| `my.user.shell` | `package` | `pkgs.fish` | Default shell for the primary user. |
+| `my.desktop.environment` | `enum: niri, kde, gnome, none` | `"none"` | Desktop environment to activate. |
+| `my.configPath` | `string` | `"~/.nixos-config"` | Path to NixOS config repository. |
+| `my.packages.minimal` | `bool` | `false` | Omits heavy IDEs, browsers, media apps, ArtCraft, and Flatpaks when `true`. |
+| `my.users.nini.enable` | `bool` | `false` | Enable secondary user profile `nini`. |
+| `my.services.printing.enable` | `bool` | `false` | Enable CUPS printing service and network discovery. |
+| `my.services.virtualisation.enable` | `bool` | `false` | Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM. |
+| `my.services.virtualisation.windows.enable` | `bool` | `false` | Windows guest VM support (virtio-win ISO pool, virt-viewer, nested KVM). |
+| `my.packages.artcraft.enable` | `bool` | `!my.packages.minimal` | Enable the ArtCraft productivity suite. |
+| `my.packages.artcraft.pdfcraft` | `bool` | `true` | Install PdfCraft (offline PDF reader & editor). |
+| `my.packages.artcraft.wordcraft` | `bool` | `true` | Install WordCraft (clean-room Microsoft Word alternative). |
+| `my.packages.artcraft.deckcraft` | `bool` | `true` | Install DeckCraft (clean-room Microsoft PowerPoint alternative). |
+| `my.packages.artcraft.gridcraft` | `bool` | `true` | Install GridCraft (clean-room Microsoft Excel alternative). |
+| `my.packages.artcraft.vectorcraft` | `bool` | `true` | Install VectorCraft (clean-room vector graphics editor). |
+| `my.packages.artcraft.photocraft` | `bool` | `true` | Install PhotoCraft (clean-room RAW photo editor). |
+| `my.packages.artcraft.setDefaultMimeTypes` | `bool` | `true` | Register ArtCraft as default XDG MIME handlers. |
 
 ## Configuration Structure
 
@@ -87,20 +124,23 @@ Mess? Kinda. Cleaning? Working on that.
 ├── hosts/
 │   ├── common.nix        # Common host attributes (Timezone, Locales)
 │   ├── laptop/
-│   │   ├── configuration.nix      # Host-specific settings & Specialisations
+│   │   ├── configuration.nix      # Host-specific settings & Specialisations (lab, windows)
 │   │   └── hardware-configuration.nix # Generated machine/partition layout
 │   └── preview/
 │       └── configuration.nix      # Dedicated QEMU VM preview profile
 ├── modules/
 │   ├── base.nix          # Global modules imported on all systems
 │   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE/GNOME profiles
-│   │   └── desktop-environment/ # Desktop environment dispatcher
-│   ├── boot/             # Bootloader and Plymouth splash modules
-│   ├── core/             # Core configuration options
-│   │   └── options.nix   # Custom option declarations (my.* namespace)
-│   ├── packages/         # Core groups (CLI tools, Internet, Media, Dev, Lab)
-│   │   └── lab/          # Modularized lab tools (IBM Bob, Wireshark, Figma, Packet Tracer)
-│   ├── services/         # NextDNS, virtualization, Android, Flatpak wrappers
+│   │   ├── components/   # SDDM, Dunst, Waybar, Wallust
+│   │   ├── desktop-environment/ # Niri, KDE Plasma, GNOME dispatchers
+│   │   └── fonts.nix     # Typography and /usr/share/fonts tmpfiles bridge
+│   ├── boot/             # Bootloader (GRUB 2) and Plymouth splash modules
+│   ├── core/             # Core configuration options (my.* namespace)
+│   │   └── options.nix   # Custom option declarations
+│   ├── packages/         # Application suites (ArtCraft, CLI, Dev, Internet, Media, Lab)
+│   │   ├── artcraft.nix  # ArtCraft suite builder (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft)
+│   │   └── lab/          # Modularized lab tools (Wireshark, Oracle Client, FreeRDP)
+│   ├── services/         # Virtualization, NextDNS, Android, Printing, Flatpaks, FHS env
 │   ├── shell/            # Shell configurations (Fish, Nu)
 │   └── system-tuning/    # Performance, graphics, disks, swap, kernel, security, & service hardening
 └── users/
@@ -192,13 +232,19 @@ nixos-rebuild switch --flake .#minimal --verbose --show-trace
 nixos-rebuild switch --flake .#fluid --verbose --show-trace
 ```
 
-### Toggle Specialisation (Lab & Virtualization)
+### Toggle Specialisation (Lab & Windows Virtualization)
 
-The lab configuration is defined as a Specialisation block and can be loaded at runtime:
+Specialisations can be loaded on the fly without rebooting:
 
 ```bash
-# Switch to the lab profile at runtime
+# Switch to the Lab profile (Podman, Android Studio, Waydroid, Wireshark, Oracle Client)
 sudo /run/current-system/specialisation/lab/bin/switch
+
+# Switch to the Windows Virtualization profile (virtio-win ISO, virt-viewer, nested KVM, FreeRDP)
+sudo /run/current-system/specialisation/windows/bin/switch
+
+# Switch back to the base profile
+sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
 ```
 
 ### Running the Sandbox Preview VM
