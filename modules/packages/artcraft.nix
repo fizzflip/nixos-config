@@ -97,32 +97,48 @@ let
 
   pdfcraft = mkArtcraftApp {
     pname = "pdfcraft";
-    version = "0.10.1";
-    hash = "sha256-dGQWjSpV2s2ZWbOMRhnjSG9EO0Wc77iBooomDnr52ak=";
+    version = "0.13.0";
+    hash = "sha256-WYUZ6ivHfGbKmpBiQeH+Psz3RfUGJ84829W15nWkVtM=";
     description = "Read, organize, combine, split, annotate and secure PDFs";
     desktopName = "PdfCraft";
   };
 
   wordcraft = mkArtcraftApp {
     pname = "wordcraft";
-    version = "0.9.0";
-    hash = "sha256-j1B4AulxsWr6G23FZTF+swiF/7Kuwul206HdqkfFKdQ=";
+    version = "0.10.0";
+    hash = "sha256-ypnqNQugrqQQP8gCDK2Y8FHFjZ6fz2cMEZ2BAQjMRf8=";
     description = "Clean-room open-source word processor";
     desktopName = "WordCraft";
   };
 
+  deckcraft = mkArtcraftApp {
+    pname = "deckcraft";
+    version = "0.10.0";
+    hash = "sha256-VGYW6yMAzo77ILRKU+YKv+a5bXGsYGtFKjb9Icax/yg=";
+    description = "Clean-room open-source presentation & slide deck editor";
+    desktopName = "DeckCraft";
+  };
+
+  gridcraft = mkArtcraftApp {
+    pname = "gridcraft";
+    version = "0.11.1";
+    hash = "sha256-8sg+bCZEmmxFmD6QO/MsHUwwKyBC8mPq2ZUnESnHDoc=";
+    description = "Clean-room open-source spreadsheet & workbook editor";
+    desktopName = "GridCraft";
+  };
+
   vectorcraft = mkArtcraftApp {
     pname = "vectorcraft";
-    version = "0.14.0";
-    hash = "sha256-WzSgXxI8pMxhHozmmoMQba7Y6iiLr2Phq7maQss7SG0=";
+    version = "0.16.0";
+    hash = "sha256-ZR+sFyVSca0dvIuh6Ch9ufKOUpupoU3QOD7Kk6LMWqY=";
     description = "Clean-room open-source vector design & illustration editor";
     desktopName = "VectorCraft";
   };
 
   photocraft = mkArtcraftApp {
     pname = "photocraft";
-    version = "0.11.1";
-    hash = "sha256-DhSZtJm4vYCpY44xXA8ckn0GBqxc1Yv72kNPUCXICkk=";
+    version = "0.15.1";
+    hash = "sha256-tiK+QDVVEwVvgVKv6JXQoFwbw8NEoCf3cqmhL6PRwiM=";
     description = "Clean-room open-source non-destructive RAW photo editor";
     desktopName = "PhotoCraft";
   };
@@ -130,6 +146,8 @@ let
   selectedPackages =
     (lib.optional cfg.pdfcraft pdfcraft)
     ++ (lib.optional cfg.wordcraft wordcraft)
+    ++ (lib.optional cfg.deckcraft deckcraft)
+    ++ (lib.optional cfg.gridcraft gridcraft)
     ++ (lib.optional cfg.vectorcraft vectorcraft)
     ++ (lib.optional cfg.photocraft photocraft);
 in
@@ -169,6 +187,54 @@ in
           "application/rtf" = [
             "ai.storyteller.wordcraft.desktop"
             "wordcraft.desktop"
+          ];
+        })
+        (lib.mkIf cfg.deckcraft {
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation" = [
+            "ai.storyteller.deckcraft.desktop"
+            "deckcraft.desktop"
+          ];
+          "application/vnd.ms-powerpoint" = [
+            "ai.storyteller.deckcraft.desktop"
+            "deckcraft.desktop"
+          ];
+          "application/vnd.oasis.opendocument.presentation" = [
+            "ai.storyteller.deckcraft.desktop"
+            "deckcraft.desktop"
+          ];
+          "application/x-deckcraft" = [
+            "ai.storyteller.deckcraft.desktop"
+            "deckcraft.desktop"
+          ];
+        })
+        (lib.mkIf cfg.gridcraft {
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" = [
+            "ai.storyteller.gridcraft.desktop"
+            "gridcraft.desktop"
+          ];
+          "application/vnd.ms-excel" = [
+            "ai.storyteller.gridcraft.desktop"
+            "gridcraft.desktop"
+          ];
+          "application/vnd.ms-excel.sheet.macroEnabled.12" = [
+            "ai.storyteller.gridcraft.desktop"
+            "gridcraft.desktop"
+          ];
+          "application/vnd.ms-excel.sheet.binary.macroEnabled.12" = [
+            "ai.storyteller.gridcraft.desktop"
+            "gridcraft.desktop"
+          ];
+          "application/vnd.oasis.opendocument.spreadsheet" = [
+            "ai.storyteller.gridcraft.desktop"
+            "gridcraft.desktop"
+          ];
+          "text/csv" = [
+            "ai.storyteller.gridcraft.desktop"
+            "gridcraft.desktop"
+          ];
+          "text/tab-separated-values" = [
+            "ai.storyteller.gridcraft.desktop"
+            "gridcraft.desktop"
           ];
         })
         (lib.mkIf cfg.vectorcraft {
