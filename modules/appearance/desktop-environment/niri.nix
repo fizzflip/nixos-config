@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ../components/dms.nix
+    ../components/dux.nix
     ../components/nautilus.nix
   ];
 

@@ -12,11 +12,7 @@
       splashImage = null;
       configurationLimit = 10;
     };
-    initrd = {
-      systemd.enable = true;
-      systemd.emergencyAccess = true;
-      verbose = false;
-    };
+    initrd.systemd.emergencyAccess = true;
     consoleLogLevel = 3;
     loader.timeout = 10;
   };
