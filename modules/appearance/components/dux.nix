@@ -7,7 +7,7 @@
 {
   config = lib.mkIf (config.my.desktop.environment == "niri") {
     programs = {
-      dms-shell = {
+      dux-shell = {
         enable = true;
         systemd = {
           enable = true;
