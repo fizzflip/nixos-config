@@ -64,9 +64,12 @@ let
         # The upstream tarball unpacks bin/ and share/
         cp -r bin share "$out"/
 
-        # Provide standard alias desktop file for launchers
+        # Provide standard alias desktop file with NoDisplay=true so it remains
+        # available for command-line runners and MIME lookups without menu duplication
         if [ -f "$out/share/applications/ai.storyteller.${pname}.desktop" ] && [ ! -f "$out/share/applications/${pname}.desktop" ]; then
-          ln -s "ai.storyteller.${pname}.desktop" "$out/share/applications/${pname}.desktop"
+          cp "$out/share/applications/ai.storyteller.${pname}.desktop" "$out/share/applications/${pname}.desktop"
+          chmod u+w "$out/share/applications/${pname}.desktop"
+          echo "NoDisplay=true" >> "$out/share/applications/${pname}.desktop"
         fi
 
         runHook postInstall
