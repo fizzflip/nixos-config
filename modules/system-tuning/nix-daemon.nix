@@ -18,9 +18,11 @@
       ];
       substituters = [
         "https://cache.nixos.org?priority=10"
+        "https://artcraft.cachix.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "artcraft.cachix.org-1:DVvueuBTTIU1ZMP8eNCGTr1oYvCfBik3uGicXhM0dXs="
       ];
 
       # Use all hardware threads on the 2-core / 4-thread CPU

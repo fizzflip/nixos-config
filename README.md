@@ -53,13 +53,14 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Packages & Productivity Suite
 
-- **ArtCraft Productivity Suite**: Pure-Rust clean-room creative and office suite by Brandon Thomas (`storytold`), wrapped with native Wayland (`WINIT_UNIX_BACKEND=wayland`), Vulkan acceleration (`WGPU_BACKEND=vulkan`), system font bridging (`/usr/share/fonts`), and prioritized XDG MIME defaults:
+- **ArtCraft Creative & Office Suite**: Applications from [`github:jervw/artcraft-flake`](https://github.com/jervw/artcraft-flake) backed by the upstream Cachix binary cache (`https://artcraft.cachix.org`):
   - **PdfCraft**: PDF reader, annotator, page splitter, and organizer.
   - **WordCraft**: Clean-room word processor (DOCX, ODT, RTF).
   - **DeckCraft**: Clean-room presentation & slide deck editor (PPTX, PPT, ODP).
   - **GridCraft**: Clean-room spreadsheet & workbook editor (XLSX, XLS, ODS, CSV, TSV).
   - **VectorCraft**: Clean-room vector graphics design & SVG illustration editor.
   - **PhotoCraft**: Clean-room RAW photo and non-destructive image editor.
+  - **Craft Fonts**: Typography bundle (`craft-fonts`) registered system-wide.
 - **Development & Toolchains**: Zed Editor, Antigravity IDE, Typst toolchain (`typst`, `typstyle`, `typst-live`), Node.js, Bun, pnpm, Python (`uv`), Git, GitHub CLI (`gh`).
 - **Browsers & Communication**: Helium Browser, Mullvad Browser, Thunderbird, LocalSend, qBittorrent-enhanced.
 - **Media & Knowledge**: Foliate, Obsidian, Atril, FreeTube, mpv, yt-dlp, headless FFmpeg.
@@ -104,14 +105,7 @@ Custom options declared under the `my.*` namespace in [`modules/core/options.nix
 | `my.services.printing.enable` | `bool` | `false` | Enable CUPS printing service and network discovery. |
 | `my.services.virtualisation.enable` | `bool` | `false` | Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM. |
 | `my.services.virtualisation.windows.enable` | `bool` | `false` | Windows guest VM support (virtio-win ISO pool, virt-viewer, nested KVM). |
-| `my.packages.artcraft.enable` | `bool` | `!my.packages.minimal` | Enable the ArtCraft productivity suite. |
-| `my.packages.artcraft.pdfcraft` | `bool` | `true` | Install PdfCraft (offline PDF reader & editor). |
-| `my.packages.artcraft.wordcraft` | `bool` | `true` | Install WordCraft (clean-room Microsoft Word alternative). |
-| `my.packages.artcraft.deckcraft` | `bool` | `true` | Install DeckCraft (clean-room Microsoft PowerPoint alternative). |
-| `my.packages.artcraft.gridcraft` | `bool` | `true` | Install GridCraft (clean-room Microsoft Excel alternative). |
-| `my.packages.artcraft.vectorcraft` | `bool` | `true` | Install VectorCraft (clean-room vector graphics editor). |
-| `my.packages.artcraft.photocraft` | `bool` | `true` | Install PhotoCraft (clean-room RAW photo editor). |
-| `my.packages.artcraft.setDefaultMimeTypes` | `bool` | `true` | Register ArtCraft as default XDG MIME handlers. |
+| `my.packages.artcraft.enable` | `bool` | `!my.packages.minimal` | Enable ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) and craft-fonts from `github:jervw/artcraft-flake`. |
 
 ## Configuration Structure
 
@@ -138,7 +132,7 @@ Custom options declared under the `my.*` namespace in [`modules/core/options.nix
 │   ├── core/             # Core configuration options (my.* namespace)
 │   │   └── options.nix   # Custom option declarations
 │   ├── packages/         # Application suites (ArtCraft, CLI, Dev, Internet, Media, Lab)
-│   │   ├── artcraft.nix  # ArtCraft suite builder (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft)
+│   │   ├── artcraft.nix  # ArtCraft applications integration (github:jervw/artcraft-flake)
 │   │   └── lab/          # Modularized lab tools (Wireshark, Oracle Client, FreeRDP)
 │   ├── services/         # Virtualization, NextDNS, Android, Printing, Flatpaks, FHS env
 │   ├── shell/            # Shell configurations (Fish, Nu)
