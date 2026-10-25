@@ -80,42 +80,7 @@ in
       enable = lib.mkOption {
         type = lib.types.bool;
         default = !config.my.packages.minimal;
-        description = "Enable the ArtCraft productivity suite (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft).";
-      };
-      pdfcraft = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Install PdfCraft (offline PDF reader & editor).";
-      };
-      wordcraft = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Install WordCraft (clean-room Microsoft Word alternative).";
-      };
-      deckcraft = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Install DeckCraft (clean-room Microsoft PowerPoint alternative for presentations).";
-      };
-      gridcraft = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Install GridCraft (clean-room Microsoft Excel alternative for spreadsheets).";
-      };
-      vectorcraft = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Install VectorCraft (clean-room vector graphics editor & Inkscape alternative).";
-      };
-      photocraft = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Install PhotoCraft (clean-room RAW photo editor and organizer).";
-      };
-      setDefaultMimeTypes = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
-        description = "Register ArtCraft apps as default MIME handlers for PDF, document formats, presentations, spreadsheets, and vector graphics (SVG).";
+        description = "Enable the ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) and craft-fonts from github:jervw/artcraft-flake.";
       };
     };
   };
