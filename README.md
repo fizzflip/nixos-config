@@ -63,7 +63,7 @@ Mess? Kinda. Cleaning? Working on that.
   - **Craft Fonts**: Typography bundle (`craft-fonts`) registered system-wide.
 - **Development & Toolchains**: Zed Editor, Antigravity IDE, Typst toolchain (`typst`, `typstyle`, `typst-live`), Node.js, Bun, pnpm, Python (`uv`), Git, GitHub CLI (`gh`).
 - **Browsers & Communication**: Helium Browser, Mullvad Browser, Thunderbird, LocalSend, qBittorrent-enhanced.
-- **Media & Knowledge**: Foliate, Obsidian, Atril, FreeTube, mpv, yt-dlp, headless FFmpeg.
+- **Media & Knowledge**: Foliate, Obsidian, FreeTube, mpv, yt-dlp, headless FFmpeg.
 - **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`, `imagemagick`, `chafa`.
 - **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
 - **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
@@ -92,20 +92,20 @@ Mess? Kinda. Cleaning? Working on that.
 
 Custom options declared under the `my.*` namespace in [`modules/core/options.nix`](file:///home/mrbot/.nixos-config/modules/core/options.nix):
 
-| Option | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `my.user.name` | `string` | _required_ | Primary system username. |
-| `my.user.hashedPasswordFile` | `path` or `null` | `/etc/nixos/passwords/${my.user.name}` | Path to the user's hashed password file. |
-| `my.user.extraGroups` | `list of strings` | `["networkmanager" "wheel" "i2c" "input" "wireshark"]` | Extra groups for the primary user. |
-| `my.user.shell` | `package` | `pkgs.fish` | Default shell for the primary user. |
-| `my.desktop.environment` | `enum: niri, kde, gnome, none` | `"none"` | Desktop environment to activate. |
-| `my.configPath` | `string` | `"~/.nixos-config"` | Path to NixOS config repository. |
-| `my.packages.minimal` | `bool` | `false` | Omits heavy IDEs, browsers, media apps, ArtCraft, and Flatpaks when `true`. |
-| `my.users.nini.enable` | `bool` | `false` | Enable secondary user profile `nini`. |
-| `my.services.printing.enable` | `bool` | `false` | Enable CUPS printing service and network discovery. |
-| `my.services.virtualisation.enable` | `bool` | `false` | Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM. |
-| `my.services.virtualisation.windows.enable` | `bool` | `false` | Windows guest VM support (virtio-win ISO pool, virt-viewer, nested KVM). |
-| `my.packages.artcraft.enable` | `bool` | `!my.packages.minimal` | Enable ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) and craft-fonts from `github:jervw/artcraft-flake`. |
+| Option                                      | Type                           | Default                                                | Description                                                                                                                                           |
+| :------------------------------------------ | :----------------------------- | :----------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `my.user.name`                              | `string`                       | _required_                                             | Primary system username.                                                                                                                              |
+| `my.user.hashedPasswordFile`                | `path` or `null`               | `/etc/nixos/passwords/${my.user.name}`                 | Path to the user's hashed password file.                                                                                                              |
+| `my.user.extraGroups`                       | `list of strings`              | `["networkmanager" "wheel" "i2c" "input" "wireshark"]` | Extra groups for the primary user.                                                                                                                    |
+| `my.user.shell`                             | `package`                      | `pkgs.fish`                                            | Default shell for the primary user.                                                                                                                   |
+| `my.desktop.environment`                    | `enum: niri, kde, gnome, none` | `"none"`                                               | Desktop environment to activate.                                                                                                                      |
+| `my.configPath`                             | `string`                       | `"~/.nixos-config"`                                    | Path to NixOS config repository.                                                                                                                      |
+| `my.packages.minimal`                       | `bool`                         | `false`                                                | Omits heavy IDEs, browsers, media apps, ArtCraft, and Flatpaks when `true`.                                                                           |
+| `my.users.nini.enable`                      | `bool`                         | `false`                                                | Enable secondary user profile `nini`.                                                                                                                 |
+| `my.services.printing.enable`               | `bool`                         | `false`                                                | Enable CUPS printing service and network discovery.                                                                                                   |
+| `my.services.virtualisation.enable`         | `bool`                         | `false`                                                | Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM.                                                                                  |
+| `my.services.virtualisation.windows.enable` | `bool`                         | `false`                                                | Windows guest VM support (virtio-win ISO pool, virt-viewer, nested KVM).                                                                              |
+| `my.packages.artcraft.enable`               | `bool`                         | `!my.packages.minimal`                                 | Enable ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) and craft-fonts from `github:jervw/artcraft-flake`. |
 
 ## Configuration Structure
 

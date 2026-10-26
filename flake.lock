@@ -5,11 +5,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1792836195,
-        "narHash": "sha256-5pf8u/GUPGCUdiQJCPKTv2PneEAbTMam4FsyGjJwLRM=",
+        "lastModified": 1792958471,
+        "narHash": "sha256-kubsb45bn8IV1m9uLIiRMmtPwU12S5NW+QKuFa3lIMA=",
         "owner": "jervw",
         "repo": "artcraft-flake",
-        "rev": "2f78764ede2b70dcdc4888f7a2752f6b37c5d971",
+        "rev": "f39f2e1a50dac1e695f44ab3a4198317de302732",
         "type": "github"
       },
       "original": {
