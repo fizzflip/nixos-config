@@ -16,6 +16,5 @@ lib.mkIf (!config.my.packages.minimal) {
     pkgs.mochi
     pkgs.foliate
     pkgs.obsidian
-    pkgs.atril
   ];
 }
