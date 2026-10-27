@@ -16,6 +16,8 @@
       pkgs.libxkbcommon
       pkgs.pango
       pkgs.cairo
+      pkgs.gdk-pixbuf
+      pkgs.librsvg
       pkgs.alsa-lib
       pkgs.openssl
       pkgs.curl

@@ -24,6 +24,7 @@ Mess? Kinda. Cleaning? Working on that.
   - `foot` terminal, `nomacs` image viewer, and `xwayland-satellite`.
 - **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
 - **GNOME (`modules/appearance/desktop-environment/gnome.nix`)**: Available GNOME profile with GTK themes and extensions.
+- **GTK & Pixbuf Integration (`modules/appearance/gtk.nix`)**: Unified `dconf`, `gdk-pixbuf` SVG (`librsvg`) & WebP loaders, `/share/gsettings-schemas` linking, and base icon themes (`hicolor`, `adwaita`).
 - **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
 
 ### Boot & Login Manager
@@ -127,6 +128,7 @@ Custom options declared under the `my.*` namespace in [`modules/core/options.nix
 │   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE/GNOME profiles
 │   │   ├── components/   # SDDM, Dunst, Waybar, Wallust
 │   │   ├── desktop-environment/ # Niri, KDE Plasma, GNOME dispatchers
+│   │   ├── gtk.nix       # Global GTK, GDK Pixbuf loaders, dconf & base icon themes
 │   │   └── fonts.nix     # Typography and /usr/share/fonts tmpfiles bridge
 │   ├── boot/             # Bootloader (GRUB 2) and Plymouth splash modules
 │   ├── core/             # Core configuration options (my.* namespace)

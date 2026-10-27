@@ -86,10 +86,6 @@
 
       # Image viewer
       pkgs.nomacs
-
-      # Icon themes required by polkit-gnome and GTK dialogs
-      pkgs.adwaita-icon-theme
-      pkgs.hicolor-icon-theme
     ];
   };
 }

@@ -25,8 +25,6 @@
       pkgs.lm_sensors
       pkgs.pavucontrol
       pkgs.brightnessctl
-      pkgs.hicolor-icon-theme
-      pkgs.adwaita-icon-theme
     ];
   };
 }
