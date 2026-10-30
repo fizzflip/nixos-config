@@ -1,16 +1,10 @@
 {
-  nixConfig = {
-    extra-substituters = [
-      "https://artcraft.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "artcraft.cachix.org-1:DVvueuBTTIU1ZMP8eNCGTr1oYvCfBik3uGicXhM0dXs="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    artcraft.url = "github:jervw/artcraft-flake";
+    craftapps = {
+      url = "github:olafkfreund/nix-craftapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";

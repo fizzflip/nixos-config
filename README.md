@@ -54,14 +54,13 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Packages & Productivity Suite
 
-- **ArtCraft Creative & Office Suite**: Applications from [`github:jervw/artcraft-flake`](https://github.com/jervw/artcraft-flake) backed by the upstream Cachix binary cache (`https://artcraft.cachix.org`):
+- **ArtCraft Creative & Office Suite**: Applications from [`github:olafkfreund/nix-craftapps`](https://github.com/olafkfreund/nix-craftapps):
   - **PdfCraft**: PDF reader, annotator, page splitter, and organizer.
   - **WordCraft**: Clean-room word processor (DOCX, ODT, RTF).
   - **DeckCraft**: Clean-room presentation & slide deck editor (PPTX, PPT, ODP).
   - **GridCraft**: Clean-room spreadsheet & workbook editor (XLSX, XLS, ODS, CSV, TSV).
   - **VectorCraft**: Clean-room vector graphics design & SVG illustration editor.
   - **PhotoCraft**: Clean-room RAW photo and non-destructive image editor.
-  - **Craft Fonts**: Typography bundle (`craft-fonts`) registered system-wide.
 - **Development & Toolchains**: Zed Editor, Antigravity IDE, Typst toolchain (`typst`, `typstyle`, `typst-live`), Node.js, Bun, pnpm, Python (`uv`), Git, GitHub CLI (`gh`).
 - **Browsers & Communication**: Helium Browser, Mullvad Browser, Thunderbird, LocalSend, qBittorrent-enhanced.
 - **Media & Knowledge**: Foliate, Obsidian, FreeTube, mpv, yt-dlp, headless FFmpeg.
@@ -106,7 +105,7 @@ Custom options declared under the `my.*` namespace in [`modules/core/options.nix
 | `my.services.printing.enable`               | `bool`                         | `false`                                                | Enable CUPS printing service and network discovery.                                                                                                   |
 | `my.services.virtualisation.enable`         | `bool`                         | `false`                                                | Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM.                                                                                  |
 | `my.services.virtualisation.windows.enable` | `bool`                         | `false`                                                | Windows guest VM support (virtio-win ISO pool, virt-viewer, nested KVM).                                                                              |
-| `my.packages.artcraft.enable`               | `bool`                         | `!my.packages.minimal`                                 | Enable ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) and craft-fonts from `github:jervw/artcraft-flake`. |
+| `my.packages.artcraft.enable`               | `bool`                         | `!my.packages.minimal`                                 | Enable ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) from `github:olafkfreund/nix-craftapps`. |
 
 ## Configuration Structure
 
@@ -134,7 +133,7 @@ Custom options declared under the `my.*` namespace in [`modules/core/options.nix
 │   ├── core/             # Core configuration options (my.* namespace)
 │   │   └── options.nix   # Custom option declarations
 │   ├── packages/         # Application suites (ArtCraft, CLI, Dev, Internet, Media, Lab)
-│   │   ├── artcraft.nix  # ArtCraft applications integration (github:jervw/artcraft-flake)
+│   │   ├── artcraft.nix  # ArtCraft applications integration (github:olafkfreund/nix-craftapps)
 │   │   └── lab/          # Modularized lab tools (Wireshark, Oracle Client, FreeRDP)
 │   ├── services/         # Virtualization, NextDNS, Android, Printing, Flatpaks, FHS env
 │   ├── shell/            # Shell configurations (Fish, Nu)
