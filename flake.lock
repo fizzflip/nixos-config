@@ -7,16 +7,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1793251511,
-        "narHash": "sha256-vd8oYQN3cqg9dq0NGsl9Vzxqum2vL1gsao3gZ5sRVLA=",
-        "owner": "olafkfreund",
-        "repo": "nix-craftapps",
-        "rev": "4a9e69c6c1e196d86e39b33516544c11bb6dfb5b",
+        "lastModified": 1793423065,
+        "narHash": "sha256-oVDSJUBRHY/UwIBcg8Gv3fkptysZKCpZcegRYiT8IRU=",
+        "owner": "Devitek",
+        "repo": "artcraft-nixos",
+        "rev": "7ac28a28ad45945ffa2cd8e4e30547a0bbd78683",
         "type": "github"
       },
       "original": {
-        "owner": "olafkfreund",
-        "repo": "nix-craftapps",
+        "owner": "Devitek",
+        "repo": "artcraft-nixos",
         "type": "github"
       }
     },

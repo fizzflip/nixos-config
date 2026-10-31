@@ -80,7 +80,7 @@ in
       enable = lib.mkOption {
         type = lib.types.bool;
         default = !config.my.packages.minimal;
-        description = "Enable the ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) from github:olafkfreund/nix-craftapps.";
+        description = "Enable the ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) from github:Devitek/artcraft-nixos.";
       };
     };
   };

@@ -7,7 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     craftapps = {
-      url = "github:olafkfreund/nix-craftapps";
+      url = "github:Devitek/artcraft-nixos";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware = {
@@ -77,7 +77,6 @@
           };
           extraModules = [
             ./hosts/preview/configuration.nix
-            ./modules/packages/lab/default.nix
           ];
         };
       };
