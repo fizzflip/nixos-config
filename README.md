@@ -74,11 +74,13 @@ Mess? Kinda. Cleaning? Working on that.
   - Podman (Docker-compatible container engine).
   - Libvirt/KVM virtualization with `virt-manager` and SWTPM 2.0.
   - Android development stack & Waydroid (`modules/services/android.nix`).
-  - Network inspection and database tools: Wireshark, Oracle Instant Client, FreeRDP, `rlwrap`.
 - **Windows Virtualization Specialisation (`specialisation.windows`)**:
   - High-performance Windows 10/11 guest virtualization in QEMU/KVM:
+    - Raw physical disk mapping (`/dev/disk/by-partlabel/win-vm-disk` on `/dev/sda1`) with zero Btrfs CoW overhead and zero ACL issues.
+    - Declarative `~/.vms` storage workspace (`~/.vms/{iso,xml,scripts}`) and `winvm.sh` CLI.
+    - Isolated root QEMU execution (`runAsRoot = true`) in the specialization to access ISOs without modifying home directory ACLs.
+    - Automated `virtio-win.iso` driver pool symlinks (`~/.vms/iso/virtio-win.iso` and `/var/lib/libvirt/images/virtio-win.iso`).
     - UEFI OVMF with TPM 2.0 (`swtpm`).
-    - Automated `virtio-win.iso` driver pool symlink (`/var/lib/libvirt/images/virtio-win.iso`).
     - SPICE USB redirection & `virt-viewer` client.
     - Nested Intel KVM (`kvm_intel.nested=1`) & MSR protection ignore.
     - FreeRDP (`freerdp`) for remote desktop connectivity.
