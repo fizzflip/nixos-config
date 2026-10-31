@@ -27,6 +27,7 @@
       enable = true;
       windows.enable = true;
     };
+    virtualisation.libvirtd.qemu.runAsRoot = true;
     environment.systemPackages = [
       pkgs.freerdp
     ];
