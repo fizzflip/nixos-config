@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   programs = {
     dconf.enable = true;
     gdk-pixbuf.modulePackages = [
