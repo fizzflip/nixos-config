@@ -19,10 +19,7 @@
       "podman"
       "docker"
     ];
-    imports = [
-      (inputs.self + "/modules/packages/lab/default.nix")
-      (inputs.self + "/modules/services/android.nix")
-    ];
+    imports = [ (inputs.self + "/modules/services/android.nix") ];
   };
 
   specialisation.windows.configuration = {
