@@ -105,7 +105,7 @@ Custom options declared under the `my.*` namespace in [`modules/core/options.nix
 | `my.services.printing.enable`               | `bool`                         | `false`                                                | Enable CUPS printing service and network discovery.                                                                                                   |
 | `my.services.virtualisation.enable`         | `bool`                         | `false`                                                | Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM.                                                                                  |
 | `my.services.virtualisation.windows.enable` | `bool`                         | `false`                                                | Windows guest VM support (virtio-win ISO pool, virt-viewer, nested KVM).                                                                              |
-| `my.packages.artcraft.enable`               | `bool`                         | `!my.packages.minimal`                                 | Enable ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) from `github:olafkfreund/nix-craftapps`. |
+| `my.packages.artcraft.enable`               | `bool`                         | `!my.packages.minimal`                                 | Enable ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) from `github:Devitek/artcraft-nixos`. |
 
 ## Configuration Structure
 
