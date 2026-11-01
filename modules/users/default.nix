@@ -10,8 +10,8 @@ in
   users.users.${cfg.name} = {
     isNormalUser = true;
     homeMode = "0700";
-    shell = cfg.shell;
-    extraGroups = cfg.extraGroups;
+    inherit (cfg) shell;
+    inherit (cfg) extraGroups;
     hashedPasswordFile =
       if cfg.hashedPasswordFile != null && builtins.pathExists cfg.hashedPasswordFile then
         cfg.hashedPasswordFile

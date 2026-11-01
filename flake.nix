@@ -26,6 +26,10 @@
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -34,6 +38,7 @@
       ...
     }:
     let
+      treefmtEval = inputs.treefmt-nix.lib.evalModule nixpkgs.legacyPackages.x86_64-linux ./treefmt.nix;
       baseModules = [
         inputs.lanzaboote.nixosModules.lanzaboote
         ./modules/base.nix
@@ -84,6 +89,10 @@
             ./hosts/preview/configuration.nix
           ];
         };
+      };
+      formatter."x86_64-linux" = treefmtEval.config.build.wrapper;
+      checks."x86_64-linux" = {
+        formatting = treefmtEval.config.build.check self;
       };
       apps."x86_64-linux" = {
         default = self.apps."x86_64-linux".preview;

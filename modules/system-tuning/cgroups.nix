@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   # Disable systemd-oomd on user slices to protect desktop sessions from abrupt terminations
   systemd.oomd.enable = false;
 
