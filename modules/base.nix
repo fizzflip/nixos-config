@@ -6,6 +6,8 @@
     ./core/options.nix
     ./core/locale.nix
     ./core/system.nix
+    ./core/nix.nix
+    ./core/compat.nix
     ./users/default.nix
 
     # Subsystem categories
