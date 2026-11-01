@@ -27,5 +27,4 @@
     "8250.nr_uarts=0"
     "tpm_tis.interrupts=0"
   ];
-  boot.initrd.kernelModules = [ "i915" ];
 }

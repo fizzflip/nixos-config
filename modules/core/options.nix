@@ -53,7 +53,15 @@ in
       description = "Desktop environment to enable.";
     };
 
+    hardware.intelGpu.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Intel Gen 11/12 GPU acceleration packages, early KMS, and i915 kernel parameters.";
+    };
+
     services.printing.enable = lib.mkEnableOption "CUPS printing service and discovery";
+
+    services.android.enable = lib.mkEnableOption "Waydroid and Android development environment";
 
     services.virtualisation = {
       enable = lib.mkEnableOption "Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM";
