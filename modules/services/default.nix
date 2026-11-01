@@ -8,5 +8,6 @@
     ./printing.nix
     ./bluetooth.nix
     ./virtualisation.nix
+    ./android.nix
   ];
 }

@@ -14,12 +14,12 @@
 
   specialisation.lab.configuration = {
     my.services.virtualisation.enable = true;
+    my.services.android.enable = true;
     users.users.${config.my.user.name}.extraGroups = [
       "adbusers"
       "podman"
       "docker"
     ];
-    imports = [ (inputs.self + "/modules/services/android.nix") ];
   };
 
   specialisation.windows.configuration = {
