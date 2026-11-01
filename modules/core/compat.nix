@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+  # Foreign binary execution via nix-ld
   programs.nix-ld = {
     enable = true;
     libraries = [

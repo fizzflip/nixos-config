@@ -9,7 +9,6 @@
     ./power.nix
     ./swap.nix
     ./preload.nix
-    ./nix-daemon.nix
     ./cgroups.nix
   ];
 }

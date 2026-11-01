@@ -1,4 +1,9 @@
-{ config, ... }: {
+{
+  config,
+  inputs,
+  ...
+}:
+{
   nix = {
     # Isolate compilation threads to background scheduling to prevent GUI starvation
     daemonCPUSchedPolicy = "batch";
@@ -23,6 +28,12 @@
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       ];
 
+      # Store optimization & pure flake registry policy
+      auto-optimise-store = true;
+      flake-registry = ""; # Prevents fetching global flake-registry.json over the network
+      keep-outputs = false;
+      keep-derivations = false;
+
       # Use all hardware threads on the 2-core / 4-thread CPU
       max-jobs = "auto";
       cores = 0;
@@ -46,6 +57,12 @@
         "kvm"
       ];
     };
+
+    # Pin nixpkgs registry to active flake input to make `nix run/shell nixpkgs#...` instant
+    registry.nixpkgs.flake = inputs.nixpkgs;
+
+    # Pure flake setup without legacy channel state drift
+    channel.enable = false;
   };
 
   # Cage nix-daemon into the low-weight CPU/IO slice to prevent interactive desktop stutter
