@@ -1,13 +1,21 @@
 { pkgs, ... }: {
+  # Preload multi-queue block scheduling modules
+  boot.kernelModules = [
+    "kyber-iosched"
+    "bfq"
+  ];
+
   # Dynamic, hardware-aware I/O scheduler rules
   services.udev.extraRules = ''
-    # NVMe SSDs: bypass scheduling entirely to maximize parallel IOPS on block namespace devices
-    ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/scheduler}="none"
+    # NVMe SSDs: Kyber enforces read latency targets (<2ms) to prevent Wayland/audio starvation during builds
+    ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/scheduler}="kyber"
+    ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/iosched/read_lat_nsec}="2000000"
+    ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/iosched/write_lat_nsec}="10000000"
 
     # SATA SSDs: use lightweight mq-deadline
     ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="mq-deadline"
 
-    # HDDs / Mechanical: use BFQ for fair queuing
+    # HDDs / Mechanical: use BFQ for fair queuing and VM I/O isolation
     ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="bfq"
 
     # Enable Runtime PM for SCSI/ATA block devices
@@ -27,9 +35,9 @@
     fileSystems = [ "/" ];
   };
 
-  # Mount /tmp on compressed tmpfs in RAM/ZRAM to reduce SSD write wear
+  # Place /tmp on NVMe SSD to prevent OOM/ENOSPC failures and ZRAM double-compression during package builds
   boot.tmp = {
-    useTmpfs = true;
-    tmpfsSize = "50%";
+    useTmpfs = false;
+    cleanOnBoot = true;
   };
 }

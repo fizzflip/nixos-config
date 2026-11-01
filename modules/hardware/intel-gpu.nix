@@ -31,6 +31,15 @@ in
       "i915.enable_guc=3"
       "i915.enable_fbc=1"
       "i915.enable_psr=1"
+      "i915.fastboot=1"
     ];
+
+    # Hardware-accelerated media and Wayland presentation environment variables
+    environment.sessionVariables = {
+      LIBVA_DRIVER_NAME = "iHD";
+      VDPAU_DRIVER = "va_gl";
+      NIXOS_OZONE_WL = "1";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto";
+    };
   };
 }

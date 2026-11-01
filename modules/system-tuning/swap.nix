@@ -6,7 +6,10 @@
     priority = 100; # Ensure ZRAM always takes highest priority over any disk swap
   };
   boot = {
-    kernelParams = [ "zswap.enabled=0" ];
+    kernelParams = [
+      "zswap.enabled=0"
+      "lru_gen.enabled=7"
+    ];
     kernel.sysctl = {
       "vm.swappiness" = 180; # Aggressively push cold anonymous pages to zram before evicting cache
       "vm.watermark_boost_factor" = 0; # Prevents latency spikes during memory fragmentation
@@ -18,4 +21,10 @@
       "vm.stat_interval" = 10; # Reduce VM stat timer interrupts (10s interval)
     };
   };
+
+  # Declaratively configure Multi-Gen LRU: 1000ms minimum time-to-live prevents UI thrash lockups
+  systemd.tmpfiles.rules = [
+    "w /sys/kernel/mm/lru_gen/min_ttl_ms - - - - 1000"
+    "w /sys/kernel/mm/lru_gen/enabled - - - - 7"
+  ];
 }

@@ -1,12 +1,21 @@
 { ... }: {
-  # Userspace Out-Of-Memory (OOM) Daemon with Pressure Stall Information (PSI) monitoring
-  systemd.oomd = {
+  # Disable systemd-oomd on user slices to protect desktop sessions from abrupt terminations
+  systemd.oomd.enable = false;
+
+  # EarlyOOM: Instant userspace OOM intervention targeting runaway compilers while shielding desktop & audio
+  services.earlyoom = {
     enable = true;
-    enableUserSlices = false;
-    enableSystemSlice = true;
-    settings.OOM = {
-      DefaultMemoryPressureDurationSec = "20s";
-    };
+    enableNotifications = true;
+    freeMemThreshold = 5;
+    freeSwapThreshold = 10;
+    extraArgs = [
+      "-r"
+      "60"
+      "--prefer"
+      "(^|/)(cc1plus|rustc|clang|ld\\.lld|ghc|cargo)$"
+      "--avoid"
+      "(^|/)(niri|foot|waybar|Xwayland|systemd|dbus-daemon|pipewire|wireplumber)$"
+    ];
   };
 
   # Prevent shutdown hangs and service startup lag via structured Manager settings
@@ -15,11 +24,11 @@
     DefaultTimeoutStartSec = "15s";
   };
 
-  # Prioritize interactive user slices over background background tasks
+  # Prioritize interactive user slices over background tasks
   systemd.slices = {
     user.sliceConfig = {
-      CPUWeight = 100;
-      IOWeight = 100;
+      CPUWeight = 1000;
+      IOWeight = 1000;
     };
     system.sliceConfig = {
       CPUWeight = 100;
@@ -28,6 +37,7 @@
     background.sliceConfig = {
       CPUWeight = 20;
       IOWeight = 20;
+      CPUQuota = "350%";
     };
   };
 }

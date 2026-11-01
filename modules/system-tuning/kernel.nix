@@ -10,14 +10,20 @@
   services.scx-loader = {
     enable = true;
     config = {
-      # lavd is mathematically the best for a 2-core laptop
-      default_sched = "scx_lavd";
+      # scx_bpfland provides optimal responsiveness without Core Compaction bottlenecks
+      default_sched = "scx_bpfland";
       default_mode = "Auto";
 
       scheds.scx_lavd = {
-        # --autopower reads your laptop's battery/AC state directly via EPP
-        auto_mode = [ "--autopower" ];
-        powersave_mode = [ "--powersave" ];
+        # --autopower reads laptop EPP state; --no-core-compaction prevents parking Core 1 on dual-core CPU
+        auto_mode = [
+          "--autopower"
+          "--no-core-compaction"
+        ];
+        powersave_mode = [
+          "--powersave"
+          "--no-core-compaction"
+        ];
         gaming_mode = [ "--performance" ];
       };
 
@@ -79,7 +85,6 @@
 
   boot.kernel.sysctl = {
     "vm.max_map_count" = 2147483642;
-    "kernel.sched_autogroup_enabled" = 1;
     "vm.compaction_proactiveness" = 0;
     "vm.page_lock_unfairness" = 1;
 
