@@ -12,6 +12,9 @@
   # Enable secondary user nini in base system
   my.users.nini.enable = true;
 
+  # Enable Lanzaboote UEFI Secure Boot
+  my.security.secureboot.enable = true;
+
   specialisation.lab.configuration = {
     my.services.virtualisation.enable = true;
     my.services.android.enable = true;
