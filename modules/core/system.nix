@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   # Modern stage-2 init and declarative filesystem overlay
   system = {
     nixos-init.enable = true;

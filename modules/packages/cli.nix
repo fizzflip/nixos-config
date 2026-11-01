@@ -24,9 +24,11 @@
     pkgs.powertop
     pkgs.hdparm
 
-    # Nix
+    # Nix & Linters
     pkgs.nixd
     pkgs.nixfmt
+    pkgs.statix
+    pkgs.deadnix
     pkgs.nix-tree
 
     # Archive Tools

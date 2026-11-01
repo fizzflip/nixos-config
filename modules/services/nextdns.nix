@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   services.nextdns = {
     enable = true;
     arguments = [

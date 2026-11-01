@@ -1,4 +1,4 @@
-{ ... }: {
+_: {
   # Declarative generation garbage collection via nh
   programs.nh.clean = {
     enable = true;
