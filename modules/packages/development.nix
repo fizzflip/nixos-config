@@ -16,8 +16,6 @@ lib.mkIf (!config.my.packages.minimal) {
     pkgs.python3
     pkgs.zed-editor
     pkgs.antigravity-cli
-    # pkgs.jetbrains.idea
-    # pkgs.jetbrains.pycharm
 
     # Typst
     pkgs.typst
