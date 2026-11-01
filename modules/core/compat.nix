@@ -5,6 +5,7 @@
     libraries = [
       pkgs.stdenv.cc.cc.lib
       pkgs.zlib
+      pkgs.fuse
       pkgs.fuse3
       pkgs.glib
       pkgs.nss
@@ -44,7 +45,10 @@
   };
 
   # Seamless direct AppImage execution and FUSE permissions
-  programs.appimage.binfmt = true;
+  programs.appimage = {
+    enable = true;
+    binfmt = true;
+  };
   programs.fuse.userAllowOther = true;
 
   environment.systemPackages = [
