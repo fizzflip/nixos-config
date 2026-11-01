@@ -12,6 +12,7 @@
 
     # Subsystem categories
     ./boot/default.nix
+    ./hardware/default.nix
     ./services/default.nix
     ./system-tuning/default.nix
     ./shell/default.nix
