@@ -27,6 +27,7 @@ in
       ExecStart = lib.mkForce "${pkgs.thermald}/sbin/thermald --no-daemon --dbus-enable";
       ProtectSystem = "strict";
       ProtectHome = true;
+      PrivateNetwork = true;
       ProtectKernelModules = true;
       ProtectControlGroups = true;
       MemoryDenyWriteExecute = true;
@@ -37,6 +38,7 @@ in
     systemd.services.power-profiles-daemon.serviceConfig = {
       ProtectSystem = "strict";
       ProtectHome = true;
+      PrivateNetwork = true;
       ProtectKernelModules = true;
       ProtectControlGroups = true;
       MemoryDenyWriteExecute = true;
