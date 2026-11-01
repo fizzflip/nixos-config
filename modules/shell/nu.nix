@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-lib.mkIf (config.my.user.shell.pname or "" == "nushell") {
+lib.mkIf ((config.my.user.shell.pname or "") == "nushell") {
+  programs.nushell.enable = true;
   environment.systemPackages = [
     pkgs.nushell
     pkgs.nushellPlugins.formats

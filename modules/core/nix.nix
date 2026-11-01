@@ -66,8 +66,9 @@
       ];
     };
 
-    # Pin nixpkgs registry to active flake input to make `nix run/shell nixpkgs#...` instant
+    # Pin nixpkgs registry and NIX_PATH to active flake input to make `nix run/shell nixpkgs#...` instant
     registry.nixpkgs.flake = inputs.nixpkgs;
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
     # Pure flake setup without legacy channel state drift
     channel.enable = false;

@@ -18,6 +18,7 @@ _: {
 
   # Restrict default umask across all shell and login environments
   environment.variables.UMASK = "077";
+  environment.extraInit = "umask 077";
 
   # Security Hardening Sysctls
   boot.kernel.sysctl = {
