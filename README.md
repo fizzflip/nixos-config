@@ -3,12 +3,14 @@
 My NixOS daily driver. \
 Mess? Kinda. Cleaning? Working on that.
 
-![DMS on Niri](image.png)
+![Dux on Niri](image.png)
 
 [Wallpaper](https://wallhaven.cc/w/6lqvql) / [Creator](https://wallhaven.cc/user/Trashbuff)
 
 [![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3)](https://nixos.org)
-[![Kernel](https://img.shields.io/badge/Kernel-CachyOS-orange.svg?logo=linux&color=E25D25)](https://cachyos.org)
+[![Kernel](https://img.shields.io/badge/Kernel-Linux%20Mainline-orange.svg?logo=linux&color=E25D25)](https://kernel.org)
+[![Secure Boot](https://img.shields.io/badge/Secure%20Boot-Lanzaboote%20UKI-brightgreen.svg?logo=linux&color=2E7D32)](#boot--system-integrity)
+[![Formatter](<https://img.shields.io/badge/Format-treefmt--nix%20(RFC%20166)-blueviolet.svg?logo=nix&color=7B1FA2>)](#code-quality--tooling)
 [![Shell](https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5)](https://fishshell.com)
 [![Desktop](https://img.shields.io/badge/Desktop-KDE%20%2F%20Niri-blueviolet.svg?logo=niri&color=8A2BE2)](#desktop-environments)
 
@@ -16,258 +18,173 @@ Mess? Kinda. Cleaning? Working on that.
 
 ### Desktop Environments
 
-- **Niri (`minimal` profile)**: Wayland compositor using `dms-shell`.
-  - Dynamic theming via `dms-shell` and `wallust`.
-  - System monitoring and audio wavelength bar.
-  - PAM service configuration for `dankshell` authentication.
-  - Nautilus file manager with `ffmpegthumbnailer` and GNOME Sushi support.
+- **Niri (`minimal` profile)**: Dynamic scrolling Wayland compositor integrated with **`dux-shell`** and `wallust` dynamic theming.
+  - PAM integration for `dankshell` authentication.
+  - Nautilus file manager with `ffmpegthumbnailer` and GNOME Sushi previews.
   - `foot` terminal, `nomacs` image viewer, and `xwayland-satellite`.
-- **KDE Plasma (`fluid` profile)**: Plasma 6 environment with customized SDDM theme.
-- **GNOME (`modules/appearance/desktop-environment/gnome.nix`)**: Available GNOME profile with GTK themes and extensions.
-- **GTK & Pixbuf Integration (`modules/appearance/gtk.nix`)**: Unified `dconf`, `gdk-pixbuf` SVG (`librsvg`) & WebP loaders, `/share/gsettings-schemas` linking, and base icon themes (`hicolor`, `adwaita`).
-- **Testing Sandbox (`preview` profile)**: QEMU virtual machine target for configuration testing.
+- **KDE Plasma 6 (`fluid` profile)**: High-performance Plasma 6 Wayland desktop session.
+- **Display Manager**: `silentSDDM` styled with Catppuccin Mocha.
+- **GTK & Theming**: Unified `dconf`, SVG (`librsvg`) and WebP loaders, schema bridging, and base icon themes.
 
-### Boot & Login Manager
+### Boot & System Integrity
 
-- **GRUB 2**: Bootloader configured with the `catppuccin-grub` package. Uses OS Prober, a 10-second timeout, and systemd in initrd.
-- **Plymouth**: Boot splash screen with silent boot logging parameters (`quiet`, `splash`).
-- **SDDM**: Login manager using `silentSDDM` configured with the `catppuccin-mocha` theme.
+- **Lanzaboote UEFI Secure Boot**: Active on the physical workstation (`my.security.secureboot.enable = true`).
+  - Generates signed Unified Kernel Images (UKIs) via systemd-boot.
+  - TPM2 hardware measurements and boot validation via `sbctl`.
+- **GRUB 2 (Fallback)**: Catppuccin Mocha themed bootloader with OS Prober when Secure Boot is disabled.
+- **Plymouth**: Silent boot splash screen with flicker-free Fastboot transition.
 
-### Performance & Kernel Tuning
+### Performance & System Tuning
 
-- **Kernel**: CachyOS kernel (`x86_64-v4`) with `sched-ext` and disabled CPU mitigations (`mitigations=off`).
-- **Graphics & Display**: Intel iGPU hardware acceleration (GuC/HuC submission, `iHD` driver, VPL runtime), Framebuffer Compression (FBC), PSR2, and Fastboot.
-- **Network**: TCP BBR congestion control, `fq` network queue, TCP Fast Open, MTU probing, and socket buffer tuning.
-- **I/O Schedulers & Disks**: Hardware-aware scheduling rules (none for NVMe, `mq-deadline` for SATA SSDs, `bfq` for HDDs), periodic SSD TRIM, and tmpfs `/tmp`.
-- **Scheduler**: Extensible `scx-loader` framework utilizing `scx_lavd` scheduler by default with `scx_bpfland` fallback options.
-- **Memory & Swap**: ZRAM swap with `zstd` compression (1:1 RAM ratio) and tuned swappiness (`vm.swappiness=150`).
-- **DDC/CI Support**: `i2c` enabled for monitor control via `ddcutil`.
+- **Kernel & Scheduling**:
+  - Upstream Linux Mainline kernel (`linuxPackages_testing`) with `sched-ext` support.
+  - BPF-based CPU scheduling powered by `scx_loader` with **`scx_bpfland`** as the default scheduler.
+  - Kernel scheduler autogroups prioritizing interactive desktop sessions over batch jobs.
+- **Responsiveness & Memory**:
+  - Hardware-aware I/O scheduling: Kyber latency targeting on NVMe storage to eliminate compositor stutters during builds.
+  - ZRAM compressed swap with Multi-Gen LRU (MGLRU) and EarlyOOM protection shielding user sessions.
+  - Periodic SSD TRIM timers.
+- **Hardware Acceleration & Power**:
+  - Intel Tiger Lake Iris Xe graphics acceleration with early KMS, iHD VA-API, and OpenCL compute runtimes.
+  - Non-adaptive `thermald` and PCI runtime power management.
 
-### Shell Environment
+### Security Hardening
 
-- **Interactive Shell**: Fish shell configured with:
-  - `starship` prompt (Style 1 Modern Two-Line prompt with ANSI Material theme sync matching Dux Shell / Matugen, git status, nix-shell, and language indicators).
-  - `zoxide` navigation helper.
-  - `direnv` / `nix-direnv` workspace integration.
-  - Plugins: `autopair`, `done` notification, `fzf-fish` search, `grc` colorizer, `foreign-env`.
-  - Semantic ANSI syntax highlighting and completion pager synchronized with dynamic terminal palette.
-  - Colored man pages.
+- **Firewall & Privacy**:
+  - Native **`nftables`** backend with default drop policies.
+  - Guest bridge isolation (`virbr0`, `waydroid0`) blocking access to private LANs.
+  - Transparent loop-free NextDNS port 53 interception table.
+  - Full 48-bit per-network MAC address randomization via `iwd`.
+- **System Isolation**:
+  - Active CPU microcode mitigations and Kernel Self Protection (KSPP memory sanitization).
+  - Attack surface reduction: blacklisted legacy protocols, unmaintained filesystems, and unneeded peripheral buses.
+  - Strict system umask (`077`), private home directories (`0700`), and systemd namespace sandboxing for core daemons.
 
-### Packages & Productivity Suite
+### Binary Compatibility & Execution
 
-- **ArtCraft Creative & Office Suite**: Applications from [`github:Devitek/artcraft-nixos`](https://github.com/Devitek/artcraft-nixos):
-  - **PdfCraft**: PDF reader, annotator, page splitter, and organizer.
-  - **WordCraft**: Clean-room word processor (DOCX, ODT, RTF).
-  - **DeckCraft**: Clean-room presentation & slide deck editor (PPTX, PPT, ODP).
-  - **GridCraft**: Clean-room spreadsheet & workbook editor (XLSX, XLS, ODS, CSV, TSV).
-  - **VectorCraft**: Clean-room vector graphics design & SVG illustration editor.
-  - **PhotoCraft**: Clean-room RAW photo and non-destructive image editor.
-- **Development & Toolchains**: Zed Editor, Antigravity IDE, Typst toolchain (`typst`, `typstyle`, `typst-live`), Node.js, Bun, pnpm, Python (`uv`), Git, GitHub CLI (`gh`).
-- **Browsers & Communication**: Helium Browser, Mullvad Browser, Thunderbird, LocalSend, qBittorrent-enhanced.
-- **Media & Knowledge**: Foliate, Obsidian, FreeTube, mpv, yt-dlp, headless FFmpeg.
-- **CLI Utilities**: `nh` (Nix Helper), `yazi` (file manager), `eza`, `bat`, `btop`, `fd`, `ripgrep`, `dust`, `ncdu`, `_7zz-rar`, `imagemagick`, `chafa`.
-- **Flatpak**: Declarative flatpaks managed via `nix-flatpak`.
-- **Compatibility**: FHS environment wrapper (`fhs-env.nix`).
+- **Dynamic Binaries (`programs.nix-ld`)**: Seamless execution of unpatched standard Linux binaries with bundled glibc, FUSE 2/3, Wayland, X11, and Mesa libraries.
+- **Seamless AppImages (`programs.appimage`)**: Automatic kernel `binfmt_misc` registration running AppImages natively via `appimage-run` without manual extraction or FUSE errors.
+- **FUSE Permissions**: `programs.fuse.userAllowOther = true` permitting unprivileged multi-user mounts.
+- **FHS Sandbox**: `steam-run` available for running complex foreign desktop software.
 
-### Services, Virtualization & Security
+### Shell & Productivity
 
-- **Lab & Container Specialisation (`specialisation.lab`)**:
-  - Podman (Docker-compatible container engine).
-  - Libvirt/KVM virtualization with `virt-manager` and SWTPM 2.0.
-  - Android development stack & Waydroid (`modules/services/android.nix`).
+- **Fish Shell**:
+  - Two-line `starship` prompt matched to dynamic ANSI terminal palettes.
+  - Plugins: `autopair`, `done`, `fzf-fish`, `grc`, and `foreign-env`.
+  - Productivity aliases & abbreviations: `rfluid`, `rminimal`, `nfmt`, `ncheck`, `nclean`, `nlog`.
+- **ArtCraft Creative & Office Suite**: Native apps (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) via `github:Devitek/artcraft-nixos`.
+- **Development & Tools**: Zed Editor, Antigravity IDE, Typst toolchain, Node.js, Bun, pnpm, Python (`uv`), Git, and GitHub CLI.
+- **Browsers & Media**: Helium Browser, Mullvad Browser, Thunderbird, LocalSend, qBittorrent-enhanced, mpv, and Foliate.
+
+### Virtualization & Specialisations
+
+- **Lab Specialisation (`specialisation.lab`)**:
+  - Podman container engine (Docker compatible).
+  - Waydroid and Android development environment.
+  - Libvirt / KVM hypervisor stack with `virt-manager` and SWTPM 2.0.
 - **Windows Virtualization Specialisation (`specialisation.windows`)**:
-  - High-performance Windows 10/11 guest virtualization in QEMU/KVM:
-    - Raw physical disk mapping (`/dev/disk/by-partlabel/win-vm-disk` on `/dev/sda1`) with zero Btrfs CoW overhead and zero ACL issues.
-    - Declarative `~/.vms` storage workspace (`~/.vms/{iso,xml,scripts}`) and `winvm.sh` CLI.
-    - Isolated root QEMU execution (`runAsRoot = true`) in the specialization to access ISOs without modifying home directory ACLs.
-    - Automated `virtio-win.iso` driver pool symlinks (`~/.vms/iso/virtio-win.iso` and `/var/lib/libvirt/images/virtio-win.iso`).
-    - UEFI OVMF with TPM 2.0 (`swtpm`).
-    - SPICE USB redirection & `virt-viewer` client.
-    - Nested Intel KVM (`kvm_intel.nested=1`) & MSR protection ignore.
-    - FreeRDP (`freerdp`) for remote desktop connectivity.
-- **Printing**: Optional CUPS printing service and discovery (`my.services.printing.enable`).
-- **Systemd Service Sandboxing**: Dedicated security overrides reducing systemd-analyze exposure levels for `nextdns`, `mandb`, `iwd`, `scx_loader`, `nscd`, and `systemd-rfkill`.
-- **Kernel & Sysctl Security**: Kernel image protection (`protectKernelImage`), restricted ptrace scope, sysctl network and filesystem security hardening.
-- **DNS**: NextDNS.
-- **Authentication**: Polkit GNOME authentication agent.
+  - Direct NVMe physical partition mapping (`win-vm-disk`) with zero CoW overhead.
+  - UEFI OVMF with TPM 2.0 (`swtpm`), nested KVM, and FreeRDP client.
 
 ## Configuration Options
 
-Custom options declared under the `my.*` namespace in [`modules/core/options.nix`](file:///home/mrbot/.nixos-config/modules/core/options.nix):
+Key declarative options declared under the `my.*` namespace:
 
-| Option                                      | Type                           | Default                                                | Description                                                                                                                                           |
-| :------------------------------------------ | :----------------------------- | :----------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `my.user.name`                              | `string`                       | _required_                                             | Primary system username.                                                                                                                              |
-| `my.user.hashedPasswordFile`                | `path` or `null`               | `/etc/nixos/passwords/${my.user.name}`                 | Path to the user's hashed password file.                                                                                                              |
-| `my.user.extraGroups`                       | `list of strings`              | `["networkmanager" "wheel" "i2c" "input" "wireshark"]` | Extra groups for the primary user.                                                                                                                    |
-| `my.user.shell`                             | `package`                      | `pkgs.fish`                                            | Default shell for the primary user.                                                                                                                   |
-| `my.desktop.environment`                    | `enum: niri, kde, gnome, none` | `"none"`                                               | Desktop environment to activate.                                                                                                                      |
-| `my.configPath`                             | `string`                       | `"~/.nixos-config"`                                    | Path to NixOS config repository.                                                                                                                      |
-| `my.packages.minimal`                       | `bool`                         | `false`                                                | Omits heavy IDEs, browsers, media apps, ArtCraft, and Flatpaks when `true`.                                                                           |
-| `my.users.nini.enable`                      | `bool`                         | `false`                                                | Enable secondary user profile `nini`.                                                                                                                 |
-| `my.services.printing.enable`               | `bool`                         | `false`                                                | Enable CUPS printing service and network discovery.                                                                                                   |
-| `my.services.virtualisation.enable`         | `bool`                         | `false`                                                | Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM.                                                                                  |
-| `my.services.virtualisation.windows.enable` | `bool`                         | `false`                                                | Windows guest VM support (virtio-win ISO pool, virt-viewer, nested KVM).                                                                              |
-| `my.packages.artcraft.enable`               | `bool`                         | `!my.packages.minimal`                                 | Enable ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) from `github:Devitek/artcraft-nixos`. |
+| Option                                      | Type      | Default                | Description                                                        |
+| :------------------------------------------ | :-------- | :--------------------- | :----------------------------------------------------------------- |
+| `my.user.name`                              | `string`  | _required_             | Primary system username.                                           |
+| `my.user.shell`                             | `package` | `pkgs.fish`            | Default user shell.                                                |
+| `my.desktop.environment`                    | `enum`    | `"none"`               | Desktop environment (`"niri"`, `"kde"`, `"gnome"`, or `"none"`).   |
+| `my.packages.minimal`                       | `bool`    | `false`                | Omits heavy IDEs, browsers, media apps, and ArtCraft when enabled. |
+| `my.packages.artcraft.enable`               | `bool`    | `!my.packages.minimal` | Enable ArtCraft office and creative suite.                         |
+| `my.security.secureboot.enable`             | `bool`    | `false`                | Enable Lanzaboote UEFI Secure Boot with signed UKIs.               |
+| `my.hardware.intelGpu.enable`               | `bool`    | `false`                | Enable Intel Iris Xe GPU drivers, early KMS, and compute.          |
+| `my.hardware.powerManagement.enable`        | `bool`    | `false`                | Enable laptop power management and SATA link power policies.       |
+| `my.services.nextdns.enable`                | `bool`    | `false`                | Enable local NextDNS encrypted DNS resolver.                       |
+| `my.services.printing.enable`               | `bool`    | `false`                | Enable CUPS printing and Avahi discovery.                          |
+| `my.services.android.enable`                | `bool`    | `false`                | Enable Waydroid and Android development tools.                     |
+| `my.services.virtualisation.enable`         | `bool`    | `false`                | Libvirt/KVM virtualization stack with QEMU and SWTPM.              |
+| `my.services.virtualisation.windows.enable` | `bool`    | `false`                | Windows guest VM support and virtio drivers.                       |
+| `my.users.nini.enable`                      | `bool`    | `false`                | Enable secondary user profile `nini`.                              |
 
-## Configuration Structure
+## Repository Structure
 
 ```text
 .nixos-config/
-├── flake.nix             # Flake entry point (hosts, inputs, & system-wide builders)
-├── flake.lock            # Lockfile managing pin points of nixpkgs & modules
+├── flake.nix             # Flake entry point (configurations, formatter, checks, apps)
+├── flake.lock            # Lockfile managing pinned dependencies
+├── treefmt.nix           # Unified formatting pipeline (RFC 166 nixfmt, statix, deadnix, shfmt)
 ├── LICENSE               # MIT License
-├── README.md             # This guide
+├── README.md             # Workstation documentation
 ├── hosts/
-│   ├── common.nix        # Common host attributes (Timezone, Locales)
-│   ├── laptop/
-│   │   ├── configuration.nix      # Host-specific settings & Specialisations (lab, windows)
-│   │   └── hardware-configuration.nix # Generated machine/partition layout
-│   └── preview/
-│       └── configuration.nix      # Dedicated QEMU VM preview profile
-├── modules/
-│   ├── base.nix          # Global modules imported on all systems
-│   ├── appearance/       # Styling, custom fonts, SDDM, Niri/KDE/GNOME profiles
-│   │   ├── components/   # SDDM, Dunst, Waybar, Wallust
-│   │   ├── desktop-environment/ # Niri, KDE Plasma, GNOME dispatchers
-│   │   ├── gtk.nix       # Global GTK, GDK Pixbuf loaders, dconf & base icon themes
-│   │   └── fonts.nix     # Typography and /usr/share/fonts tmpfiles bridge
-│   ├── boot/             # Bootloader (GRUB 2) and Plymouth splash modules
-│   ├── core/             # Core configuration options (my.* namespace)
-│   │   └── options.nix   # Custom option declarations
-│   ├── packages/         # Application suites (ArtCraft, CLI, Dev, Internet, Media, Lab)
-│   │   ├── artcraft.nix  # ArtCraft applications integration (github:Devitek/artcraft-nixos)
-│   │   └── lab/          # Modularized lab tools (Wireshark, Oracle Client, FreeRDP)
-│   ├── services/         # Virtualization, NextDNS, Android, Printing, Flatpaks, FHS env
-│   ├── shell/            # Shell configurations (Fish, Nu)
-│   └── system-tuning/    # Performance, graphics, disks, swap, kernel, security, & service hardening
-└── users/
-    ├── default.nix       # Dynamic primary user profile definition
-    └── nini.nix          # Secondary user profile definition
+│   ├── laptop/           # Workstation host config, hardware scan, and specialisations
+│   └── preview/          # QEMU VM testing targets (preview and preview-full)
+└── modules/
+    ├── base.nix          # Global baseline imported across all systems
+    ├── appearance/       # Styling, custom fonts, GDK Pixbuf loaders
+    ├── boot/             # Lanzaboote Secure Boot, GRUB 2, and Plymouth
+    ├── core/             # Options, locale, nix daemon, and binary compatibility
+    ├── desktop/          # Environments (Niri, KDE, GNOME), display managers, dux-shell
+    ├── hardware/         # Intel Iris Xe GPU drivers and peripheral udev rules
+    ├── packages/         # ArtCraft, CLI utilities, development tools, internet, media
+    ├── services/         # Virtualization, NextDNS, Android, printing, flatpaks, Podman
+    ├── shell/            # Fish shell (with Starship prompt) and Nu
+    ├── system-tuning/    # Performance, cgroups, disks, kernel, power, security, swap
+    └── users/            # Primary user and secondary profile (nini) definitions
 ```
 
-## Installation Guide
+## Tooling
 
-> [!WARNING]
-> **For First-Time Installers:** This repository is tailored for a specific user and hardware setup. You **must** adapt it to your system before installation to avoid permission issues and boot failures.
+Code quality is enforced via [`treefmt-nix`](file:///home/mrbot/.nixos-config/treefmt.nix):
 
-### 1. Prepare Partitions & Mount
-
-Create and mount your partitions according to your preferred filesystem layout. Ensure the boot loader directory is fully mounted:
-
-- **Root (`/`)**: Mount at `/mnt` (e.g., ext4, btrfs, zfs)
-- **Boot (`/boot`)**: Mount at `/mnt/boot` (e.g., fat32)
-- **Home (`/home`)**: _(Optional)_ Mount at `/mnt/home`
-
-### 2. Clone the Configuration Flake
-
-Boot into the installation media environment and clone this repository:
+- **`nixfmt`**: Canonical RFC 166 formatting.
+- **`statix`**: Nix antipattern and dead code detection.
+- **`deadnix`**: Unused binding removal.
+- **`shfmt`**: Shell script formatting.
 
 ```bash
-git clone https://github.com/fizzflip/nixos-config.git /mnt/etc/nixos/config
-cd /mnt/etc/nixos/config
+# Format codebase
+nix fmt       # or fish: nfmt
+
+# Run flake checks across all systems and checks
+nix flake check # or fish: ncheck
 ```
 
-### 3. Generate Hardware Configuration
+## Installation
 
-You need to generate a hardware profile specific to your machine.
+### First-Time Installation
 
-> [!CAUTION]
-> **Do not generate this in the root directory.** The flake expects the hardware configuration to be located inside your specific host directory (e.g., `hosts/laptop/`). If you use `--dir .` in the root of the workspace, you will need to manually move `hardware-configuration.nix` and delete the generated `configuration.nix`.
-
-```bash
-nixos-generate-config --show-hardware-config --root /mnt > hosts/laptop/hardware-configuration.nix
-```
-
-_Ensure you overwrite the existing `hardware-configuration.nix` in that folder._
-
-### 4. Personalize User Configuration
-
-1. Open `flake.nix`.
-2. Change `my.user.name = "mrbot"` to your username in each profile.
-3. Generate and store your password:
-
+1. Mount your partitions (`/mnt` for root, `/mnt/boot` for EFI).
+2. Clone this flake to `/mnt/etc/nixos/config`.
+3. Generate machine hardware config:
    ```bash
-   mkdir -p /mnt/etc/nixos/passwords
-
-   # Generate the sha-512 password hash
-   mkpasswd -m sha-512 > /mnt/etc/nixos/passwords/<your_username>
-
-   # Fallback if mkpasswd is not preinstalled on your installer media:
-   # nix-shell -p mkpasswd --run "mkpasswd -m sha-512" > /mnt/etc/nixos/passwords/<your_username>
+   nixos-generate-config --show-hardware-config --root /mnt > hosts/laptop/hardware-configuration.nix
+   ```
+4. Set your username in `flake.nix` and generate password hash in `/mnt/etc/nixos/passwords/<user>`.
+5. Stage changes and install:
+   ```bash
+   git add .
+   nixos-install --flake .#minimal --root /mnt
    ```
 
-4. That's it - no more grep-replacing across the codebase!
-
-### 5. Run the Installer
-
-Choose your desired configuration profile from `flake.nix` (e.g., `minimal` or `fluid`).
-
-> [!IMPORTANT]
-> **Nix flakes ignore files that are not tracked by Git!** If you renamed or added new files (like the hardware config), you must stage them. Otherwise, the installer will throw a missing file error.
->
-> ```bash
-> git add .
-> ```
-
-Execute the installation:
+### Daily Operations
 
 ```bash
-nixos-install --flake .#minimal --root /mnt --verbose --show-trace
-```
+# Rebuild and switch profiles
+sudo nixos-rebuild switch --flake .#minimal    # Niri profile (or: rminimal)
+sudo nixos-rebuild switch --flake .#fluid      # KDE Plasma profile (or: rfluid)
 
-## Maintenance & System Operations
+# Verify Secure Boot signatures
+sudo sbctl status
+sudo sbctl verify
 
-### Rebuilding and Switching
-
-To apply changes to the system:
-
-```bash
-# Rebuild and switch using Niri profile
-nixos-rebuild switch --flake .#minimal --verbose --show-trace
-
-# Rebuild and switch using KDE Plasma profile
-nixos-rebuild switch --flake .#fluid --verbose --show-trace
-```
-
-### Toggle Specialisation (Lab & Windows Virtualization)
-
-Specialisations can be loaded on the fly without rebooting:
-
-```bash
-# Switch to the Lab profile (Podman, Android Studio, Waydroid, Wireshark, Oracle Client)
+# Switch specialisations without rebooting
 sudo /run/current-system/specialisation/lab/bin/switch
-
-# Switch to the Windows Virtualization profile (virtio-win ISO, virt-viewer, nested KVM, FreeRDP)
 sudo /run/current-system/specialisation/windows/bin/switch
-
-# Switch back to the base profile
 sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
+
+# Run configuration testing VM
+nix run .#preview      # Minimal VM
+nix run .#preview-full # Full VM with development & virtualization suite
 ```
-
-### Running the Sandbox Preview VM
-
-To launch the QEMU virtual machine for configuration evaluation:
-
-```bash
-# Launch Minimal preview environment (lightweight, bare essentials only)
-nix run .#preview
-# Or launch using the default flake application
-nix run
-
-# Launch Full preview environment (contains all IDEs, media apps, flatpaks, and Lab tools)
-nix run .#preview-full
-```
-
-VM configuration details:
-
-- **CPU & Memory**: 4 CPU cores, 4GB RAM.
-- **Graphics & Display**: GTK display with hardware OpenGL rendering (`virtio-vga-gl`), set to `1920x1080` resolution.
-- **Login**: Login as `mrbot` with the password `nixos` (bypasses password files).
-
-## Documentation Resources
-
-- [NixOS Search](https://search.nixos.org) - Package and option search.
-- [MyNixOS](https://mynixos.com) - Formatted options and parameters list.
-- [NixOS Manual](https://nixos.org/manual/nixos) - Operations guide.
-- [NixOS Wiki](https://nixos.wiki) - Community resources.
