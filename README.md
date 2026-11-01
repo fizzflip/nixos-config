@@ -46,15 +46,16 @@ Mess? Kinda. Cleaning? Working on that.
 ### Shell Environment
 
 - **Interactive Shell**: Fish shell configured with:
-  - `starship` prompt.
+  - `starship` prompt (Style 1 Modern Two-Line prompt with ANSI Material theme sync matching Dux Shell / Matugen, git status, nix-shell, and language indicators).
   - `zoxide` navigation helper.
   - `direnv` / `nix-direnv` workspace integration.
   - Plugins: `autopair`, `done` notification, `fzf-fish` search, `grc` colorizer, `foreign-env`.
+  - Semantic ANSI syntax highlighting and completion pager synchronized with dynamic terminal palette.
   - Colored man pages.
 
 ### Packages & Productivity Suite
 
-- **ArtCraft Creative & Office Suite**: Applications from [`github:olafkfreund/nix-craftapps`](https://github.com/olafkfreund/nix-craftapps):
+- **ArtCraft Creative & Office Suite**: Applications from [`github:Devitek/artcraft-nixos`](https://github.com/Devitek/artcraft-nixos):
   - **PdfCraft**: PDF reader, annotator, page splitter, and organizer.
   - **WordCraft**: Clean-room word processor (DOCX, ODT, RTF).
   - **DeckCraft**: Clean-room presentation & slide deck editor (PPTX, PPT, ODP).
@@ -135,7 +136,7 @@ Custom options declared under the `my.*` namespace in [`modules/core/options.nix
 │   ├── core/             # Core configuration options (my.* namespace)
 │   │   └── options.nix   # Custom option declarations
 │   ├── packages/         # Application suites (ArtCraft, CLI, Dev, Internet, Media, Lab)
-│   │   ├── artcraft.nix  # ArtCraft applications integration (github:olafkfreund/nix-craftapps)
+│   │   ├── artcraft.nix  # ArtCraft applications integration (github:Devitek/artcraft-nixos)
 │   │   └── lab/          # Modularized lab tools (Wireshark, Oracle Client, FreeRDP)
 │   ├── services/         # Virtualization, NextDNS, Android, Printing, Flatpaks, FHS env
 │   ├── shell/            # Shell configurations (Fish, Nu)
