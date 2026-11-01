@@ -124,6 +124,9 @@
     "vm.compaction_proactiveness" = 0;
     "vm.page_lock_unfairness" = 1;
 
+    # Scheduler Autogrouping (Prioritizes interactive desktop sessions over batch jobs)
+    "kernel.sched_autogroup_enabled" = 1;
+
     # TCP BBR Congestion Control & Network Optimizations
     "net.core.default_qdisc" = "fq";
     "net.ipv4.tcp_congestion_control" = "bbr";
