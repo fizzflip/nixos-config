@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   pkgs,
   ...
 }:
@@ -20,6 +21,26 @@ in
     # Disable default welcome greeting & configure colored man pages
     interactiveShellInit = ''
       set -g fish_greeting ""
+
+      # Terminal ANSI syntax highlighting & pager (auto-adapts to DMS / Matugen theme)
+      set -g fish_color_normal normal
+      set -g fish_color_command cyan --bold
+      set -g fish_color_keyword blue --bold
+      set -g fish_color_quote green
+      set -g fish_color_redirection magenta
+      set -g fish_color_end yellow
+      set -g fish_color_error red
+      set -g fish_color_param normal
+      set -g fish_color_comment brblack
+      set -g fish_color_selection --reverse
+      set -g fish_color_search_match --reverse
+      set -g fish_color_operator cyan
+      set -g fish_color_escape yellow
+      set -g fish_color_autosuggestion brblack
+      set -g fish_pager_color_prefix cyan --bold
+      set -g fish_pager_color_completion normal
+      set -g fish_pager_color_description brblack
+      set -g fish_pager_color_progress cyan
 
       # Beautifully colored manual pages
       set -g xp_man_colors 1
@@ -67,8 +88,124 @@ in
     nix-direnv.enable = true;
   };
 
-  # Enable Starship prompt system-wide (automatically configures Fish integration)
-  programs.starship.enable = true;
+  # Enable Starship prompt system-wide with adaptive Material theme styling
+  programs.starship = {
+    enable = true;
+    settings = {
+      add_newline = true;
+
+      # Style 1: Modern Two-Line Layout with status indicators and pushed execution duration
+      format = lib.concatStrings [
+        "$directory"
+        "$git_branch"
+        "$git_status"
+        "$nix_shell"
+        "$package"
+        "$rust"
+        "$python"
+        "$nodejs"
+        "$golang"
+        "$c"
+        "$fill"
+        "$cmd_duration"
+        "$jobs"
+        "$line_break"
+        "$character"
+      ];
+
+      fill.symbol = " ";
+
+      directory = {
+        style = "bold cyan";
+        read_only = " 󰌾";
+        truncation_length = 3;
+        truncate_to_repo = true;
+        format = "[$path]($style)[$read_only]($read_only_style) ";
+      };
+
+      git_branch = {
+        symbol = " ";
+        style = "bold purple";
+        format = "on [$symbol$branch]($style) ";
+      };
+
+      git_status = {
+        style = "bold yellow";
+        format = "([$all_status$ahead_behind]($style) )";
+        conflicted = "🏳 ";
+        ahead = "⇡\${count} ";
+        behind = "⇣\${count} ";
+        diverged = "⇕⇡\${ahead_count}⇣\${behind_count} ";
+        untracked = "?\${count} ";
+        stashed = "📦 ";
+        modified = "!\${count} ";
+        staged = "+\${count} ";
+        renamed = "»\${count} ";
+        deleted = "✘\${count} ";
+      };
+
+      nix_shell = {
+        symbol = "❄️ ";
+        style = "bold blue";
+        format = "via [$symbol($name )]($style)";
+        heuristic = true;
+      };
+
+      cmd_duration = {
+        min_time = 2000;
+        style = "dimmed yellow";
+        format = "took [$duration]($style) ";
+      };
+
+      jobs = {
+        symbol = "✦";
+        style = "bold yellow";
+        format = "[$symbol$number]($style) ";
+      };
+
+      character = {
+        success_symbol = "[❯](bold green)";
+        error_symbol = "[❯](bold red)";
+        vimcmd_symbol = "[❮](bold green)";
+      };
+
+      rust = {
+        symbol = "🦀 ";
+        style = "bold red";
+        format = "via [$symbol($version )]($style)";
+      };
+
+      python = {
+        symbol = "🐍 ";
+        style = "bold yellow";
+        format = "via [$symbol($version )]($style)";
+      };
+
+      nodejs = {
+        symbol = "󰎙 ";
+        style = "bold green";
+        format = "via [$symbol($version )]($style)";
+      };
+
+      golang = {
+        symbol = "🐹 ";
+        style = "bold cyan";
+        format = "via [$symbol($version )]($style)";
+      };
+
+      c = {
+        symbol = "🅒 ";
+        style = "bold blue";
+        format = "via [$symbol($version )]($style)";
+      };
+
+      package = {
+        symbol = "📦 ";
+        style = "dimmed white";
+        format = "is [$symbol$version]($style) ";
+      };
+    };
+  };
 
   # Modern developer CLI plugins for Fish
   environment.systemPackages = [
