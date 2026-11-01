@@ -74,6 +74,8 @@ in
       nconf = "cd ${cfgPath}";
       nclean = "nh clean all";
       nlog = "git log --oneline -n 10";
+      nfmt = "nix fmt";
+      ncheck = "nix flake check";
     };
   };
 

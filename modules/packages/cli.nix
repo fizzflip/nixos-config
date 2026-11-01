@@ -32,7 +32,7 @@
     pkgs.nix-tree
 
     # Archive Tools
-    pkgs._7zz-rar
+    pkgs._7zz
 
     # Image manipulation
     pkgs.chafa
