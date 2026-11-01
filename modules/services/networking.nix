@@ -57,9 +57,9 @@
 
       chain output {
         type nat hook output priority dstnat; policy accept;
-        # Intercept rogue local queries, exempting the local NextDNS daemon
-        meta skuid != "nextdns" ip daddr != 127.0.0.1 meta l4proto { tcp, udp } th dport 53 redirect to :53
-        meta skuid != "nextdns" ip6 daddr != ::1 meta l4proto { tcp, udp } th dport 53 redirect to :53
+        # Intercept local applications attempting to query external DNS resolvers directly
+        ip daddr != 127.0.0.1 meta l4proto { tcp, udp } th dport 53 redirect to :53
+        ip6 daddr != ::1 meta l4proto { tcp, udp } th dport 53 redirect to :53
       }
     '';
   };
