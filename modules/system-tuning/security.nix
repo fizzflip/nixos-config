@@ -3,6 +3,9 @@
     # Protect kernel image (prevents kexec and modifying kernel memory via /dev/mem)
     protectKernelImage = true;
 
+    # Privilege separation & umask enforcement
+    pam.enableUMask = true;
+
     # Userland security
     rtkit.enable = true;
     sudo.enable = false;
@@ -12,6 +15,9 @@
       execWheelOnly = true;
     };
   };
+
+  # Restrict default umask across all shell and login environments
+  environment.variables.UMASK = "077";
 
   # Security Hardening Sysctls
   boot.kernel.sysctl = {

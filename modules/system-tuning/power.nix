@@ -9,10 +9,26 @@
   powerManagement.scsiLinkPolicy = "med_power_with_dipm";
 
   services.thermald.enable = true;
-  # Non-adaptive mode prevents crash on machines without complete DPTF/PSVT ACPI tables
-  systemd.services.thermald.serviceConfig.ExecStart =
-    lib.mkForce "${pkgs.thermald}/sbin/thermald --no-daemon --dbus-enable";
+  # Non-adaptive mode prevents crash on machines without complete DPTF/PSVT ACPI tables, with service sandboxing
+  systemd.services.thermald.serviceConfig = {
+    ExecStart = lib.mkForce "${pkgs.thermald}/sbin/thermald --no-daemon --dbus-enable";
+    ProtectSystem = "strict";
+    ProtectHome = true;
+    ProtectKernelModules = true;
+    ProtectControlGroups = true;
+    MemoryDenyWriteExecute = true;
+    NoNewPrivileges = true;
+  };
+
   services.power-profiles-daemon.enable = true;
+  systemd.services.power-profiles-daemon.serviceConfig = {
+    ProtectSystem = "strict";
+    ProtectHome = true;
+    ProtectKernelModules = true;
+    ProtectControlGroups = true;
+    MemoryDenyWriteExecute = true;
+    NoNewPrivileges = true;
+  };
 
   # Declarative udev rules for Runtime PM & Peripheral responsiveness
   services.udev.extraRules = ''

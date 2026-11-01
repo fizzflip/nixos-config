@@ -18,6 +18,17 @@
     ];
   };
 
+  # Harden EarlyOOM daemon filesystem & capability boundaries
+  systemd.services.earlyoom.serviceConfig = {
+    ProtectSystem = "strict";
+    ProtectHome = true;
+    PrivateNetwork = true;
+    CapabilityBoundingSet = [
+      "CAP_KILL"
+      "CAP_SYS_RESOURCE"
+    ];
+  };
+
   # Prevent shutdown hangs and service startup lag via structured Manager settings
   systemd.settings.Manager = {
     DefaultTimeoutStopSec = "10s";

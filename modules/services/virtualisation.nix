@@ -56,10 +56,10 @@ in
     '';
 
     systemd.tmpfiles.rules = lib.mkIf cfg.windows.enable [
-      "d /home/${config.my.user.name}/.vms 0770 ${config.my.user.name} users -"
-      "d /home/${config.my.user.name}/.vms/iso 0770 ${config.my.user.name} users -"
-      "d /home/${config.my.user.name}/.vms/xml 0770 ${config.my.user.name} users -"
-      "d /home/${config.my.user.name}/.vms/scripts 0770 ${config.my.user.name} users -"
+      "d /home/${config.my.user.name}/.vms 0700 ${config.my.user.name} users -"
+      "d /home/${config.my.user.name}/.vms/iso 0700 ${config.my.user.name} users -"
+      "d /home/${config.my.user.name}/.vms/xml 0700 ${config.my.user.name} users -"
+      "d /home/${config.my.user.name}/.vms/scripts 0700 ${config.my.user.name} users -"
       "L+ /home/${config.my.user.name}/.vms/iso/virtio-win.iso - - - - ${pkgs.virtio-win.src}"
       "L+ /var/lib/libvirt/images/virtio-win.iso - - - - ${pkgs.virtio-win.src}"
     ];

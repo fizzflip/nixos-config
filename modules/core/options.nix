@@ -78,6 +78,10 @@ in
       description = "Path to the NixOS config repo (used in shell abbreviations).";
     };
 
+    security.secureboot = {
+      enable = lib.mkEnableOption "UEFI Secure Boot using Lanzaboote Unified Kernel Images (UKIs) signed via sbctl";
+    };
+
     packages.minimal = lib.mkOption {
       type = lib.types.bool;
       default = false;
