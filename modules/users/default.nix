@@ -9,6 +9,7 @@ in
 
   users.users.${cfg.name} = {
     isNormalUser = true;
+    homeMode = "0700";
     shell = cfg.shell;
     extraGroups = cfg.extraGroups;
     hashedPasswordFile =

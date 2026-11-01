@@ -22,6 +22,10 @@
       url = "github:miguel-b-p/preload-ng";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs =
     inputs@{
@@ -31,6 +35,7 @@
     }:
     let
       baseModules = [
+        inputs.lanzaboote.nixosModules.lanzaboote
         ./modules/base.nix
       ];
       mkSystem =

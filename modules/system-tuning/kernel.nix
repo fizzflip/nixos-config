@@ -53,19 +53,7 @@
     };
   };
 
-  security.sudo-rs.extraRules = lib.mkIf config.services.scx-loader.enable [
-    {
-      users = [ config.my.user.name ];
-      commands = [
-        {
-          command = "${pkgs.scx-loader}/bin/scxctl";
-          options = [ "NOPASSWD" ];
-        }
-      ];
-    }
-  ];
-
-  # Kernel Parameters to reduce wakeups, audit overhead, enable PCIe ASPM powersave, THP madvise, PSI tracking, USB autosuspend, and disable mitigations
+  # Kernel Parameters: reduce wakeups, audit overhead, enable PCIe ASPM powersave, THP madvise, PSI tracking, USB autosuspend, and memory sanitization
   boot.kernelParams = [
     "audit=0"
     "nmi_watchdog=0"
@@ -74,10 +62,58 @@
     "transparent_hugepage=madvise"
     "psi=1"
     "usbcore.autosuspend=2"
-    "mitigations=off"
     "split_lock_mitigate=0"
     "nowatchdog"
     "rcutree.enable_rcu_lazy=1"
+
+    # Kernel Self-Protection (KSPP): Zero heap/page allocations & shuffle free list against heap spray exploits
+    "init_on_alloc=1"
+    "page_alloc.shuffle=1"
+  ];
+
+  # Blacklist obsolete network protocols and legacy unmaintained filesystems prone to local privilege escalation
+  boot.blacklistedKernelModules = [
+    # Obsolete network protocols
+    "dccp"
+    "sctp"
+    "rds"
+    "tipc"
+    "n-hdlc"
+    "ax25"
+    "netrom"
+    "x25"
+    "rose"
+    "decnet"
+    "econet"
+    "af_802154"
+    "ipx"
+    "appletalk"
+    "psnap"
+    "p8023"
+    "p8022"
+    "can"
+    "atm"
+
+    # Legacy / unmaintained filesystems
+    "cramfs"
+    "freevxfs"
+    "jffs2"
+    "hfs"
+    "hfsplus"
+    "hpfs"
+    "adfs"
+    "affs"
+    "befs"
+    "bfs"
+    "efs"
+    "qnx4"
+    "qnx6"
+    "sysv"
+    "ufs"
+
+    # Obsolete peripheral bus protocols
+    "firewire-core"
+    "firewire_ohci"
   ];
 
   # Load network congestion control modules

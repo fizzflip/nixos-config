@@ -51,6 +51,7 @@
       warn-dirty = false;
       auto-allocate-uids = true;
       use-cgroups = true;
+      sandbox = true;
       http-connections = 25; # Balanced parallel HTTP connection pool
       connect-timeout = 5; # Fast failure on unreachable mirrors
       stalled-download-timeout = 10;
