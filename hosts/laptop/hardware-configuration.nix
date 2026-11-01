@@ -7,7 +7,7 @@
 }:
 let
   btrfsCommonOptions = [
-    "compress=zstd:3"
+    "compress=zstd:1"
     "noatime"
     "discard=async"
     "ssd"

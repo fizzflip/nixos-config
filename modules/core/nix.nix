@@ -7,8 +7,14 @@
   nix = {
     # Isolate compilation threads to background scheduling to prevent GUI starvation
     daemonCPUSchedPolicy = "batch";
-    daemonIOSchedClass = "idle";
+    daemonIOSchedClass = "best-effort";
     daemonIOSchedPriority = 7;
+
+    # Background weekly batch deduplication to avoid inline build/rebuild latency
+    optimise = {
+      automatic = true;
+      dates = [ "weekly" ];
+    };
 
     settings = {
       experimental-features = [
@@ -29,14 +35,15 @@
       ];
 
       # Store optimization & pure flake registry policy
-      auto-optimise-store = true;
+      auto-optimise-store = false;
       flake-registry = ""; # Prevents fetching global flake-registry.json over the network
       keep-outputs = false;
       keep-derivations = false;
 
-      # Use all hardware threads on the 2-core / 4-thread CPU
-      max-jobs = "auto";
-      cores = 0;
+      # Concurrency tuning for 2 physical cores / 4 threads and 8GB RAM
+      # Serializes package derivations to prevent RAM explosion while compiling with all 4 threads
+      max-jobs = 1;
+      cores = 4;
 
       # Optimize binary cache network downloads safely for memory-constrained hardware
       download-buffer-size = 33554432; # 32 MiB buffer for high-bandwidth chunk downloads
@@ -65,6 +72,19 @@
     channel.enable = false;
   };
 
-  # Cage nix-daemon into the low-weight CPU/IO slice to prevent interactive desktop stutter
-  systemd.services.nix-daemon.serviceConfig.Slice = "background.slice";
+  # Cage nix-daemon into background slice with memory ceilings to protect desktop responsiveness
+  systemd.services.nix-daemon = {
+    environment.TMPDIR = "/var/tmp/nix-daemon";
+    serviceConfig = {
+      Slice = "background.slice";
+      Nice = 19;
+      MemoryHigh = "5500M";
+      MemoryMax = "7000M";
+    };
+  };
+
+  # Automatic creation and aging of the build scratch directory in /var/tmp
+  systemd.tmpfiles.rules = [
+    "d /var/tmp/nix-daemon 1777 root root 2d"
+  ];
 }
