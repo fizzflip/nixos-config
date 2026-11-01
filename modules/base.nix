@@ -4,8 +4,9 @@
   imports = [
     # Core system options & shared settings
     ./core/options.nix
-    ../hosts/common.nix
-    ../users/default.nix
+    ./core/locale.nix
+    ./core/system.nix
+    ./users/default.nix
 
     # Subsystem categories
     ./boot/default.nix

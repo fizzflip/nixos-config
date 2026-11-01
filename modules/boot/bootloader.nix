@@ -16,11 +16,6 @@
     consoleLogLevel = 3;
     loader.timeout = 10;
   };
-  system = {
-    nixos-init.enable = true;
-    etc.overlay.enable = true;
-  };
-  services.userborn.enable = true;
 
   boot.kernelParams = [
     "quiet"
