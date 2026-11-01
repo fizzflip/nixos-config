@@ -45,7 +45,6 @@
 
     security = {
       polkit.enable = true;
-      # soteria.enable = true;
     };
 
     # Systemd user service to autostart Polkit authentication agent in Niri session
@@ -78,7 +77,6 @@
       pkgs.gnome-disk-utility
 
       # GTK Theme & Cursors
-      # pkgs.orchis-theme
       pkgs.bibata-cursors
 
       # Colors

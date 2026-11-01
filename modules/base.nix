@@ -18,6 +18,7 @@
     ./shell/default.nix
     ./packages/default.nix
     ./appearance/default.nix
+    ./desktop/default.nix
 
     # External flake modules
     inputs.nix-flatpak.nixosModules.nix-flatpak
