@@ -8,6 +8,14 @@ let
   cfg = config.my.hardware.intelGpu;
 in
 {
+  options.my.hardware.intelGpu = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Enable Intel Gen 11/12 GPU acceleration packages, early KMS, and i915 kernel parameters.";
+    };
+  };
+
   config = lib.mkIf cfg.enable {
     # Core drivers for 11th Gen (Tiger Lake) Intel Iris Xe Graphics
     hardware.graphics = {
@@ -34,12 +42,10 @@ in
       "i915.fastboot=1"
     ];
 
-    # Hardware-accelerated media and Wayland presentation environment variables
+    # Hardware-accelerated media environment variables
     environment.sessionVariables = {
       LIBVA_DRIVER_NAME = "iHD";
       VDPAU_DRIVER = "va_gl";
-      NIXOS_OZONE_WL = "1";
-      ELECTRON_OZONE_PLATFORM_HINT = "auto";
     };
   };
 }

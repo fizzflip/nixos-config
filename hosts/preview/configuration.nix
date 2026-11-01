@@ -10,7 +10,6 @@ in
 {
   system.stateVersion = "25.05";
   networking.hostName = "preview";
-  my.hardware.intelGpu.enable = false;
 
   # Dummy file systems and bootloader for evaluation (VM builder will override this)
   fileSystems."/" = {
