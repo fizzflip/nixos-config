@@ -42,58 +42,10 @@ in
       description = "Default shell for the primary user.";
     };
 
-    desktop.environment = lib.mkOption {
-      type = lib.types.enum [
-        "niri"
-        "kde"
-        "gnome"
-        "none"
-      ];
-      default = "none";
-      description = "Desktop environment to enable.";
-    };
-
-    hardware.intelGpu.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable Intel Gen 11/12 GPU acceleration packages, early KMS, and i915 kernel parameters.";
-    };
-
-    services.printing.enable = lib.mkEnableOption "CUPS printing service and discovery";
-
-    services.android.enable = lib.mkEnableOption "Waydroid and Android development environment";
-
-    services.virtualisation = {
-      enable = lib.mkEnableOption "Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM";
-      windows = {
-        enable = lib.mkEnableOption "Windows guest VM support (virtio-win ISO pool symlink, virt-viewer, nested KVM, MSR protection)";
-      };
-    };
-
-    users.nini.enable = lib.mkEnableOption "Secondary user profile nini";
-
     configPath = lib.mkOption {
       type = lib.types.str;
       default = "~/.nixos-config";
       description = "Path to the NixOS config repo (used in shell abbreviations).";
-    };
-
-    security.secureboot = {
-      enable = lib.mkEnableOption "UEFI Secure Boot using Lanzaboote Unified Kernel Images (UKIs) signed via sbctl";
-    };
-
-    packages.minimal = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "When enabled, installs only core CLI tools and desktop essentials, omitting heavy IDEs, media, internet applications, and flatpaks.";
-    };
-
-    packages.artcraft = {
-      enable = lib.mkOption {
-        type = lib.types.bool;
-        default = !config.my.packages.minimal;
-        description = "Enable the ArtCraft applications (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) from github:Devitek/artcraft-nixos.";
-      };
     };
   };
 }

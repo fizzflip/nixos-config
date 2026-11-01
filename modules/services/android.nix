@@ -8,6 +8,10 @@ let
   cfg = config.my.services.android;
 in
 {
+  options.my.services.android = {
+    enable = lib.mkEnableOption "Waydroid and Android development environment";
+  };
+
   config = lib.mkIf cfg.enable {
     virtualisation.waydroid = {
       enable = true;

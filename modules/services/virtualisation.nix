@@ -8,6 +8,13 @@ let
   cfg = config.my.services.virtualisation;
 in
 {
+  options.my.services.virtualisation = {
+    enable = lib.mkEnableOption "Libvirt/KVM virtualization stack with QEMU, virt-manager, and SWTPM";
+    windows = {
+      enable = lib.mkEnableOption "Windows guest VM support (virtio-win ISO pool symlink, virt-viewer, nested KVM, MSR protection)";
+    };
+  };
+
   config = lib.mkIf cfg.enable {
     # Lightweight Libvirt & KVM hypervisor stack
     virtualisation = {

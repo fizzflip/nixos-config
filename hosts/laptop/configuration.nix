@@ -15,6 +15,13 @@
   # Enable Lanzaboote UEFI Secure Boot
   my.security.secureboot.enable = true;
 
+  # Hardware acceleration & laptop power tuning
+  my.hardware.intelGpu.enable = true;
+  my.hardware.powerManagement.enable = true;
+
+  # Enable NextDNS encrypted resolver
+  my.services.nextdns.enable = true;
+
   specialisation.lab.configuration = {
     my.services.virtualisation.enable = true;
     my.services.android.enable = true;
