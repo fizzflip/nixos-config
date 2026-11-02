@@ -22,6 +22,9 @@
   # Enable NextDNS encrypted resolver
   my.services.nextdns.enable = true;
 
+  # Enable Gaze facial authentication
+  my.services.gaze.enable = true;
+
   specialisation.lab.configuration = {
     my.services.virtualisation.enable = true;
     my.services.android.enable = true;

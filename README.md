@@ -59,6 +59,8 @@ Mess? Kinda. Cleaning? Working on that.
   - Active CPU microcode mitigations and Kernel Self Protection (KSPP memory sanitization).
   - Attack surface reduction: blacklisted legacy protocols, unmaintained filesystems, and unneeded peripheral buses.
   - Strict system umask (`077`), private home directories (`0700`), and systemd namespace sandboxing for core daemons.
+- **Biometric Authentication**:
+  - Gaze on-device facial authentication daemon (`services.gaze`), PAM integration (`sudo`, polkit, login), liveness detection, and GTK4/Libadwaita configuration GUI.
 
 ### Binary Compatibility & Execution
 
@@ -102,6 +104,7 @@ Key declarative options declared under the `my.*` namespace:
 | `my.hardware.intelGpu.enable`               | `bool`    | `false`                | Enable Intel Iris Xe GPU drivers, early KMS, and compute.          |
 | `my.hardware.powerManagement.enable`        | `bool`    | `false`                | Enable laptop power management and SATA link power policies.       |
 | `my.services.nextdns.enable`                | `bool`    | `false`                | Enable local NextDNS encrypted DNS resolver.                       |
+| `my.services.gaze.enable`                   | `bool`    | `false`                | Enable Gaze facial authentication daemon and configuration GUI.   |
 | `my.services.printing.enable`               | `bool`    | `false`                | Enable CUPS printing and Avahi discovery.                          |
 | `my.services.android.enable`                | `bool`    | `false`                | Enable Waydroid and Android development tools.                     |
 | `my.services.virtualisation.enable`         | `bool`    | `false`                | Libvirt/KVM virtualization stack with QEMU and SWTPM.              |
