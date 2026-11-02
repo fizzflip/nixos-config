@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  options,
   pkgs,
   ...
 }:
@@ -12,11 +13,29 @@ in
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable Intel Gen 11/12 GPU acceleration packages, early KMS, and i915 kernel parameters.";
+      description = "Enable Intel Gen 11/12 GPU acceleration packages, early KMS, and kernel driver parameters.";
+    };
+
+    driver = lib.mkOption {
+      type = lib.types.enum [
+        "i915"
+        "xe"
+      ];
+      default = "i915";
+      description = "Underlying kernel graphics driver to bind to the Intel GPU.";
+    };
+
+    pciId = lib.mkOption {
+      type = lib.types.str;
+      default = "9a78";
+      description = "Hexadecimal PCI device ID for 11th Gen Tiger Lake GPU.";
     };
   };
 
   config = lib.mkIf cfg.enable {
+    # Synchronize with nixos-hardware common-gpu-intel if present
+    hardware.intelgpu.driver = lib.mkIf (options ? hardware.intelgpu) cfg.driver;
+
     # Core drivers for 11th Gen (Tiger Lake) Intel Iris Xe Graphics
     hardware.graphics = {
       extraPackages = [
@@ -31,16 +50,23 @@ in
       ];
     };
 
-    # Early KMS initialization in initrd
-    boot.initrd.kernelModules = [ "i915" ];
+    # Early KMS initialization in initrd (fallback if nixos-hardware is absent)
+    boot.initrd.kernelModules = lib.mkIf (!(options ? hardware.intelgpu)) [ cfg.driver ];
 
-    # Enable Intel GuC/HuC hardware submission, Framebuffer Compression (FBC), and stable PSR1
-    boot.kernelParams = [
-      "i915.enable_guc=3"
-      "i915.enable_fbc=1"
-      "i915.enable_psr=1"
-      "i915.fastboot=1"
-    ];
+    # Driver-specific kernel parameters
+    boot.kernelParams =
+      if cfg.driver == "xe" then
+        [
+          "i915.force_probe=!${cfg.pciId}"
+          "xe.force_probe=${cfg.pciId}"
+        ]
+      else
+        [
+          "i915.enable_guc=3"
+          "i915.enable_fbc=1"
+          "i915.enable_psr=1"
+          "i915.fastboot=1"
+        ];
 
     # Hardware-accelerated media environment variables
     environment.sessionVariables = {
