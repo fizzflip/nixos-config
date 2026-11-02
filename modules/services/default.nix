@@ -9,5 +9,6 @@
     ./bluetooth.nix
     ./virtualisation.nix
     ./android.nix
+    ./gaze.nix
   ];
 }

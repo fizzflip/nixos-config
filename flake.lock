@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1793423065,
-        "narHash": "sha256-oVDSJUBRHY/UwIBcg8Gv3fkptysZKCpZcegRYiT8IRU=",
+        "lastModified": 1793563508,
+        "narHash": "sha256-hp1waIrRVgOy0tIqEIvPTeY2orSbtewpTJZy+uHmYO4=",
         "owner": "Devitek",
         "repo": "artcraft-nixos",
-        "rev": "7ac28a28ad45945ffa2cd8e4e30547a0bbd78683",
+        "rev": "73142d0e0af80c76408edda350d8a1f35de8569b",
         "type": "github"
       },
       "original": {
@@ -66,6 +66,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "gaze": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793483371,
+        "narHash": "sha256-3qLVIRJGr4yYA6PnkDA5sh77bCn1RHA4Wt+jqPk3fEs=",
+        "owner": "GunduLabs",
+        "repo": "gaze",
+        "rev": "3cfe392471f17c9ed4d40efa1d4bfc8765fb39a6",
+        "type": "github"
+      },
+      "original": {
+        "owner": "GunduLabs",
+        "repo": "gaze",
         "type": "github"
       }
     },
@@ -227,6 +247,7 @@
     "root": {
       "inputs": {
         "craftapps": "craftapps",
+        "gaze": "gaze",
         "helium": "helium",
         "lanzaboote": "lanzaboote",
         "nix-flatpak": "nix-flatpak",
