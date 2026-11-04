@@ -17,7 +17,20 @@
       useNautilus = false;
     };
     programs.xwayland.enable = true;
-    programs.dconf.enable = true;
+    programs.dconf = {
+      enable = true;
+      profiles.user.databases = [
+        {
+          settings = {
+            "org/gnome/desktop/interface" = {
+              icon-theme = "Adwaita";
+              cursor-theme = "Bibata-Modern-Classic";
+              color-scheme = "prefer-dark";
+            };
+          };
+        }
+      ];
+    };
 
     xdg.portal = {
       enable = true;
