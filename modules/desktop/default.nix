@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   options.my.desktop.environment = lib.mkOption {
     type = lib.types.enum [
       "niri"
