@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   projectRootFile = "flake.nix";
 
   programs = {

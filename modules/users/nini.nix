@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -19,9 +18,6 @@
       );
       initialHashedPassword = "$6$REDACTED$REDACTEDHASHFORHISTORYCLEANUP0000000000000000000000000000000000000000000000000000000000";
       extraGroups = [ ];
-      packages = [
-        pkgs.google-chrome
-      ];
     };
   };
 }
