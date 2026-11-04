@@ -14,6 +14,16 @@ let
     "space_cache=v2"
     "commit=60"
   ];
+  ntfsCommonOptions = [
+    "users" # Allows any user to mount/unmount
+    "nofail" # Boot will not hang if the drive is missing
+    "x-gvfs-show" # Explicitly shows the drive icon in Nautilus sidebar
+    "noauto"
+    "gid=100"
+    "dmask=002"
+    "fmask=002"
+    "windows_names"
+  ];
 in
 {
   imports = [
@@ -59,6 +69,18 @@ in
       "fmask=0077"
       "dmask=0077"
     ];
+  };
+
+  fileSystems."/mnt/Extra" = {
+    device = "/dev/disk/by-uuid/4CFA5E4FFA5E3604";
+    fsType = "ntfs3";
+    options = ntfsCommonOptions;
+  };
+
+  fileSystems."/mnt/Data" = {
+    device = "/dev/disk/by-uuid/50E2F0A7E2F09308";
+    fsType = "ntfs3";
+    options = ntfsCommonOptions;
   };
 
   swapDevices = [ ];
