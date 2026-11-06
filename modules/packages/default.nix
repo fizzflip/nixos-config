@@ -26,5 +26,6 @@
     ./internet.nix
     ./development.nix
     ./artcraft.nix
+    ./gaming.nix
   ];
 }

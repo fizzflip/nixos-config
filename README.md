@@ -88,6 +88,11 @@ Mess? Kinda. Cleaning? Working on that.
 - **Windows Virtualization Specialisation (`specialisation.windows`)**:
   - Direct NVMe physical partition mapping (`win-vm-disk`) with zero CoW overhead.
   - UEFI OVMF with TPM 2.0 (`swtpm`), nested KVM, and FreeRDP client.
+- **Gaming Specialisation (`specialisation.gaming`)**:
+  - Valve Steam client with Gamescope session support.
+  - Feral Interactive GameMode CPU/scheduler optimizer.
+  - Steam Controller & gamepad udev hardware rules (`steam-hardware`).
+  - MangoHud performance overlay and ProtonUp-Qt runner manager.
 
 ## Configuration Options
 
@@ -100,6 +105,7 @@ Key declarative options declared under the `my.*` namespace:
 | `my.desktop.environment`                    | `enum`    | `"none"`               | Desktop environment (`"niri"`, `"kde"`, `"gnome"`, or `"none"`).   |
 | `my.packages.minimal`                       | `bool`    | `false`                | Omits heavy IDEs, browsers, media apps, and ArtCraft when enabled. |
 | `my.packages.artcraft.enable`               | `bool`    | `!my.packages.minimal` | Enable ArtCraft office and creative suite.                         |
+| `my.packages.gaming.enable`                 | `bool`    | `false`                | Enable Steam, GameMode, Gamescope, controller rules, and tools.    |
 | `my.security.secureboot.enable`             | `bool`    | `false`                | Enable Lanzaboote UEFI Secure Boot with signed UKIs.               |
 | `my.hardware.intelGpu.enable`               | `bool`    | `false`                | Enable Intel Iris Xe GPU drivers, early KMS, and compute.          |
 | `my.hardware.powerManagement.enable`        | `bool`    | `false`                | Enable laptop power management and SATA link power policies.       |
@@ -185,6 +191,7 @@ sudo sbctl verify
 # Switch specialisations without rebooting
 sudo /run/current-system/specialisation/lab/bin/switch
 sudo /run/current-system/specialisation/windows/bin/switch
+sudo /run/current-system/specialisation/gaming/bin/switch
 sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
 
 # Run configuration testing VM
