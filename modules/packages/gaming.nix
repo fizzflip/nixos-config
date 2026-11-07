@@ -1,7 +1,8 @@
 {
+  inputs,
   config,
-  lib,
   pkgs,
+  lib,
   ...
 }:
 let
@@ -15,10 +16,11 @@ in
   config = lib.mkIf cfg.enable {
     programs.steam = {
       enable = true;
+      gamescopeSession.enable = true;
       remotePlay.openFirewall = false;
       dedicatedServer.openFirewall = false;
       localNetworkGameTransfers.openFirewall = false;
-      gamescopeSession.enable = true;
+      package = inputs.millennium.packages."${pkgs.system}".millennium-steam;
     };
 
     programs.gamemode.enable = true;
