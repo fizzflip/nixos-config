@@ -9,7 +9,6 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    jack.enable = true;
     wireplumber.extraConfig = {
       # Disable node suspension on idle to eliminate DAC click/pop and audio latency
       "10-disable-suspension" = {

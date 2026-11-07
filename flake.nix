@@ -104,10 +104,16 @@
         preview = {
           type = "app";
           program = "${self.nixosConfigurations.preview.config.system.build.vm}/bin/run-preview-vm";
+          meta = {
+            description = "Run minimal preview VM";
+          };
         };
         preview-full = {
           type = "app";
           program = "${self.nixosConfigurations.preview-full.config.system.build.vm}/bin/run-preview-vm";
+          meta = {
+            description = "Run full preview VM";
+          };
         };
       };
     };
