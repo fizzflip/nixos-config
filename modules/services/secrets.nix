@@ -20,6 +20,9 @@ in
     # Enable upstream oo7 daemon, D-Bus activation, capability wrapper, and portal
     services.oo7.enable = true;
 
+    # Route Secret interface to oo7-portal backend system-wide
+    xdg.portal.config.common."org.freedesktop.impl.portal.Secret" = [ "oo7-portal" ];
+
     # Suppress legacy GNOME Keyring to prevent D-Bus service contention
     services.gnome.gnome-keyring.enable = lib.mkForce false;
 
