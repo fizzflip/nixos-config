@@ -20,7 +20,7 @@ in
       remotePlay.openFirewall = false;
       dedicatedServer.openFirewall = false;
       localNetworkGameTransfers.openFirewall = false;
-      package = inputs.millennium.packages."${pkgs.system}".millennium-steam;
+      package = inputs.millennium.packages."${pkgs.stdenv.hostPlatform.system}".millennium-steam;
     };
 
     programs.gamemode.enable = true;

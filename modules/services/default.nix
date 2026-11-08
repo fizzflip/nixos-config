@@ -10,5 +10,6 @@
     ./virtualisation.nix
     ./android.nix
     ./gaze.nix
+    ./secrets.nix
   ];
 }
