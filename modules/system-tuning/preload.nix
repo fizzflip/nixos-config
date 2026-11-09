@@ -1,10 +1,15 @@
-{ inputs, ... }: {
+{
+  inputs,
+  lib,
+  ...
+}:
+{
   imports = [
     inputs.preload-ng.nixosModules.default
   ];
 
   services.preload-ng = {
-    enable = true;
+    enable = lib.mkDefault true;
     usePrecompiled = true; # Use upstream precompiled binary
 
     settings = {

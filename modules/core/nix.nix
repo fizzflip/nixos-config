@@ -6,8 +6,8 @@
 }:
 {
   nix = {
-    # Distribute builds to configured build machines with automatic local fallback
-    distributedBuilds = true;
+    # Distributed builds disabled by default on clients; enabled on hosts desiring offloading
+    distributedBuilds = lib.mkDefault false;
 
     # Isolate compilation threads to background scheduling to prevent GUI starvation
     daemonCPUSchedPolicy = "batch";
@@ -59,7 +59,7 @@
       http-connections = 25; # Balanced parallel HTTP connection pool
       connect-timeout = 5; # Fast failure on unreachable mirrors
       stalled-download-timeout = 10;
-      builders-use-substitutes = true;
+      builders-use-substitutes = lib.mkDefault true;
 
       # Machine capabilities for package selection
       system-features = [

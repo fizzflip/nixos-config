@@ -12,7 +12,7 @@
   services.bpftune.enable = true;
 
   services.scx-loader = {
-    enable = true;
+    enable = lib.mkDefault true;
     config = {
       # scx_bpfland provides optimal responsiveness without Core Compaction bottlenecks
       default_sched = "scx_bpfland";

@@ -1,10 +1,14 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  ...
+}:
 let
   plymouth-theme = "splash";
 in
 {
   boot.plymouth = {
-    enable = true;
+    enable = lib.mkDefault true;
     theme = plymouth-theme;
     themePackages = [
       (pkgs.adi1090x-plymouth-themes.override {

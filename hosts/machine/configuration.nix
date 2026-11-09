@@ -9,6 +9,11 @@
 
   networking.hostName = "machine";
 
+  # Disable desktop-centric preload, scx schedulers, and plymouth for headless server
+  services.preload-ng.enable = false;
+  services.scx-loader.enable = false;
+  boot.plymouth.enable = false;
+
   # Minimal package set (no heavy GUI IDEs, ArtCraft, etc.)
   my.packages.minimal = true;
 
@@ -61,6 +66,8 @@
   security.sudo-rs.wheelNeedsPassword = false;
 
   # Distributed build offloading to laptop (faster Tiger Lake CPU)
+  nix.distributedBuilds = true;
+  nix.settings.builders-use-substitutes = false;
   nix.buildMachines = [
     {
       hostName = "laptop.local";
