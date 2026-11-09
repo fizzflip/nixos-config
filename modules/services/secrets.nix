@@ -32,6 +32,9 @@ in
           };
           cargoHash = "sha256-9o2nR8b06KSHLbQdlcWAq4bWUz273qCk9qsl3D/XJso=";
         });
+        oo7-pam = prev.oo7-pam.overrideAttrs (old: {
+          buildInputs = (old.buildInputs or [ ]) ++ [ prev.pam ];
+        });
       })
     ];
 
