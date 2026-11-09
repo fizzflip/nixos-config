@@ -22,7 +22,7 @@ in
     boot = {
       # Standard GRUB bootloader configuration (active when Secure Boot is not enabled)
       loader.grub = {
-        enable = !cfg.enable;
+        enable = lib.mkDefault (!cfg.enable);
         font = "${pkgs.catppuccin-grub}/font.pf2";
         devices = [ "nodev" ];
         theme = pkgs.catppuccin-grub;
@@ -35,7 +35,7 @@ in
       };
 
       # Lanzaboote UEFI Secure Boot integration (active when my.security.secureboot.enable = true)
-      loader.systemd-boot.enable = lib.mkForce false;
+      loader.systemd-boot.enable = lib.mkIf cfg.enable (lib.mkForce false);
       lanzaboote = lib.mkIf cfg.enable {
         enable = true;
         pkiBundle = "/var/lib/sbctl";

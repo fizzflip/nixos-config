@@ -94,6 +94,31 @@
             ./hosts/preview/configuration.nix
           ];
         };
+        machine = mkSystem {
+          myConfig = {
+            my.user.name = "mrbot";
+            my.desktop.environment = "none";
+          };
+          extraModules = [ ./hosts/machine/configuration.nix ];
+        };
+        machine-desktop = mkSystem {
+          myConfig = {
+            my.user.name = "mrbot";
+            my.desktop.environment = "kde";
+          };
+          extraModules = [
+            ./hosts/machine/configuration.nix
+            ./hosts/machine/desktop.nix
+          ];
+        };
+        installer = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [ ./modules/installer/unattended-iso.nix ];
+        };
+      };
+      packages."x86_64-linux" = {
+        installer-iso = self.nixosConfigurations.installer.config.system.build.isoImage;
       };
       formatter."x86_64-linux" = treefmtEval.config.build.wrapper;
       checks."x86_64-linux" = {

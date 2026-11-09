@@ -3,7 +3,7 @@
   lib,
   ...
 }:
-lib.mkIf (!config.my.packages.minimal) {
+lib.mkIf (config.my.desktop.environment != "none" && !config.my.packages.minimal) {
   services.flatpak = {
     enable = true;
     packages = [

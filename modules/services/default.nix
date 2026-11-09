@@ -11,5 +11,7 @@
     ./android.nix
     ./gaze.nix
     ./secrets.nix
+    ./sunshine.nix
+    ./avahi.nix
   ];
 }

@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   ...
 }:
 {
@@ -42,8 +43,8 @@
 
       # Concurrency tuning for 2 physical cores / 4 threads and 8GB RAM
       # Serializes package derivations to prevent RAM explosion while compiling with all 4 threads
-      max-jobs = 1;
-      cores = 4;
+      max-jobs = lib.mkDefault 1;
+      cores = lib.mkDefault 4;
 
       # Optimize binary cache network downloads safely for memory-constrained hardware
       download-buffer-size = 33554432; # 32 MiB buffer for high-bandwidth chunk downloads

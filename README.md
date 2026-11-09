@@ -113,7 +113,11 @@ Key declarative options declared under the `my.*` namespace:
 | `my.packages.gaming.enable`                 | `bool`    | `false`                | Enable Steam, GameMode, Gamescope, controller rules, and tools.    |
 | `my.security.secureboot.enable`             | `bool`    | `false`                | Enable Lanzaboote UEFI Secure Boot with signed UKIs.               |
 | `my.hardware.intelGpu.enable`               | `bool`    | `false`                | Enable Intel Iris Xe GPU drivers, early KMS, and compute.          |
+| `my.hardware.ivyBridgeGpu.enable`          | `bool`    | `false`                | Enable Intel Ivy Bridge Gen7 HD Graphics 2500 VA-API & Mesa tuning.|
+| `my.hardware.rotationalHdd.enable`         | `bool`    | `false`                | Tune mechanical HDD: BFQ, disable APM parking, ZRAM swap, dirty limits. |
 | `my.hardware.powerManagement.enable`        | `bool`    | `false`                | Enable laptop power management and SATA link power policies.       |
+| `my.services.sunshine.enable`               | `bool`    | `false`                | Sunshine low-latency game/desktop streaming server.                |
+| `my.services.avahi.enable`                  | `bool`    | `false`                | Avahi mDNS/DNS-SD service daemon for network discovery.            |
 | `my.services.secrets.enable`                | `bool`    | `true`                 | Enable modern memory-safe oo7 Secret Service and Portal provider.  |
 | `my.services.nextdns.enable`                | `bool`    | `false`                | Enable local NextDNS encrypted DNS resolver.                       |
 | `my.services.gaze.enable`                   | `bool`    | `false`                | Enable Gaze facial authentication daemon and configuration GUI.   |
@@ -134,6 +138,7 @@ Key declarative options declared under the `my.*` namespace:
 ├── README.md             # Workstation documentation
 ├── hosts/
 │   ├── laptop/           # Workstation host config, hardware scan, and specialisations
+│   ├── machine/          # Ivy Bridge Pentium desktop (headless & KDE desktop profiles)
 │   └── preview/          # QEMU VM testing targets (preview and preview-full)
 └── modules/
     ├── base.nix          # Global baseline imported across all systems
@@ -141,7 +146,8 @@ Key declarative options declared under the `my.*` namespace:
     ├── boot/             # Lanzaboote Secure Boot, GRUB 2, and Plymouth
     ├── core/             # Options, locale, nix daemon, and binary compatibility
     ├── desktop/          # Environments (Niri, KDE, GNOME), display managers, dux-shell
-    ├── hardware/         # Intel Iris Xe GPU drivers and peripheral udev rules
+    ├── hardware/         # Intel Iris Xe & Ivy Bridge GPU drivers, HDD tuning, peripheral rules
+    ├── installer/        # Unattended automated installation ISO module
     ├── packages/         # ArtCraft, CLI utilities, development tools, internet, media
     ├── services/         # Virtualization, NextDNS, Android, printing, flatpaks, Podman
     ├── shell/            # Fish shell (with Starship prompt) and Nu
@@ -203,4 +209,24 @@ sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
 # Run configuration testing VM
 nix run .#preview      # Minimal VM
 nix run .#preview-full # Full VM with development & virtualization suite
+```
+
+### Ivy Bridge Desktop & Headless Machine
+
+This repository also contains configurations tailored for an Intel Pentium G2020 / Gigabyte H61M-DS2 desktop host with an aging mechanical rotational HDD:
+
+- **`nixosConfigurations.machine`**: Minimal headless server profile with Ivy Bridge Gen7 HD Graphics 2500 VA-API, mechanical HDD wear protections (BFQ, APM spindown disable, ZRAM swap, dirty write limits), Avahi mDNS, Sunshine streaming server, nix-daemon caging, and SSH access.
+- **`nixosConfigurations.machine-desktop`**: Interactive workstation profile extending `machine` with KDE Plasma 6 on Wayland and SDDM.
+- **`nixosConfigurations.installer` / `packages.x86_64-linux.installer-iso`**: Automated unattended installer ISO. Pre-caches the system closure and automatically partitions, formats, and installs `machine` on boot.
+
+```bash
+# Build unattended installer ISO
+nix build .#installer-iso
+# (or directly via nixosConfigurations)
+nix build .#nixosConfigurations.installer.config.system.build.isoImage
+
+# Deploy / switch on the Ivy Bridge machine
+sudo nixos-rebuild switch --flake .#machine
+# or switch to local KDE Plasma desktop
+sudo nixos-rebuild switch --flake .#machine-desktop
 ```
