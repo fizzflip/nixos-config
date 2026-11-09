@@ -62,10 +62,10 @@ Mess? Kinda. Cleaning? Working on that.
 - **Biometric Authentication**:
   - Gaze on-device facial authentication daemon (`services.gaze`), PAM integration (`sudo`, polkit, login), liveness detection, and GTK4/Libadwaita configuration GUI.
 - **Modern Secrets Management (`oo7`)**:
-  - Memory-safe Rust Secret Service provider (`services.oo7`) replacing legacy GNOME Keyring.
-  - Per-application derived key isolation for Flatpaks via `oo7-portal` (`org.freedesktop.impl.portal.Secret`).
+  - Memory-safe Rust Secret Service provider (`services.oo7` upgraded to 0.7.0) replacing legacy GNOME Keyring, supporting standard lowercase collections and alias resolution (`go-keyring` / `gh auth login`).
+  - Per-application derived key isolation for Flatpaks and browsers via `oo7-portal` (`org.freedesktop.impl.portal.Secret`).
   - Automatic PAM session unlocking on SilentSDDM and console login via `pam_oo7`.
-  - Non-swappable locked memory (`cap_ipc_lock=ep`) and visual key management with Key Rack (`pkgs.key-rack`).
+  - Non-swappable locked memory (`cap_ipc_lock=ep`), CLI tools (`pkgs.oo7`), and visual key management with Key Rack (`pkgs.key-rack`).
 
 ### Binary Compatibility & Execution
 

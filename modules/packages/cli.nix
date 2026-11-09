@@ -34,6 +34,10 @@
     # Archive Tools
     pkgs._7zz
 
+    # Clipboard utilities
+    pkgs.wl-clipboard
+    pkgs.xclip
+
     # Image manipulation
     pkgs.chafa
     pkgs.imagemagick
