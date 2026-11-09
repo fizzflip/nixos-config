@@ -29,6 +29,6 @@
     ELECTRON_OZONE_PLATFORM_HINT = "auto";
     SDL_VIDEODRIVER = "wayland,x11";
   };
-  # Use reference dbus implementation to prevent dbus-broker duplicate service shadowing error spam
-  services.dbus.implementation = "dbus";
+  # High-performance epoll-based D-Bus message broker (Fedora standard)
+  services.dbus.implementation = "broker";
 }

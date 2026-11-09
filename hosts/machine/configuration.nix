@@ -20,6 +20,16 @@
   my.services.sunshine.enable = true;
   my.services.avahi.enable = true;
 
+  # Red Hat / Fedora system tuning for headless server & low-latency Sunshine streaming
+  services.tuned = {
+    enable = true;
+    ppdSupport = false; # Headless server without battery or graphical DE
+    settings = {
+      reapply_sysctl = false; # Avoid stomping on bpftune dynamic kernel tuning
+    };
+    recommend.throughput-performance = { };
+  };
+
   # NetworkManager with fast iwd backend, nftables, and TCP BBR
   networking.networkmanager = {
     enable = true;

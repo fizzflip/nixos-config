@@ -12,7 +12,7 @@ in
     enable = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Enable laptop power management, thermald, power-profiles-daemon, and PCI runtime PM.";
+      description = "Enable laptop power management, thermald, tuned (with PPD emulation), and PCI runtime PM.";
     };
   };
 
@@ -34,15 +34,14 @@ in
       NoNewPrivileges = true;
     };
 
-    services.power-profiles-daemon.enable = true;
-    systemd.services.power-profiles-daemon.serviceConfig = {
-      ProtectSystem = "strict";
-      ProtectHome = true;
-      PrivateNetwork = true;
-      ProtectKernelModules = true;
-      ProtectControlGroups = true;
-      MemoryDenyWriteExecute = true;
-      NoNewPrivileges = true;
+    # Red Hat / Fedora power management & hardware tuning
+    services.tuned = {
+      enable = true;
+      ppdSupport = true; # Emulates power-profiles-daemon D-Bus API for KDE/GNOME
+      settings = {
+        # Do not reapply sysctls on profile switches to avoid clobbering bpftune
+        reapply_sysctl = false;
+      };
     };
 
     # Declarative udev rules for Runtime PM & Peripheral responsiveness

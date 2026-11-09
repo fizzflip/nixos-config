@@ -14,7 +14,7 @@ _: {
       "--prefer"
       "(^|/)(cc1plus|rustc|clang|ld\\.lld|ghc|cargo)$"
       "--avoid"
-      "(^|/)(niri|foot|waybar|Xwayland|systemd|dbus-daemon|pipewire|wireplumber)$"
+      "(^|/)(niri|foot|waybar|Xwayland|systemd|dbus-daemon|dbus-broker|dbus-broker-launch|pipewire|wireplumber)$"
     ];
   };
 

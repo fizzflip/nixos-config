@@ -8,6 +8,9 @@
   # Default kernel: Stable production kernel across all systems
   boot.kernelPackages = lib.mkDefault pkgs.linuxPackages;
 
+  # Oracle bpftune: eBPF-driven autonomous auto-tuning of socket buffers, backlog queues, and TCP congestion
+  services.bpftune.enable = true;
+
   services.scx-loader = {
     enable = true;
     config = {
