@@ -15,6 +15,9 @@
   # Enable Lanzaboote UEFI Secure Boot
   my.security.secureboot.enable = true;
 
+  # Bleeding-edge testing kernel for Intel Tiger Lake Iris Xe & laptop features
+  boot.kernelPackages = pkgs.linuxPackages_testing;
+
   # Hardware acceleration & laptop power tuning
   my.hardware.intelGpu.enable = true;
   my.hardware.powerManagement.enable = true;

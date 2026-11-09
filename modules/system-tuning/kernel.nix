@@ -5,7 +5,8 @@
   ...
 }:
 {
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_testing;
+  # Default kernel: Stable production kernel across all systems
+  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages;
 
   services.scx-loader = {
     enable = true;
