@@ -9,6 +9,31 @@
     ./hardware-configuration.nix
   ];
 
+  networking.hostName = "laptop";
+
+  # Enable OpenSSH daemon and Avahi mDNS network discovery
+  my.services.ssh.enable = true;
+  my.services.avahi.enable = true;
+
+  # Distributed build offloading to headless server
+  nix.buildMachines = [
+    {
+      hostName = "machine.local";
+      protocol = "ssh-ng";
+      system = "x86_64-linux";
+      maxJobs = 1;
+      speedFactor = 1;
+      supportedFeatures = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
+      sshUser = config.my.user.name;
+      sshKey = "/home/${config.my.user.name}/.ssh/id_ed25519";
+    }
+  ];
+
   # Enable secondary user nini in base system
   my.users.nini.enable = true;
 

@@ -14,6 +14,17 @@ in
       description = "Primary system username.";
     };
 
+    user.authorizedKeys = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [
+        # Laptop key
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUMMYKEYFORHISTORYCLEANUPDOESNOTEXIST00000 mrbot@machine"
+        # Headless server key
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUMMYKEYFORHISTORYCLEANUPDOESNOTEXIST00001 mrbot@machine"
+      ];
+      description = "List of SSH public keys authorized for the primary user across all systems.";
+    };
+
     user.hashedPasswordFile = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
       default =

@@ -31,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     gaze = {
-      url = "github:GunduLabs/gaze/1d216414c90fc6d8da0dfd20ab2d36e8d1cff79b";
+      url = "github:GunduLabs/gaze";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";

@@ -13,5 +13,6 @@
     ./secrets.nix
     ./sunshine.nix
     ./avahi.nix
+    ./ssh.nix
   ];
 }

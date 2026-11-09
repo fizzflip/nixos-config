@@ -53,12 +53,31 @@
     "firewire_ohci"
   ];
 
-  # Remote access: OpenSSH daemon
-  services.openssh = {
-    enable = true;
-    settings.PermitRootLogin = "prohibit-password";
-    settings.PasswordAuthentication = true;
-  };
+  # Remote access: OpenSSH daemon & client config
+  my.services.ssh.enable = true;
+
+  # Passwordless sudo for wheel group on headless server (enables unattended remote deployments)
+  security.sudo.wheelNeedsPassword = false;
+  security.sudo-rs.wheelNeedsPassword = false;
+
+  # Distributed build offloading to laptop (faster Tiger Lake CPU)
+  nix.buildMachines = [
+    {
+      hostName = "laptop.local";
+      protocol = "ssh-ng";
+      system = "x86_64-linux";
+      maxJobs = 1;
+      speedFactor = 3;
+      supportedFeatures = [
+        "nixos-test"
+        "benchmark"
+        "big-parallel"
+        "kvm"
+      ];
+      sshUser = "mrbot";
+      sshKey = "/home/mrbot/.ssh/id_ed25519";
+    }
+  ];
 
   # EarlyOOM userspace killer (protects interactive desktop & audio from swap freezes)
   systemd.oomd.enable = false;

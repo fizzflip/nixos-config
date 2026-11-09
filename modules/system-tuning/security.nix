@@ -1,4 +1,4 @@
-_: {
+{ lib, ... }: {
   security = {
     # Protect kernel image (prevents kexec and modifying kernel memory via /dev/mem)
     protectKernelImage = true;
@@ -11,7 +11,7 @@ _: {
     sudo.enable = false;
     sudo-rs = {
       enable = true;
-      wheelNeedsPassword = true;
+      wheelNeedsPassword = lib.mkDefault true;
       execWheelOnly = true;
     };
   };

@@ -6,6 +6,9 @@
 }:
 {
   nix = {
+    # Distribute builds to configured build machines with automatic local fallback
+    distributedBuilds = true;
+
     # Isolate compilation threads to background scheduling to prevent GUI starvation
     daemonCPUSchedPolicy = "batch";
     daemonIOSchedClass = "best-effort";
