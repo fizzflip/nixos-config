@@ -105,8 +105,8 @@
         "big-parallel"
         "kvm"
       ];
-      sshUser = "mrbot";
-      sshKey = "/home/mrbot/.ssh/id_ed25519";
+      sshUser = config.my.user.name;
+      sshKey = "/home/${config.my.user.name}/.ssh/id_ed25519";
     }
   ];
 
@@ -136,10 +136,6 @@
     daemonCPUSchedPolicy = "batch";
   };
   systemd.services.nix-daemon.serviceConfig.Slice = "background.slice";
-
-  # Fallback credentials for unattended/new installations (password: pass123)
-  users.users.mrbot.initialHashedPassword = lib.mkDefault "$6$REDACTED$REDACTEDHASHFORHISTORYCLEANUP0000000000000000000000000000000000000000000000000000000000";
-  users.users.root.initialHashedPassword = lib.mkDefault "$6$REDACTED$REDACTEDHASHFORHISTORYCLEANUP0000000000000000000000000000000000000000000000000000000000";
 
   system.stateVersion = "24.11";
 }

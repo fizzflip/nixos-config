@@ -16,7 +16,6 @@
       hashedPasswordFile = lib.mkDefault (
         if builtins.pathExists "/etc/nixos/passwords/nini" then "/etc/nixos/passwords/nini" else null
       );
-      initialHashedPassword = "$6$REDACTED$REDACTEDHASHFORHISTORYCLEANUP0000000000000000000000000000000000000000000000000000000000";
       extraGroups = [ ];
     };
   };
