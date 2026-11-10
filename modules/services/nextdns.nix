@@ -10,73 +10,83 @@ in
 {
   options.my.services.nextdns = {
     enable = lib.mkEnableOption "NextDNS encrypted DNS proxy";
+
+    configFile = lib.mkOption {
+      type = lib.types.path;
+      default = "/var/secrets/nextdns.conf";
+      description = "Path to NextDNS configuration file containing profile credentials and secrets";
+    };
+
+    profile = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Optional NextDNS profile ID if not using a config file";
+    };
+
+    reportHostnameOnly = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Sanitize telemetry to transmit only device hostname without hardware model, OS version, or machine ID";
+    };
   };
 
   config = lib.mkIf cfg.enable {
+    # Sanitize client telemetry: strip hardware model and machine-id from DoH request headers
+    # so NextDNS dashboard attributes queries strictly to hostname (e.g. 'laptop')
+    nixpkgs.overlays = lib.mkIf cfg.reportHostnameOnly [
+      (_final: prev: {
+        nextdns = prev.nextdns.overrideAttrs (old: {
+          postPatch = (old.postPatch or "") + ''
+            substituteInPlace run.go \
+              --replace-fail "ci.ID = deviceID" "ci.ID = \"\"" \
+              --replace-fail "ci.Model = deviceModel" "ci.Model = \"\"; _ = deviceModel"
+          '';
+        });
+      })
+    ];
+
     services.nextdns = {
       enable = true;
       arguments = [
         "-config-file"
-        "/var/secrets/nextdns.conf"
+        cfg.configFile
+      ]
+      ++ lib.optionals (cfg.profile != null) [
+        "-profile"
+        cfg.profile
+      ]
+      ++ [
         "-cache-size"
-        "20MB" # Expanded local caching
+        "20MB" # High-capacity in-memory cache for sub-millisecond repeat resolutions
         "-cache-max-age"
-        "24h" # Retain cache across long sessions
+        "24h" # Retain cache across long work sessions
         "-max-inflight-requests"
-        "512" # Scale proxy capacity for parallel browser tabs
+        "512" # Absorb high-concurrency browser tab bursts
         "-max-inflight-upstream-requests"
-        "128" # Prevent upstream queue starvation drops
-        "-detect-captive-portals" # Graceful captive portal detection
-        "-bogus-priv" # Stops leaking local lookups
-        "-setup-router=false" # Client machine setup
+        "128" # High upstream concurrency (<= max-inflight-requests / 2)
+        "-bogus-priv=true" # Block reverse lookups for private subnets locally (RFC6303)
+        "-mdns"
+        "disabled" # Disable LAN mDNS discovery to prevent local network scanning
+        "-setup-router=false" # Client machine stub resolver only
+        "-detect-captive-portals=false" # Prevent unencrypted DNS downgrade attacks
       ];
     };
 
-    # Delay NextDNS startup until the USB tether (Pixel 8 / enp0s20f0u1) is online.
-    # NextDNS DoH endpoints are only reachable via the cellular tether; starting before
-    # the device appears causes ~30s of "network is unreachable" SERVFAIL storms at boot.
-    # Using After+Wants (not BindsTo) so NextDNS keeps running if the tether is unplugged.
-    # Restart=on-failure lets systemd revive NextDNS once the tether re-appears.
+    # Resilient systemd service configuration:
+    # Decouple from specific interfaces (e.g. cellular USB tether vs Wi-Fi)
+    # Fast 3s recovery on network interface changes or disconnects
     systemd.services.nextdns = {
-      after = [
-        "sys-subsystem-net-devices-enp0s20f0u1.device"
-        "network-online.target"
-      ];
-      wants = [
-        "sys-subsystem-net-devices-enp0s20f0u1.device"
-        "network-online.target"
-      ];
+      after = [ "network.target" ];
       serviceConfig = {
         Restart = lib.mkForce "on-failure";
-        RestartSec = lib.mkForce "5s";
+        RestartSec = lib.mkForce "3s";
       };
     };
 
-    # NetworkManager-wait-online was masked; re-enable it so network-online.target
-    # actually waits for NM to report full connectivity before nextdns.service starts.
-    # nm-online -s checks for a connected/activated connection with a default route.
-    # --timeout=60 provides a graceful degradation window on tether-less boots.
-    systemd.services.NetworkManager-wait-online = {
-      enable = lib.mkForce true;
-      wantedBy = [ "network-online.target" ];
-      before = [ "network-online.target" ];
-      serviceConfig = {
-        ExecStart = lib.mkForce [
-          ""
-          "${pkgs.networkmanager}/bin/nm-online -s -q --timeout=60"
-        ];
-        Restart = "no";
-      };
-    };
+    # Route all host DNS queries strictly through the local NextDNS proxy
+    networking.nameservers = [ "127.0.0.1" ];
 
-    # Tell the system to use the local NextDNS daemon with public fallbacks
-    networking.nameservers = [
-      "127.0.0.1"
-      "1.1.1.1"
-      "9.9.9.9"
-    ];
-
-    # Stop NetworkManager or DHCP from overriding your 127.0.0.1 setting
+    # Prevent NetworkManager from overwriting /etc/resolv.conf with DHCP nameservers
     networking.networkmanager.dns = "none";
   };
 }

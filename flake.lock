@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794229593,
-        "narHash": "sha256-cdQo9pzueWp7NPw7F4ZLQzLXpZF3jO2gCnHZ2HrK5Sg=",
+        "lastModified": 1794272798,
+        "narHash": "sha256-EEkRdVdQGFHhSfudZt4o8uAcV7tCZqDXZoIO/d5NOB4=",
         "owner": "Devitek",
         "repo": "artcraft-nixos",
-        "rev": "c80769763708d0c0379ba0078cab9ea54b28be1e",
+        "rev": "3bd0808aeeef3b3811a0de304ba584e75716fe16",
         "type": "github"
       },
       "original": {
@@ -76,11 +76,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794250510,
-        "narHash": "sha256-V887HO0HrEHOJkxpoRII7hI4FeimWUJniOqzK13pJco=",
+        "lastModified": 1794321629,
+        "narHash": "sha256-OuCR4G7m35t7cf/iHvFa18H9ctBpXXOcpCyIpE1oNZo=",
         "owner": "GunduLabs",
         "repo": "gaze",
-        "rev": "dd39d92fa9131e74a281353eb4ac291d6701ddbc",
+        "rev": "9b453954b312716b7b1a0f8960f73f0b780167f7",
         "type": "github"
       },
       "original": {
