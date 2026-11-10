@@ -17,7 +17,7 @@
     enable = true;
     wifi = {
       backend = "iwd";
-      powersave = true;
+      powersave = false; # Prevent latency spikes and packet drops on Intel Wi-Fi
       scanRandMacAddress = true; # Randomize MAC during background Wi-Fi scanning
     };
   };
@@ -45,7 +45,7 @@
     "net.ipv4.conf.all.forwarding" = 1;
   };
 
-  # Native nftables DNS redirection table (transparent NextDNS leak prevention)
+  # Native nftables DNS redirection table (transparent NextDNS leak prevention for guest bridges)
   networking.nftables.tables.dns-intercept = {
     family = "inet";
     content = ''
@@ -53,13 +53,6 @@
         type nat hook prerouting priority dstnat; policy accept;
         # Intercept rogue DNS queries from VM/containers and redirect to local resolver
         iifname { "virbr0", "waydroid0" } meta l4proto { tcp, udp } th dport 53 redirect to :53
-      }
-
-      chain output {
-        type nat hook output priority dstnat; policy accept;
-        # Intercept local applications attempting to query external DNS resolvers directly
-        ip daddr != 127.0.0.1 meta l4proto { tcp, udp } th dport 53 redirect to :53
-        ip6 daddr != ::1 meta l4proto { tcp, udp } th dport 53 redirect to :53
       }
     '';
   };

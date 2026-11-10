@@ -134,6 +134,8 @@
     # TCP BBR Congestion Control & Network Optimizations
     "net.core.default_qdisc" = "fq";
     "net.ipv4.tcp_congestion_control" = "bbr";
+    # Restrict allowed congestion algorithms to prevent bpftune from assigning DCTCP over WAN
+    "net.ipv4.tcp_allowed_congestion_control" = "bbr cubic";
     "net.ipv4.tcp_fastopen" = 3;
     "net.ipv4.tcp_mtu_probing" = 1;
     "net.ipv4.tcp_tw_reuse" = 1;
