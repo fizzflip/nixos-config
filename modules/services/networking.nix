@@ -45,18 +45,6 @@
     "net.ipv4.conf.all.forwarding" = 1;
   };
 
-  # Native nftables DNS redirection table (transparent NextDNS leak prevention for guest bridges)
-  networking.nftables.tables.dns-intercept = {
-    family = "inet";
-    content = ''
-      chain prerouting {
-        type nat hook prerouting priority dstnat; policy accept;
-        # Intercept rogue DNS queries from VM/containers and redirect to local resolver
-        iifname { "virbr0", "waydroid0" } meta l4proto { tcp, udp } th dport 53 redirect to :53
-      }
-    '';
-  };
-
   # Hardened NixOS Firewall Configuration
   networking.firewall = {
     enable = true;
@@ -95,9 +83,6 @@
       # Prevent guest VMs and Waydroid from probing host physical LAN (RFC1918) or cross-subnets
       iifname { "virbr0", "waydroid0" } ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
       iifname { "virbr0", "waydroid0" } ip6 daddr { fc00::/7, fe80::/10 } drop
-
-      # Block outbound DNS-over-TLS (DoT) from guests
-      iifname { "virbr0", "waydroid0" } meta l4proto { tcp, udp } th dport 853 drop
 
       # Allow guest VMs and containers to forward out to public Internet (WAN)
       iifname { "virbr0", "waydroid0" } accept

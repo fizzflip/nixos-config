@@ -18,7 +18,6 @@ lib.mkIf (config.my.desktop.environment != "none" && !config.my.packages.minimal
     wants = [ "network-online.target" ];
     after = [
       "network-online.target"
-      "nextdns.service"
     ];
     unitConfig = {
       # Disable the burst limit so RestartSec is used immediately

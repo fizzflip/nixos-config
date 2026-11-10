@@ -1,50 +1,52 @@
-{ lib, ... }: {
+{ config, lib, ... }: {
   # Dedicated Systemd Service Hardening Overrides
   # Reduces systemd-analyze security exposure levels across core system services
 
   systemd.services = {
     # NextDNS DNS Resolver Hardening (Exposure 9.6 UNSAFE -> 2.4 OK)
-    nextdns.serviceConfig = {
-      ProtectSystem = "strict";
-      ProtectHome = true;
-      PrivateTmp = true;
-      PrivateDevices = true;
-      ProtectKernelTunables = true;
-      ProtectKernelModules = true;
-      ProtectKernelLogs = true;
-      ProtectControlGroups = true;
-      ProtectClock = true;
-      ProtectHostname = true;
-      LockPersonality = true;
-      MemoryDenyWriteExecute = true;
-      RestrictRealtime = true;
-      RestrictSUIDSGID = true;
-      RestrictNamespaces = true;
-      NoNewPrivileges = true;
-      CapabilityBoundingSet = [
-        "CAP_NET_BIND_SERVICE"
-        "CAP_NET_ADMIN"
-        "CAP_NET_RAW"
-      ];
-      AmbientCapabilities = [
-        "CAP_NET_BIND_SERVICE"
-      ];
-      RestrictAddressFamilies = [
-        "AF_INET"
-        "AF_INET6"
-        "AF_UNIX"
-        "AF_NETLINK"
-      ];
-      SystemCallArchitectures = "native";
-      SystemCallFilter = [
-        "@system-service"
-        "~@clock"
-        "~@debug"
-        "~@module"
-        "~@mount"
-        "~@reboot"
-        "~@swap"
-      ];
+    nextdns = lib.mkIf config.services.nextdns.enable {
+      serviceConfig = {
+        ProtectSystem = "strict";
+        ProtectHome = true;
+        PrivateTmp = true;
+        PrivateDevices = true;
+        ProtectKernelTunables = true;
+        ProtectKernelModules = true;
+        ProtectKernelLogs = true;
+        ProtectControlGroups = true;
+        ProtectClock = true;
+        ProtectHostname = true;
+        LockPersonality = true;
+        MemoryDenyWriteExecute = true;
+        RestrictRealtime = true;
+        RestrictSUIDSGID = true;
+        RestrictNamespaces = true;
+        NoNewPrivileges = true;
+        CapabilityBoundingSet = [
+          "CAP_NET_BIND_SERVICE"
+          "CAP_NET_ADMIN"
+          "CAP_NET_RAW"
+        ];
+        AmbientCapabilities = [
+          "CAP_NET_BIND_SERVICE"
+        ];
+        RestrictAddressFamilies = [
+          "AF_INET"
+          "AF_INET6"
+          "AF_UNIX"
+          "AF_NETLINK"
+        ];
+        SystemCallArchitectures = "native";
+        SystemCallFilter = [
+          "@system-service"
+          "~@clock"
+          "~@debug"
+          "~@module"
+          "~@mount"
+          "~@reboot"
+          "~@swap"
+        ];
+      };
     };
 
     # Man page database indexer hardening (Exposure 8.8 EXPOSED -> 2.1 OK)

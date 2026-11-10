@@ -47,8 +47,8 @@
   my.hardware.intelGpu.enable = true;
   my.hardware.powerManagement.enable = true;
 
-  # Enable NextDNS encrypted resolver
-  my.services.nextdns.enable = true;
+  # Disable NextDNS encrypted resolver to use stock NixOS NetworkManager DNS baseline
+  my.services.nextdns.enable = false;
 
   # Enable Gaze facial authentication
   my.services.gaze.enable = true;
