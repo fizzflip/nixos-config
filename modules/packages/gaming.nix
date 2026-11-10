@@ -14,17 +14,19 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    programs.steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-      remotePlay.openFirewall = false;
-      dedicatedServer.openFirewall = false;
-      localNetworkGameTransfers.openFirewall = false;
-      package = inputs.millennium.packages."${pkgs.stdenv.hostPlatform.system}".millennium-steam;
+    programs = {
+      steam = {
+        enable = true;
+        gamescopeSession.enable = true;
+        remotePlay.openFirewall = false;
+        dedicatedServer.openFirewall = false;
+        localNetworkGameTransfers.openFirewall = false;
+        package = inputs.millennium.packages."${pkgs.stdenv.hostPlatform.system}".millennium-steam;
+      };
+      gamemode.enable = true;
+      gamescope.enable = true;
     };
 
-    programs.gamemode.enable = true;
-    programs.gamescope.enable = true;
     hardware.steam-hardware.enable = true;
 
     environment.systemPackages = [

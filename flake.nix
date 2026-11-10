@@ -44,10 +44,6 @@
     }:
     let
       treefmtEval = inputs.treefmt-nix.lib.evalModule nixpkgs.legacyPackages.x86_64-linux ./treefmt.nix;
-      baseModules = [
-        inputs.lanzaboote.nixosModules.lanzaboote
-        ./modules/base.nix
-      ];
       mkSystem =
         {
           myConfig ? { },
@@ -56,7 +52,11 @@
         nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
-          modules = baseModules ++ [ myConfig ] ++ extraModules;
+          modules = [
+            ./modules/base.nix
+            myConfig
+          ]
+          ++ extraModules;
         };
     in
     {

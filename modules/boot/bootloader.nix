@@ -20,9 +20,9 @@ in
     ];
 
     boot = {
-      # Standard GRUB bootloader configuration (active when Secure Boot is not enabled)
+      # Standard GRUB bootloader configuration (active when Secure Boot and systemd-boot are not enabled)
       loader.grub = {
-        enable = lib.mkDefault (!cfg.enable);
+        enable = lib.mkDefault (!cfg.enable && !config.boot.loader.systemd-boot.enable);
         font = "${pkgs.catppuccin-grub}/font.pf2";
         devices = [ "nodev" ];
         theme = pkgs.catppuccin-grub;

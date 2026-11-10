@@ -34,58 +34,64 @@ in
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "ahci"
-    "nvme"
-    "usb_storage"
-    "sd_mod"
-  ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/0487551a-49fb-48d7-bbd2-841cfdf6d861";
-    fsType = "btrfs";
-    options = [ "subvol=@root" ] ++ btrfsCommonOptions;
-  };
-
-  fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/0487551a-49fb-48d7-bbd2-841cfdf6d861";
-    fsType = "btrfs";
-    options = [ "subvol=@home" ] ++ btrfsCommonOptions;
-  };
-
-  fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/0487551a-49fb-48d7-bbd2-841cfdf6d861";
-    fsType = "btrfs";
-    options = [ "subvol=@nix" ] ++ btrfsCommonOptions;
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/68CB-26B3";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
+  boot = {
+    initrd.availableKernelModules = [
+      "xhci_pci"
+      "ahci"
+      "nvme"
+      "usb_storage"
+      "sd_mod"
     ];
+    kernelModules = [ "kvm-intel" ];
+    extraModulePackages = [ ];
   };
 
-  fileSystems."/mnt/Extra" = {
-    device = "/dev/disk/by-uuid/4CFA5E4FFA5E3604";
-    fsType = "ntfs3";
-    options = ntfsCommonOptions;
-  };
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/0487551a-49fb-48d7-bbd2-841cfdf6d861";
+      fsType = "btrfs";
+      options = [ "subvol=@root" ] ++ btrfsCommonOptions;
+    };
 
-  fileSystems."/mnt/Data" = {
-    device = "/dev/disk/by-uuid/50E2F0A7E2F09308";
-    fsType = "ntfs3";
-    options = ntfsCommonOptions;
+    "/home" = {
+      device = "/dev/disk/by-uuid/0487551a-49fb-48d7-bbd2-841cfdf6d861";
+      fsType = "btrfs";
+      options = [ "subvol=@home" ] ++ btrfsCommonOptions;
+    };
+
+    "/nix" = {
+      device = "/dev/disk/by-uuid/0487551a-49fb-48d7-bbd2-841cfdf6d861";
+      fsType = "btrfs";
+      options = [ "subvol=@nix" ] ++ btrfsCommonOptions;
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/68CB-26B3";
+      fsType = "vfat";
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
+    };
+
+    "/mnt/Extra" = {
+      device = "/dev/disk/by-uuid/4CFA5E4FFA5E3604";
+      fsType = "ntfs3";
+      options = ntfsCommonOptions;
+    };
+
+    "/mnt/Data" = {
+      device = "/dev/disk/by-uuid/50E2F0A7E2F09308";
+      fsType = "ntfs3";
+      options = ntfsCommonOptions;
+    };
   };
 
   swapDevices = [ ];
 
-  hardware.enableRedistributableFirmware = true;
+  hardware = {
+    enableRedistributableFirmware = true;
+    cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  };
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

@@ -6,7 +6,6 @@
     ./graphics.nix
     ./disks.nix
     ./cleanup.nix
-    ./power.nix
     ./swap.nix
     ./preload.nix
     ./cgroups.nix

@@ -17,10 +17,6 @@
     services.printing.drivers = [ pkgs.hplipWithPlugin ];
 
     # Enable Avahi for network printer discovery (crucial for Wi-Fi printers)
-    services.avahi = {
-      enable = true;
-      nssmdns4 = true;
-      openFirewall = true;
-    };
+    my.services.avahi.enable = true;
   };
 }

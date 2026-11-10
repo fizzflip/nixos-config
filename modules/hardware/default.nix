@@ -4,5 +4,6 @@
     ./peripherals.nix
     ./ivybridge.nix
     ./mechanical-hdd.nix
+    ./power.nix
   ];
 }

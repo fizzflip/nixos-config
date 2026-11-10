@@ -1,29 +1,48 @@
-{ pkgs, ... }: {
-  virtualisation.podman = {
-    enable = true;
-    dockerCompat = true;
-    dockerSocket.enable = true;
-    defaultNetwork.settings.dns_enabled = true;
-    autoPrune = {
-      enable = true;
-      dates = "weekly";
-      flags = [
-        "--all"
-        "--filter=until=168h"
-      ];
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  cfg = config.my.services.podman;
+in
+{
+  options.my.services.podman = {
+    enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Enable Podman container engine with Docker compatibility socket and compose.";
     };
   };
 
-  # Unqualified registries for smooth container image pulls
-  virtualisation.containers.registries.settings = {
-    unqualified-search-registries = [
-      "docker.io"
-      "quay.io"
-      "ghcr.io"
+  config = lib.mkIf cfg.enable {
+    virtualisation.podman = {
+      enable = true;
+      dockerCompat = true;
+      dockerSocket.enable = true;
+      defaultNetwork.settings.dns_enabled = true;
+      autoPrune = {
+        enable = true;
+        dates = "weekly";
+        flags = [
+          "--all"
+          "--filter=until=168h"
+        ];
+      };
+    };
+
+    # Unqualified registries for smooth container image pulls
+    virtualisation.containers.registries.settings = {
+      unqualified-search-registries = [
+        "docker.io"
+        "quay.io"
+        "ghcr.io"
+      ];
+    };
+
+    environment.systemPackages = [
+      pkgs.podman-compose
     ];
   };
-
-  environment.systemPackages = [
-    pkgs.podman-compose
-  ];
 }

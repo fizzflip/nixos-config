@@ -21,6 +21,7 @@
     ./desktop/default.nix
 
     # External flake modules
+    inputs.lanzaboote.nixosModules.lanzaboote
     inputs.nix-flatpak.nixosModules.nix-flatpak
     inputs.gaze.nixosModules.default
   ];

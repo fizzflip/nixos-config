@@ -18,7 +18,7 @@ in
       type = lib.types.listOf lib.types.str;
       default = [
         # Laptop key
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUMMYKEYFORHISTORYCLEANUPDOESNOTEXIST00000 mrbot@machine"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUMMYKEYFORHISTORYCLEANUPDOESNOTEXIST00000 mrbot@laptop"
         # Headless server key
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUMMYKEYFORHISTORYCLEANUPDOESNOTEXIST00001 mrbot@machine"
       ];

@@ -110,19 +110,13 @@
     }
   ];
 
-  # EarlyOOM userspace killer (protects interactive desktop & audio from swap freezes)
-  systemd.oomd.enable = false;
-  services.earlyoom = {
-    enable = true;
-    freeMemThreshold = 5;
-    freeSwapThreshold = 10;
-    extraArgs = [
-      "--avoid"
-      "^(kwin|plasma|Xwayland|pipewire|wireplumber|sshd|systemd)$"
-      "--prefer"
-      "^(nix-daemon|nix-build|cc1plus|rustc|Web Content|firefox|chromium)$"
-    ];
-  };
+  # EarlyOOM userspace process prioritization for headless/desktop dual-role
+  services.earlyoom.extraArgs = [
+    "--avoid"
+    "^(kwin|plasma|Xwayland|pipewire|wireplumber|sshd|systemd)$"
+    "--prefer"
+    "^(nix-daemon|nix-build|cc1plus|rustc|Web Content|firefox|chromium)$"
+  ];
 
   # Resource distribution slices & nix-daemon caging
   systemd.slices."user.slice".sliceConfig = {
@@ -142,7 +136,6 @@
     daemonCPUSchedPolicy = "batch";
   };
   systemd.services.nix-daemon.serviceConfig.Slice = "background.slice";
-  systemd.settings.Manager.DefaultTimeoutStopSec = "10s";
 
   # Fallback credentials for unattended/new installations (password: pass123)
   users.users.mrbot.initialHashedPassword = lib.mkDefault "$6$REDACTED$REDACTEDHASHFORHISTORYCLEANUP0000000000000000000000000000000000000000000000000000000000";

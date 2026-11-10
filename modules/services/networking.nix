@@ -4,8 +4,6 @@
   ...
 }:
 {
-  networking.hostName = lib.mkDefault "machine";
-
   # Network configuration
   systemd.services.NetworkManager-wait-online.enable = false;
   networking.modemmanager.enable = false; # Disable cellular modem daemon to save boot time and memory
