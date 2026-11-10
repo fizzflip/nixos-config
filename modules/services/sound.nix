@@ -6,7 +6,9 @@
 {
   services = {
     pipewire = {
-      enable = lib.mkDefault (config.my.desktop.environment != "none");
+      enable = lib.mkDefault (
+        config.my.desktop.environment != "none" || config.my.services.sunshine.enable
+      );
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;

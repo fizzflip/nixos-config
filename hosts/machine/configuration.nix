@@ -15,9 +15,10 @@
   services.scx-loader.enable = false;
   boot.plymouth.enable = false;
 
-  # Headless audio & secret daemon deactivations (only on pure headless, desktop variant keeps them)
-  services.pipewire.enable = lib.mkIf (config.my.desktop.environment == "none") false;
-  security.rtkit.enable = lib.mkIf (config.my.desktop.environment == "none") false;
+  # Headless daemon deactivations (desktop variant keeps them)
+  security.rtkit.enable = lib.mkIf (
+    config.my.desktop.environment == "none" && !config.my.services.sunshine.enable
+  ) false;
   my.services.secrets.enable = lib.mkIf (config.my.desktop.environment == "none") false;
   xdg.portal.enable = lib.mkIf (config.my.desktop.environment == "none") false;
 
@@ -43,8 +44,9 @@
   my.hardware.ivyBridgeGpu.enable = true;
   my.hardware.rotationalHdd.enable = true;
 
-  # Remote access & low-latency streaming
+  # Remote access, low-latency streaming & media server
   my.services.sunshine.enable = true;
+  my.services.jellyfin.enable = true;
   my.services.avahi.enable = true;
 
   # Red Hat / Fedora system tuning for headless server & low-latency Sunshine streaming

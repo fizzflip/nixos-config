@@ -12,6 +12,7 @@
     ./gaze.nix
     ./secrets.nix
     ./sunshine.nix
+    ./jellyfin.nix
     ./avahi.nix
     ./ssh.nix
   ];
