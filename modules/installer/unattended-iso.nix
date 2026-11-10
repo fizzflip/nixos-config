@@ -180,11 +180,11 @@
       mkfs.fat -F 32 -n BOOT "$BOOT_PART"
 
       echo "--> 3. Formatting Root Linux Partition (nixos)..."
-      mkfs.ext4 -F -L nixos "$ROOT_PART"
+      mkfs.ext4 -F -L nixos -m 1 "$ROOT_PART"
       udevadm settle
 
       echo "--> 4. Mounting target filesystems with direct node fallback..."
-      mount /dev/disk/by-label/nixos /mnt 2>/dev/null || mount "$ROOT_PART" /mnt
+      mount -o noatime,commit=60 /dev/disk/by-label/nixos /mnt 2>/dev/null || mount -o noatime,commit=60 "$ROOT_PART" /mnt
       mkdir -p /mnt/boot
       mount /dev/disk/by-label/BOOT /mnt/boot 2>/dev/null || mount "$BOOT_PART" /mnt/boot
 

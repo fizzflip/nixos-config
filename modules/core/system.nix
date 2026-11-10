@@ -1,4 +1,4 @@
-_: {
+{ lib, ... }: {
   # Modern stage-2 init and declarative filesystem overlay
   system = {
     nixos-init.enable = true;
@@ -10,7 +10,7 @@ _: {
 
   # Lightweight documentation build policy
   documentation = {
-    enable = true;
+    enable = lib.mkDefault true;
     nixos.enable = false;
     info.enable = false;
     doc.enable = false;

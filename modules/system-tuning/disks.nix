@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   # Preload multi-queue block scheduling modules
   boot.kernelModules = [
     "kyber-iosched"
@@ -20,24 +26,21 @@
 
     # Enable Runtime PM for SCSI/ATA block devices
     ACTION=="add", SUBSYSTEM=="scsi", ENV{DEVTYPE}=="scsi_device", ATTR{power/control}="auto"
-
-    # Mechanical HDD aggressive power saving: 5-minute spindown (60 * 5s = 300s) and APM 127 on rotational disks
-    ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/sbin/hdparm -B 127 -S 60 /dev/%k"
   '';
 
   # Enable periodic SSD TRIM service (complements btrfs discard=async and handles ext4/vfat)
-  services.fstrim.enable = true;
+  services.fstrim.enable = lib.mkDefault true;
 
-  # Periodic Btrfs scrub for silent bit-rot detection on NVMe storage
+  # Periodic Btrfs scrub for silent bit-rot detection on Btrfs storage
   services.btrfs.autoScrub = {
-    enable = true;
+    enable = lib.mkDefault ((config.fileSystems."/".fsType or "") == "btrfs");
     interval = "monthly";
     fileSystems = [ "/" ];
   };
 
   # Place /tmp on NVMe SSD to prevent OOM/ENOSPC failures and ZRAM double-compression during package builds
   boot.tmp = {
-    useTmpfs = false;
-    cleanOnBoot = true;
+    useTmpfs = lib.mkDefault false;
+    cleanOnBoot = lib.mkDefault true;
   };
 }

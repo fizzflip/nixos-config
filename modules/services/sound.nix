@@ -5,7 +5,7 @@
 }:
 {
   services.pipewire = {
-    enable = true;
+    enable = lib.mkDefault (config.my.desktop.environment != "none");
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;

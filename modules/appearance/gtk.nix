@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+lib.mkIf (config.my.desktop.environment != "none") {
   programs = {
     dconf.enable = true;
     gdk-pixbuf.modulePackages = [

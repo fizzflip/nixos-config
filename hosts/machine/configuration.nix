@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   ...
 }:
@@ -13,6 +14,27 @@
   services.preload-ng.enable = false;
   services.scx-loader.enable = false;
   boot.plymouth.enable = false;
+
+  # Headless audio & secret daemon deactivations (only on pure headless, desktop variant keeps them)
+  services.pipewire.enable = lib.mkIf (config.my.desktop.environment == "none") false;
+  security.rtkit.enable = lib.mkIf (config.my.desktop.environment == "none") false;
+  my.services.secrets.enable = lib.mkIf (config.my.desktop.environment == "none") false;
+  xdg.portal.enable = lib.mkIf (config.my.desktop.environment == "none") false;
+
+  # Headless disk & documentation daemon optimizations
+  services.fstrim.enable = false; # Rotational HDD does not support TRIM (disks.nix uses mkDefault true)
+  services.accounts-daemon.enable = lib.mkIf (config.my.desktop.environment == "none") false;
+  documentation.enable = lib.mkIf (config.my.desktop.environment == "none") false;
+  documentation.man.enable = lib.mkIf (config.my.desktop.environment == "none") false;
+
+  # Mask sleep, suspend, and hibernation targets on unattended server
+  systemd.targets.sleep.enable = false;
+  systemd.targets.suspend.enable = false;
+  systemd.targets.hibernate.enable = false;
+  systemd.targets.hybrid-sleep.enable = false;
+
+  # Headless recovery: disable emergency console stall & auto-reboot on kernel panic
+  systemd.enableEmergencyMode = false;
 
   # Minimal package set (no heavy GUI IDEs, ArtCraft, etc.)
   my.packages.minimal = true;
@@ -49,6 +71,8 @@
     "nowatchdog"
     "nmi_watchdog=0"
     "rcutree.enable_rcu_lazy=1"
+    "panic=1"
+    "boot.panic_on_fail"
   ];
   boot.blacklistedKernelModules = [
     "floppy"

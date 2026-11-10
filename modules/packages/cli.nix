@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   programs.nh.enable = true;
   environment.systemPackages = [
     # Transfer
@@ -33,7 +39,8 @@
 
     # Archive Tools
     pkgs._7zz
-
+  ]
+  ++ lib.optionals (!config.my.packages.minimal) [
     # Clipboard utilities
     pkgs.wl-clipboard
     pkgs.xclip

@@ -37,11 +37,18 @@
   ];
   boot.extraModulePackages = [ ];
 
-  # Target storage partitions matching unattended installer GPT layout with noatime
+  # Target storage partitions matching unattended installer GPT layout with optimized HDD mount flags
   fileSystems."/" = {
     device = "/dev/disk/by-label/nixos";
     fsType = "ext4";
-    options = [ "noatime" ];
+    options = [
+      "noatime"
+      "nodiratime"
+      "commit=60"
+      "errors=remount-ro"
+      "data=ordered"
+      "barrier=1"
+    ];
   };
 
   fileSystems."/boot" = {
@@ -51,7 +58,16 @@
       "fmask=0077"
       "dmask=0077"
       "noatime"
+      "errors=remount-ro"
+      "utf8=1"
     ];
+  };
+
+  # Direct temporary builds and extractions to RAM/zram to eliminate mechanical HDD seek thrashing
+  boot.tmp = {
+    useTmpfs = true;
+    tmpfsSize = "50%";
+    cleanOnBoot = true;
   };
 
   # Host platform & microcode baseline

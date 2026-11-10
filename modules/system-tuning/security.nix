@@ -7,7 +7,7 @@
     pam.enableUMask = true;
 
     # Userland security
-    rtkit.enable = true;
+    rtkit.enable = lib.mkDefault true;
     sudo.enable = false;
     sudo-rs = {
       enable = true;

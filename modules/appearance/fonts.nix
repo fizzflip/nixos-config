@@ -1,9 +1,15 @@
-{ pkgs, ... }: {
-  systemd.tmpfiles.rules = [
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
+  systemd.tmpfiles.rules = lib.mkIf (config.my.desktop.environment != "none") [
     "L+ /usr/share/fonts - - - - /run/current-system/sw/share/X11/fonts"
   ];
 
-  fonts = {
+  fonts = lib.mkIf (config.my.desktop.environment != "none") {
     fontDir.enable = true;
     fontconfig = {
       enable = true;

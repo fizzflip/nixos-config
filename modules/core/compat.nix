@@ -1,4 +1,10 @@
-{ pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+{
   # Foreign binary execution via nix-ld
   programs.nix-ld = {
     enable = true;
@@ -51,7 +57,9 @@
   };
   programs.fuse.userAllowOther = true;
 
-  environment.systemPackages = [
-    pkgs.steam-run
-  ];
+  environment.systemPackages =
+    lib.mkIf (config.my.desktop.environment != "none" && !config.my.packages.minimal)
+      [
+        pkgs.steam-run
+      ];
 }
