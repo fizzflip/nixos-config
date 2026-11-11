@@ -31,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     gaze = {
-      url = "github:GunduLabs/gaze";
+      url = "git+https://github.com/fizzflip/packaging-nixos-apps.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
