@@ -76,7 +76,7 @@
     ];
   };
 
-  # Isolated specialisation for Steam gaming stack
+  # Isolated specialisation for Kryoto Desktop gaming stack
   specialisation.gaming.configuration = {
     system.nixos.tags = [ "gaming" ];
     my.packages.gaming.enable = true;

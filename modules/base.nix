@@ -23,7 +23,7 @@
     # External flake modules
     inputs.lanzaboote.nixosModules.lanzaboote
     inputs.nix-flatpak.nixosModules.nix-flatpak
-    inputs.gaze.nixosModules.default
+    inputs.packaging-nixos-apps.nixosModules.default
   ];
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";

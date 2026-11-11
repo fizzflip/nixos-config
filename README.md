@@ -94,10 +94,10 @@ Mess? Kinda. Cleaning? Working on that.
   - Direct NVMe physical partition mapping (`win-vm-disk`) with zero CoW overhead.
   - UEFI OVMF with TPM 2.0 (`swtpm`), nested KVM, and FreeRDP client.
 - **Gaming Specialisation (`specialisation.gaming`)**:
-  - Valve Steam client with Gamescope session support.
+  - Kryoto Desktop native game launcher shell (`kryoto-desktop`).
   - Feral Interactive GameMode CPU/scheduler optimizer.
-  - Steam Controller & gamepad udev hardware rules (`steam-hardware`).
-  - MangoHud performance overlay and ProtonUp-Qt runner manager.
+  - Gamescope micro-compositor.
+  - MangoHud performance overlay.
 
 ## Configuration Options
 
@@ -110,7 +110,7 @@ Key declarative options declared under the `my.*` namespace:
 | `my.desktop.environment`                    | `enum`    | `"none"`               | Desktop environment (`"niri"`, `"kde"`, `"gnome"`, or `"none"`).   |
 | `my.packages.minimal`                       | `bool`    | `false`                | Omits heavy IDEs, browsers, media apps, and ArtCraft when enabled. |
 | `my.packages.artcraft.enable`               | `bool`    | `!my.packages.minimal` | Enable ArtCraft office and creative suite.                         |
-| `my.packages.gaming.enable`                 | `bool`    | `false`                | Enable Steam, GameMode, Gamescope, controller rules, and tools.    |
+| `my.packages.gaming.enable`                 | `bool`    | `false`                | Enable Kryoto Desktop, GameMode, Gamescope, and MangoHud.          |
 | `my.security.secureboot.enable`             | `bool`    | `false`                | Enable Lanzaboote UEFI Secure Boot with signed UKIs.               |
 | `my.hardware.intelGpu.enable`               | `bool`    | `false`                | Enable Intel Iris Xe GPU drivers, early KMS, and compute.          |
 | `my.hardware.ivyBridgeGpu.enable`          | `bool`    | `false`                | Enable Intel Ivy Bridge Gen7 HD Graphics 2500 VA-API & Mesa tuning.|
