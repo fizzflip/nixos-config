@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  lib,
+  inputs,
   ...
 }:
 {
@@ -76,10 +78,32 @@
     ];
   };
 
-  # Isolated specialisation for Kryoto Desktop gaming stack
+  # Isolated specialisation for Kryoto Desktop gaming stack with CachyOS kernel
   specialisation.gaming.configuration = {
     system.nixos.tags = [ "gaming" ];
     my.packages.gaming.enable = true;
+
+    # CachyOS kernel (x86-64-v3 microarchitecture optimized for Tiger Lake with BORE scheduler & Clang ThinLTO)
+    boot.kernelPackages =
+      lib.mkForce
+        inputs.nix-cachyos-kernel.legacyPackages.x86_64-linux."linuxPackages-cachyos-bore-lto-x86_64-v3";
+
+    # Specialization-specific latency and memory optimizations
+    services.bpftune.enable = lib.mkForce false;
+    services.scx-loader.enable = lib.mkForce false;
+    services.preload-ng.enable = lib.mkForce false;
+    boot.kernel.sysctl."kernel.sched_autogroup_enabled" = lib.mkForce 0;
+
+    # Low-latency gaming runtime kernel overrides: PSR2 selective update and zero allocation penalty
+    boot.kernelParams = [
+      "i915.enable_psr=2"
+      "init_on_alloc=0"
+    ];
+
+    # Override NVMe I/O scheduler to hardware multi-queue (none) during gaming for zero-latency asset streaming
+    services.udev.extraRules = lib.mkAfter ''
+      ACTION=="add|change", SUBSYSTEM=="block", ENV{DEVTYPE}=="disk", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/scheduler}="none"
+    '';
   };
 
   # This value determines the NixOS release from which the default

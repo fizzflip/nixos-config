@@ -31,7 +31,7 @@ in
         useOSProber = true;
         efiInstallAsRemovable = true;
         splashImage = null;
-        configurationLimit = 10;
+        configurationLimit = lib.mkDefault 3;
       };
 
       # Lanzaboote UEFI Secure Boot integration (active when my.security.secureboot.enable = true)
@@ -39,7 +39,7 @@ in
       lanzaboote = lib.mkIf cfg.enable {
         enable = true;
         pkiBundle = "/var/lib/sbctl";
-        configurationLimit = 10;
+        configurationLimit = lib.mkDefault 3;
       };
 
       initrd.systemd.emergencyAccess = true;
