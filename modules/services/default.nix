@@ -14,6 +14,7 @@
     ./sunshine.nix
     ./jellyfin.nix
     ./avahi.nix
+    ./dedup.nix
     ./ssh.nix
   ];
 }

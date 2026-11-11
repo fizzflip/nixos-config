@@ -14,6 +14,9 @@
   my.services.ssh.enable = true;
   my.services.avahi.enable = true;
 
+  # Enable scheduled Btrfs extent-level deduplication via duperemove
+  my.services.dedup.enable = true;
+
   # Distributed build offloading to headless server
   nix.buildMachines = [
     {
