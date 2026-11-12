@@ -9,8 +9,17 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    packaging-nixos-apps = {
+      url = "git+https://github.com/fizzflip/packaging-nixos-apps.git";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     craftapps = {
@@ -25,24 +34,9 @@
       url = "github:uiriansan/SilentSDDM";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    preload-ng = {
-      url = "github:miguel-b-p/preload-ng";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    packaging-nixos-apps = {
-      url = "git+https://github.com/fizzflip/packaging-nixos-apps.git";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-cachyos-kernel = {
-      url = "github:xddxdd/nix-cachyos-kernel/release";
     };
   };
   outputs =

@@ -10,8 +10,7 @@
 
   networking.hostName = "machine";
 
-  # Disable desktop-centric preload, scx schedulers, and plymouth for headless server
-  services.preload-ng.enable = false;
+  # Disable scx schedulers, and plymouth for headless server
   services.scx-loader.enable = false;
   boot.plymouth.enable = false;
 

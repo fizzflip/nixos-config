@@ -94,7 +94,6 @@
     # Specialization-specific latency and memory optimizations
     services.bpftune.enable = lib.mkForce false;
     services.scx-loader.enable = lib.mkForce false;
-    services.preload-ng.enable = lib.mkForce false;
     boot.kernel.sysctl."kernel.sched_autogroup_enabled" = lib.mkForce 0;
 
     # Low-latency gaming runtime kernel overrides: zero allocation penalty (i915 parameters omitted on Xe)

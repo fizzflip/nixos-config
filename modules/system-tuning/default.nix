@@ -7,7 +7,6 @@
     ./disks.nix
     ./cleanup.nix
     ./swap.nix
-    ./preload.nix
     ./cgroups.nix
   ];
 }
