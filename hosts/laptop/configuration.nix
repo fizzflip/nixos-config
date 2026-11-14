@@ -12,9 +12,9 @@
 
   networking.hostName = "laptop";
 
-  # Enable OpenSSH daemon and Avahi mDNS network discovery
-  my.services.ssh.enable = true;
-  my.services.avahi.enable = true;
+  # Disable OpenSSH daemon and Avahi mDNS network discovery
+  my.services.ssh.enable = false;
+  my.services.avahi.enable = false;
 
   # Enable scheduled Btrfs extent-level deduplication via duperemove
   my.services.dedup.enable = true;
@@ -87,9 +87,6 @@
     boot.kernelPackages =
       lib.mkForce
         inputs.nix-cachyos-kernel.legacyPackages.x86_64-linux."linuxPackages-cachyos-bore-lto-x86_64-v4";
-
-    # Modern Intel Xe kernel graphics driver for gaming specialisation
-    my.hardware.intelGpu.driver = "xe";
 
     # Specialization-specific latency and memory optimizations
     services.bpftune.enable = lib.mkForce false;

@@ -36,6 +36,7 @@
       pkgs.wayland
       pkgs.wayland-protocols
       pkgs.libdecor
+      pkgs.libgpg-error
       pkgs.libx11
       pkgs.libxcomposite
       pkgs.libxdamage
