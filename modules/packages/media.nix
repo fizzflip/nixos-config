@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -16,5 +17,8 @@ lib.mkIf (!config.my.packages.minimal) {
     pkgs.mochi
     pkgs.foliate
     pkgs.obsidian
+  ]
+  ++ lib.optionals (inputs.metrolist.packages ? ${pkgs.stdenv.hostPlatform.system}) [
+    inputs.metrolist.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 }

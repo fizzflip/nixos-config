@@ -151,6 +151,26 @@
         "type": "github"
       }
     },
+    "metrolist": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794663854,
+        "narHash": "sha256-XUqOjmsT422cP7RE95ghtzXwT14DVDnwtYCmpKWOBTk=",
+        "owner": "Matko802",
+        "repo": "metrolist-kmp-flake",
+        "rev": "babd68bb60bfd357ee2941d8aa9d68a84d13982e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Matko802",
+        "repo": "metrolist-kmp-flake",
+        "type": "github"
+      }
+    },
     "nix-cachyos-kernel": {
       "inputs": {
         "flake-compat": [
@@ -311,6 +331,7 @@
         "craftapps": "craftapps",
         "helium": "helium",
         "lanzaboote": "lanzaboote",
+        "metrolist": "metrolist",
         "nix-cachyos-kernel": "nix-cachyos-kernel",
         "nix-flatpak": "nix-flatpak",
         "nixos-hardware": "nixos-hardware",
