@@ -10,7 +10,6 @@ lib.mkIf (!config.my.packages.minimal) {
     # Video/Audio
     pkgs.mpv
     pkgs.yt-dlp
-    pkgs.freetube
     pkgs.ffmpeg-headless
 
     # Reading/Note-taking
@@ -18,6 +17,13 @@ lib.mkIf (!config.my.packages.minimal) {
     pkgs.foliate
     pkgs.obsidian
   ]
+  ++
+    lib.optionals (inputs ? opentubex && inputs.opentubex.packages ? ${pkgs.stdenv.hostPlatform.system})
+      [
+        (inputs.opentubex.packages.${pkgs.stdenv.hostPlatform.system}.opentubex
+          or inputs.opentubex.packages.${pkgs.stdenv.hostPlatform.system}.default
+        )
+      ]
   ++ lib.optionals (inputs.metrolist.packages ? ${pkgs.stdenv.hostPlatform.system}) [
     inputs.metrolist.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];

@@ -80,7 +80,7 @@ modules/
 - **Fish Shell**: Two-line `starship` prompt with terminal palette integration. Custom aliases: `rfluid`, `rminimal`, `nfmt`, `ncheck`, `nclean`, `nlog`.
 - **System Monitoring**: Rockbottom (`rb` anomaly analyzer), `btop`, `htop`, `fastfetch`, and `powertop`.
 - **Network Telemetry**: spectraNET eBPF real-time monitor (`snetd`) tracking per-socket traffic and IP reputation, paired with `snet` CLI and GUI.
-- **Desktop Applications**: ArtCraft suite, Zed, Antigravity IDE, Helium Browser, Mullvad Browser, Metrolist KMP, mpv, and Foliate.
+- **Desktop Applications**: ArtCraft suite, Zed, Antigravity IDE, Helium Browser, Mullvad Browser, Metrolist KMP, OpenTubeX, mpv, and Foliate.
 
 ## 3. Options Reference
 
