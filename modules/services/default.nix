@@ -16,5 +16,6 @@
     ./avahi.nix
     ./dedup.nix
     ./ssh.nix
+    ./spectranet.nix
   ];
 }

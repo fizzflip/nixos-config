@@ -1,4 +1,9 @@
-{ config, lib, ... }: {
+{
+  config,
+  lib,
+  ...
+}:
+{
   # Dedicated Systemd Service Hardening Overrides
   # Reduces systemd-analyze security exposure levels across core system services
 

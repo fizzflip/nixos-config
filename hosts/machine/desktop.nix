@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{ pkgs, ... }: {
   # Xorg/Wayland modesetting DDX driver
   services.xserver.videoDrivers = [ "modesetting" ];
 

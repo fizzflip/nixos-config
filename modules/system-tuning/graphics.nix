@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: {
   # Enable OpenGL/Graphics
   hardware.graphics = {
     enable = true;

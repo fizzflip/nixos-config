@@ -57,6 +57,9 @@
   # Enable Gaze facial authentication
   my.services.gaze.enable = true;
 
+  # Enable spectraNET real-time network monitor, CLI, and daemon
+  my.services.spectranet.enable = true;
+
   specialisation.lab.configuration = {
     my.services.virtualisation.enable = true;
     my.services.android.enable = true;
@@ -92,6 +95,9 @@
     services.bpftune.enable = lib.mkForce false;
     services.scx-loader.enable = lib.mkForce false;
     boot.kernel.sysctl."kernel.sched_autogroup_enabled" = lib.mkForce 0;
+
+    # spectraNET network monitoring toggle (change to lib.mkForce false to disable only during gaming)
+    my.services.spectranet.enable = true;
 
     # Low-latency gaming runtime kernel overrides: zero allocation penalty (i915 parameters omitted on Xe)
     boot.kernelParams = [
