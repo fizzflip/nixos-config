@@ -92,6 +92,7 @@ modules/
   - Productivity aliases & abbreviations: `rfluid`, `rminimal`, `nfmt`, `ncheck`, `nclean`, `nlog`.
 - **ArtCraft Creative & Office Suite**: Native apps (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) via `github:Devitek/artcraft-nixos`.
 - **Development & Tools**: Zed Editor, Antigravity IDE, Typst toolchain, Node.js, Bun, pnpm, Python (`uv`), Git, and GitHub CLI.
+- **System Monitoring & CLI**: Rockbottom (`rb` system analyzer), btop, htop, fastfetch, powertop, yazi, dust, fd, and ripgrep.
 - **Browsers & Media**: Helium Browser, Mullvad Browser, Thunderbird, LocalSend, qBittorrent-enhanced, Metrolist KMP, mpv, and Foliate.
 
 ### Telemetry & Monitoring Services (`services/`)

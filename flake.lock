@@ -291,11 +291,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794730570,
-        "narHash": "sha256-NGE3dEu/YbGGSL35u2AYTtqBR4uoOlPDHOGe+MQ5ZqA=",
+        "lastModified": 1794765827,
+        "narHash": "sha256-fIIrTgF3Co5LMJiRMKv1aOpCp5QG2/65oq3NvDQCmUo=",
         "ref": "refs/heads/master",
-        "rev": "164e8792bb32bec30dc441c5beb3e850ce5b75a2",
-        "revCount": 41,
+        "rev": "f23ffb32797870f061a56e1ad71e19e29507bc93",
+        "revCount": 43,
         "type": "git",
         "url": "https://github.com/fizzflip/packaging-nixos-apps.git"
       },

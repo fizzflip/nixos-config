@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -29,6 +30,7 @@
     pkgs.fastfetch
     pkgs.powertop
     pkgs.hdparm
+    inputs.packaging-nixos-apps.packages.${pkgs.stdenv.hostPlatform.system}.rockbottom
 
     # Nix & Linters
     pkgs.nixd
