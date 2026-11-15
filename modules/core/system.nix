@@ -18,11 +18,14 @@
     man.cache.enable = false;
   };
 
-  # Controlled system journal retention limits
+  # Controlled system journal retention limits and write-rate limiting to conserve flash wear
   services.journald.settings.Journal = {
-    SystemMaxUse = "100M";
-    SystemMaxFileSize = "20M";
-    MaxRetentionSec = "1month";
+    SystemMaxUse = lib.mkDefault "100M";
+    SystemMaxFileSize = lib.mkDefault "20M";
+    RuntimeMaxUse = lib.mkDefault "50M";
+    RateLimitIntervalSec = lib.mkDefault "30s";
+    RateLimitBurst = lib.mkDefault 1000;
+    MaxRetentionSec = lib.mkDefault "1month";
   };
 
   # Verify all systemd unit scripts with shellcheck at build time

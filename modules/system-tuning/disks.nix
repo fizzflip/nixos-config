@@ -39,9 +39,11 @@
     };
   };
 
-  # Place /tmp on NVMe SSD to prevent OOM/ENOSPC failures and ZRAM double-compression during package builds
+  # Mount /tmp in tmpfs (RAM + zRAM) to eliminate intermediate compilation and temporary file SSD wear.
+  # With 7.5G RAM + 7.5G zram (zstd ~3.5:1), 100% tmpfs size gives ample scratch space.
   boot.tmp = {
-    useTmpfs = lib.mkDefault false;
+    useTmpfs = lib.mkDefault true;
+    tmpfsSize = lib.mkDefault "100%";
     cleanOnBoot = lib.mkDefault true;
   };
 }

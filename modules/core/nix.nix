@@ -78,9 +78,10 @@
     channel.enable = false;
   };
 
-  # Cage nix-daemon into background slice with memory ceilings to protect desktop responsiveness
+  # Cage nix-daemon into background slice with memory ceilings to protect desktop responsiveness.
+  # Builds execute in /tmp (tmpfs) to eliminate NVMe wear, falling back to /var/tmp for massive builds.
   systemd.services.nix-daemon = {
-    environment.TMPDIR = "/var/tmp/nix-daemon";
+    environment.TMPDIR = "/tmp";
     serviceConfig = {
       Slice = "background.slice";
       Nice = 19;
@@ -89,7 +90,7 @@
     };
   };
 
-  # Automatic creation and aging of the build scratch directory in /var/tmp
+  # Automatic creation and aging of the build scratch fallback directory in /var/tmp
   systemd.tmpfiles.rules = [
     "d /var/tmp/nix-daemon 1777 root root 2d"
   ];
