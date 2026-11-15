@@ -1,232 +1,46 @@
-# ❄️ NixOS
+# NixOS
 
-My NixOS daily driver. \
-Mess? Kinda. Cleaning? Working on that.
+> *My NixOS daily driver.* \
+> *Mess? Kinda. Cleaning? Working on that.*
 
-![Dux on Niri](image.png)
+<p align="center">
+  <img src="image.png" alt="Dux on Niri Desktop Setup" width="100%">
+</p>
 
-[Wallpaper](https://wallhaven.cc/w/6lqvql) / [Creator](https://wallhaven.cc/user/Trashbuff)
+<p align="center">
+  <a href="https://wallhaven.cc/w/6lqvql">Wallpaper</a> • <a href="https://wallhaven.cc/user/Trashbuff">Creator: Trashbuff</a>
+</p>
 
-[![NixOS](https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3)](https://nixos.org)
-[![Kernel](https://img.shields.io/badge/Kernel-Linux%20Mainline-orange.svg?logo=linux&color=E25D25)](https://kernel.org)
-[![Secure Boot](https://img.shields.io/badge/Secure%20Boot-Lanzaboote%20UKI-brightgreen.svg?logo=linux&color=2E7D32)](#boot--system-integrity)
-[![Formatter](<https://img.shields.io/badge/Format-treefmt--nix%20(RFC%20166)-blueviolet.svg?logo=nix&color=7B1FA2>)](#code-quality--tooling)
-[![Shell](https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5)](https://fishshell.com)
-[![Desktop](https://img.shields.io/badge/Desktop-KDE%20%2F%20Niri-blueviolet.svg?logo=niri&color=8A2BE2)](#desktop-environments)
+<p align="center">
+  <a href="https://nixos.org"><img src="https://img.shields.io/badge/NixOS-unstable-blue.svg?logo=nixos&logoColor=white&color=5277C3" alt="NixOS"></a>
+  <a href="https://kernel.org"><img src="https://img.shields.io/badge/Kernel-Linux%20Mainline-orange.svg?logo=linux&color=E25D25" alt="Kernel"></a>
+  <a href="modules/README.md#boot--system-integrity"><img src="https://img.shields.io/badge/Secure%20Boot-Lanzaboote%20UKI-brightgreen.svg?logo=linux&color=2E7D32" alt="Secure Boot"></a>
+  <a href="modules/README.md#code-quality--verification-suite"><img src="https://img.shields.io/badge/Format-treefmt--nix%20(RFC%20166)-blueviolet.svg?logo=nix&color=7B1FA2" alt="Formatter"></a>
+  <a href="https://fishshell.com"><img src="https://img.shields.io/badge/Shell-Fish-brightgreen.svg?logo=fish-shell&logoColor=white&color=42A5F5" alt="Shell"></a>
+  <a href="modules/README.md#desktop-environments--theming"><img src="https://img.shields.io/badge/Desktop-KDE%20%2F%20Niri-blueviolet.svg?logo=niri&color=8A2BE2" alt="Desktop"></a>
+</p>
 
-## Features
+---
 
-### Desktop Environments
+## Documentation
 
-- **Niri (`minimal` profile)**: Dynamic scrolling Wayland compositor integrated with **`dux-shell`** and `wallust` dynamic theming.
-  - PAM integration for `dankshell` authentication.
-  - Nautilus file manager with `ffmpegthumbnailer` and GNOME Sushi previews.
-  - `foot` terminal, `nomacs` image viewer, and `xwayland-satellite`.
-- **KDE Plasma 6 (`fluid` profile)**: High-performance Plasma 6 Wayland desktop session.
-- **Display Manager**: `silentSDDM` styled with Catppuccin Mocha.
-- **GTK & Theming**: Unified `dconf`, SVG (`librsvg`) and WebP loaders, schema bridging, and base icon themes.
+Detailed documentation is organized directory-wise:
 
-### Boot & System Integrity
+| Directory | Scope |
+| :--- | :--- |
+| **[hosts/](hosts/README.md)** | Machine configurations (`fluid`, `minimal`, `machine`, `preview`), hardware targets, runtime specialisations (`lab`, `windows`, `gaming`), installation, and deployment commands. |
+| **[modules/](modules/README.md)** | Modular architecture, subsystem deep-dives (performance, security, boot, desktop), declarative `my.*` options reference, and verification tooling. |
 
-- **Lanzaboote UEFI Secure Boot**: Active on the physical workstation (`my.security.secureboot.enable = true`).
-  - Generates signed Unified Kernel Images (UKIs) via systemd-boot.
-  - TPM2 hardware measurements and boot validation via `sbctl`.
-- **GRUB 2 (Fallback)**: Catppuccin Mocha themed bootloader with OS Prober when Secure Boot is disabled.
-- **Plymouth**: Silent boot splash screen with flicker-free Fastboot transition.
+---
 
-### Performance & System Tuning
-
-- **Kernel & Scheduling**:
-  - Upstream Linux Mainline kernel (`linuxPackages_testing`) with `sched-ext` support.
-  - BPF-based CPU scheduling powered by `scx_loader` with **`scx_bpfland`** as the default scheduler.
-  - Kernel scheduler autogroups prioritizing interactive desktop sessions over batch jobs.
-- **Responsiveness & Memory**:
-  - Hardware-aware I/O scheduling: Kyber latency targeting on NVMe storage to eliminate compositor stutters during builds.
-  - ZRAM compressed swap with Multi-Gen LRU (MGLRU) and EarlyOOM protection shielding user sessions.
-  - Periodic SSD TRIM timers.
-- **Hardware Acceleration & Power**:
-  - Intel Tiger Lake Iris Xe graphics acceleration with early KMS, iHD VA-API, and OpenCL compute runtimes.
-  - Non-adaptive `thermald` and PCI runtime power management.
-
-### Security Hardening
-
-- **Firewall & Privacy**:
-  - Native **`nftables`** backend with default drop policies.
-  - Guest bridge isolation (`virbr0`, `waydroid0`) blocking access to private LANs.
-  - Transparent loop-free NextDNS port 53 interception table.
-  - Full 48-bit per-network MAC address randomization via `iwd`.
-- **System Isolation**:
-  - Active CPU microcode mitigations and Kernel Self Protection (KSPP memory sanitization).
-  - Attack surface reduction: blacklisted legacy protocols, unmaintained filesystems, and unneeded peripheral buses.
-  - Strict system umask (`077`), private home directories (`0700`), and systemd namespace sandboxing for core daemons.
-- **Biometric Authentication**:
-  - Gaze on-device facial authentication daemon (`services.gaze`), PAM integration (`sudo`, polkit, login), liveness detection, and GTK4/Libadwaita configuration GUI.
-- **Modern Secrets Management (`oo7`)**:
-  - Memory-safe Rust Secret Service provider (`services.oo7` upgraded to 0.7.0) replacing legacy GNOME Keyring, supporting standard lowercase collections and alias resolution (`go-keyring` / `gh auth login`).
-  - Per-application derived key isolation for Flatpaks and browsers via `oo7-portal` (`org.freedesktop.impl.portal.Secret`).
-  - Automatic PAM session unlocking on SilentSDDM and console login via `pam_oo7`.
-  - Non-swappable locked memory (`cap_ipc_lock=ep`), CLI tools (`pkgs.oo7`), and visual key management with Key Rack (`pkgs.key-rack`).
-
-### Binary Compatibility & Execution
-
-- **Dynamic Binaries (`programs.nix-ld`)**: Seamless execution of unpatched standard Linux binaries with bundled glibc, FUSE 2/3, Wayland, X11, and Mesa libraries.
-- **Seamless AppImages (`programs.appimage`)**: Automatic kernel `binfmt_misc` registration running AppImages natively via `appimage-run` without manual extraction or FUSE errors.
-- **FUSE Permissions**: `programs.fuse.userAllowOther = true` permitting unprivileged multi-user mounts.
-- **FHS Sandbox**: `steam-run` available for running complex foreign desktop software.
-
-### Shell & Productivity
-
-- **Fish Shell**:
-  - Two-line `starship` prompt matched to dynamic ANSI terminal palettes.
-  - Plugins: `autopair`, `done`, `fzf-fish`, `grc`, and `foreign-env`.
-  - Productivity aliases & abbreviations: `rfluid`, `rminimal`, `nfmt`, `ncheck`, `nclean`, `nlog`.
-- **ArtCraft Creative & Office Suite**: Native apps (PdfCraft, WordCraft, DeckCraft, GridCraft, VectorCraft, PhotoCraft) via `github:Devitek/artcraft-nixos`.
-- **Development & Tools**: Zed Editor, Antigravity IDE, Typst toolchain, Node.js, Bun, pnpm, Python (`uv`), Git, and GitHub CLI.
-- **Browsers & Media**: Helium Browser, Mullvad Browser, Thunderbird, LocalSend, qBittorrent-enhanced, mpv, and Foliate.
-
-### Virtualization & Specialisations
-
-- **Lab Specialisation (`specialisation.lab`)**:
-  - Podman container engine (Docker compatible).
-  - Waydroid and Android development environment.
-  - Libvirt / KVM hypervisor stack with `virt-manager` and SWTPM 2.0.
-- **Windows Virtualization Specialisation (`specialisation.windows`)**:
-  - Direct NVMe physical partition mapping (`win-vm-disk`) with zero CoW overhead.
-  - UEFI OVMF with TPM 2.0 (`swtpm`), nested KVM, and FreeRDP client.
-- **Gaming Specialisation (`specialisation.gaming`)**:
-  - Kryoto Desktop native game launcher shell (`kryoto-desktop`).
-  - Feral Interactive GameMode CPU/scheduler optimizer.
-  - Gamescope micro-compositor.
-  - MangoHud performance overlay.
-
-## Configuration Options
-
-Key declarative options declared under the `my.*` namespace:
-
-| Option                                      | Type      | Default                | Description                                                        |
-| :------------------------------------------ | :-------- | :--------------------- | :----------------------------------------------------------------- |
-| `my.user.name`                              | `string`  | _required_             | Primary system username.                                           |
-| `my.user.shell`                             | `package` | `pkgs.fish`            | Default user shell.                                                |
-| `my.desktop.environment`                    | `enum`    | `"none"`               | Desktop environment (`"niri"`, `"kde"`, `"gnome"`, or `"none"`).   |
-| `my.packages.minimal`                       | `bool`    | `false`                | Omits heavy IDEs, browsers, media apps, and ArtCraft when enabled. |
-| `my.packages.artcraft.enable`               | `bool`    | `!my.packages.minimal` | Enable ArtCraft office and creative suite.                         |
-| `my.packages.gaming.enable`                 | `bool`    | `false`                | Enable Kryoto Desktop, GameMode, Gamescope, and MangoHud.          |
-| `my.security.secureboot.enable`             | `bool`    | `false`                | Enable Lanzaboote UEFI Secure Boot with signed UKIs.               |
-| `my.hardware.intelGpu.enable`               | `bool`    | `false`                | Enable Intel Iris Xe GPU drivers, early KMS, and compute.          |
-| `my.hardware.ivyBridgeGpu.enable`          | `bool`    | `false`                | Enable Intel Ivy Bridge Gen7 HD Graphics 2500 VA-API & Mesa tuning.|
-| `my.hardware.rotationalHdd.enable`         | `bool`    | `false`                | Tune mechanical HDD: BFQ, disable APM parking, ZRAM swap, dirty limits. |
-| `my.hardware.powerManagement.enable`        | `bool`    | `false`                | Enable laptop power management and SATA link power policies.       |
-| `my.services.sunshine.enable`               | `bool`    | `false`                | Sunshine low-latency game/desktop streaming server.                |
-| `my.services.avahi.enable`                  | `bool`    | `false`                | Avahi mDNS/DNS-SD service daemon for network discovery.            |
-| `my.services.secrets.enable`                | `bool`    | `true`                 | Enable modern memory-safe oo7 Secret Service and Portal provider.  |
-| `my.services.nextdns.enable`                | `bool`    | `false`                | Enable local NextDNS encrypted DNS resolver.                       |
-| `my.services.gaze.enable`                   | `bool`    | `false`                | Enable Gaze facial authentication daemon and configuration GUI.   |
-| `my.services.printing.enable`               | `bool`    | `false`                | Enable CUPS printing and Avahi discovery.                          |
-| `my.services.android.enable`                | `bool`    | `false`                | Enable Waydroid and Android development tools.                     |
-| `my.services.virtualisation.enable`         | `bool`    | `false`                | Libvirt/KVM virtualization stack with QEMU and SWTPM.              |
-| `my.services.virtualisation.windows.enable` | `bool`    | `false`                | Windows guest VM support and virtio drivers.                       |
-| `my.users.nini.enable`                      | `bool`    | `false`                | Enable secondary user profile `nini`.                              |
-
-## Repository Structure
-
-```text
-.nixos-config/
-├── flake.nix             # Flake entry point (configurations, formatter, checks, apps)
-├── flake.lock            # Lockfile managing pinned dependencies
-├── treefmt.nix           # Unified formatting pipeline (RFC 166 nixfmt, statix, deadnix, shfmt)
-├── LICENSE               # MIT License
-├── README.md             # Workstation documentation
-├── hosts/
-│   ├── laptop/           # Workstation host config, hardware scan, and specialisations
-│   ├── machine/          # Ivy Bridge Pentium desktop (headless & KDE desktop profiles)
-│   └── preview/          # QEMU VM testing targets (preview and preview-full)
-└── modules/
-    ├── base.nix          # Global baseline imported across all systems
-    ├── appearance/       # Styling, custom fonts, GDK Pixbuf loaders
-    ├── boot/             # Lanzaboote Secure Boot, GRUB 2, and Plymouth
-    ├── core/             # Options, locale, nix daemon, and binary compatibility
-    ├── desktop/          # Environments (Niri, KDE, GNOME), display managers, dux-shell
-    ├── hardware/         # Intel Iris Xe & Ivy Bridge GPU drivers, HDD tuning, peripheral rules
-    ├── installer/        # Unattended automated installation ISO module
-    ├── packages/         # ArtCraft, CLI utilities, development tools, internet, media
-    ├── services/         # Virtualization, NextDNS, Android, printing, flatpaks, Podman
-    ├── shell/            # Fish shell (with Starship prompt) and Nu
-    ├── system-tuning/    # Performance, cgroups, disks, kernel, power, security, swap
-    └── users/            # Primary user and secondary profile (nini) definitions
-```
-
-## Tooling
-
-Code quality is enforced via [`treefmt-nix`](file:///home/mrbot/.nixos-config/treefmt.nix):
-
-- **`nixfmt`**: Canonical RFC 166 formatting.
-- **`statix`**: Nix antipattern and dead code detection.
-- **`deadnix`**: Unused binding removal.
-- **`shfmt`**: Shell script formatting.
+## Quick Start
 
 ```bash
-# Format codebase
-nix fmt       # or fish: nfmt
+# Rebuild and switch active profile
+sudo nixos-rebuild switch --flake .#minimal    # Niri profile (alias: rminimal)
+sudo nixos-rebuild switch --flake .#fluid      # KDE Plasma 6 (alias: rfluid)
 
-# Run flake checks across all systems and checks
-nix flake check # or fish: ncheck
-```
-
-## Installation
-
-### First-Time Installation
-
-1. Mount your partitions (`/mnt` for root, `/mnt/boot` for EFI).
-2. Clone this flake to `/mnt/etc/nixos/config`.
-3. Generate machine hardware config:
-   ```bash
-   nixos-generate-config --show-hardware-config --root /mnt > hosts/laptop/hardware-configuration.nix
-   ```
-4. Set your username in `flake.nix` and generate password hash in `/mnt/etc/nixos/passwords/<user>`.
-5. Stage changes and install:
-   ```bash
-   git add .
-   nixos-install --flake .#minimal --root /mnt
-   ```
-
-### Daily Operations
-
-```bash
-# Rebuild and switch profiles
-sudo nixos-rebuild switch --flake .#minimal    # Niri profile (or: rminimal)
-sudo nixos-rebuild switch --flake .#fluid      # KDE Plasma profile (or: rfluid)
-
-# Verify Secure Boot signatures
-sudo sbctl status
-sudo sbctl verify
-
-# Switch specialisations without rebooting
-sudo /run/current-system/specialisation/lab/bin/switch
-sudo /run/current-system/specialisation/windows/bin/switch
-sudo /run/current-system/specialisation/gaming/bin/switch
-sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
-
-# Run configuration testing VM
-nix run .#preview      # Minimal VM
-nix run .#preview-full # Full VM with development & virtualization suite
-```
-
-### Ivy Bridge Desktop & Headless Machine
-
-This repository also contains configurations tailored for an Intel Pentium G2020 / Gigabyte H61M-DS2 desktop host with an aging mechanical rotational HDD:
-
-- **`nixosConfigurations.machine`**: Minimal headless server profile with Ivy Bridge Gen7 HD Graphics 2500 VA-API, mechanical HDD wear protections (BFQ, APM spindown disable, ZRAM swap, dirty write limits), Avahi mDNS, Sunshine streaming server, nix-daemon caging, and SSH access.
-- **`nixosConfigurations.machine-desktop`**: Interactive workstation profile extending `machine` with KDE Plasma 6 on Wayland and SDDM.
-- **`nixosConfigurations.installer` / `packages.x86_64-linux.installer-iso`**: Automated unattended installer ISO. Pre-caches the system closure and automatically partitions, formats, and installs `machine` on boot.
-
-```bash
-# Build unattended installer ISO
-nix build .#installer-iso
-# (or directly via nixosConfigurations)
-nix build .#nixosConfigurations.installer.config.system.build.isoImage
-
-# Deploy / switch on the Ivy Bridge machine
-sudo nixos-rebuild switch --flake .#machine
-# or switch to local KDE Plasma desktop
-sudo nixos-rebuild switch --flake .#machine-desktop
+# Format and test codebase
+nix fmt                                        # Unified treefmt pipeline (alias: nfmt)
+nix flake check                                # Flake checks across all hosts (alias: ncheck)
 ```
