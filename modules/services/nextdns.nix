@@ -1,10 +1,22 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
   cfg = config.my.services.nextdns;
+  nextdnsPkg =
+    if cfg.reportHostnameOnly then
+      pkgs.nextdns.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace run.go \
+            --replace-fail "ci.ID = deviceID" "ci.ID = \"\"" \
+            --replace-fail "ci.Model = deviceModel" "ci.Model = \"\"; _ = deviceModel"
+        '';
+      })
+    else
+      pkgs.nextdns;
 in
 {
   options.my.services.nextdns = {
@@ -30,19 +42,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Sanitize client telemetry: strip hardware model and machine-id from DoH request headers
-    # so NextDNS dashboard attributes queries strictly to hostname (e.g. 'laptop')
-    nixpkgs.overlays = lib.mkIf cfg.reportHostnameOnly [
-      (_final: prev: {
-        nextdns = prev.nextdns.overrideAttrs (old: {
-          postPatch = (old.postPatch or "") + ''
-            substituteInPlace run.go \
-              --replace-fail "ci.ID = deviceID" "ci.ID = \"\"" \
-              --replace-fail "ci.Model = deviceModel" "ci.Model = \"\"; _ = deviceModel"
-          '';
-        });
-      })
-    ];
+    # Provide the sanitized nextdns CLI tool system-wide without global nixpkgs overlays
+    environment.systemPackages = [ nextdnsPkg ];
 
     services.nextdns = {
       enable = true;
@@ -77,6 +78,7 @@ in
     systemd.services.nextdns = {
       after = [ "network.target" ];
       serviceConfig = {
+        ExecStart = lib.mkForce "${nextdnsPkg}/bin/nextdns run ${lib.escapeShellArgs config.services.nextdns.arguments}";
         Restart = lib.mkForce "on-failure";
         RestartSec = lib.mkForce "3s";
       };

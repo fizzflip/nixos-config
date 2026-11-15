@@ -9,14 +9,19 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+    nix-cachyos-kernel = {
+      url = "github:xddxdd/nix-cachyos-kernel/release";
+      inputs.flake-compat.follows = "lanzaboote/pre-commit/flake-compat";
+    };
     packaging-nixos-apps = {
       url = "git+https://github.com/fizzflip/packaging-nixos-apps.git";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.crane.follows = "lanzaboote/crane";
     };
     helium = {
       url = "github:schembriaiden/helium-browser-nix-flake";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "packaging-nixos-apps/flake-utils";
     };
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
