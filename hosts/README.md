@@ -1,163 +1,149 @@
-# Hosts & Deployment Guide
+# Hosts
 
-This directory contains host definitions, hardware configurations, runtime specialisations, and deployment workflows for all machines configured by this flake.
+Host definitions, hardware configurations, runtime specialisations, and deployment commands for the machines in this flake.
 
----
+## 1. Machine Targets
 
-## 1. Machine Targets & Profiles
+| Target                                    | Role                  | Desktop            | Hardware Profile                                         |
+| :---------------------------------------- | :-------------------- | :----------------- | :------------------------------------------------------- |
+| **`nixosConfigurations.minimal`**         | Primary Workstation   | Niri + `dux-shell` | Intel Tiger Lake (Iris Xe), NVMe, Lanzaboote Secure Boot |
+| **`nixosConfigurations.fluid`**           | Workstation Alternate | KDE Plasma 6       | Same machine as `minimal`, running Plasma 6 Wayland      |
+| **`nixosConfigurations.machine`**         | Home Server           | Headless           | Intel Pentium G2020 (Ivy Bridge), ext4 on mechanical HDD |
+| **`nixosConfigurations.machine-desktop`** | Auxiliary Desktop     | KDE Plasma 6       | Same server hardware with local display enabled          |
+| **`nixosConfigurations.preview`**         | Fast VM Test          | Niri               | Minimal QEMU guest for checking config changes           |
+| **`nixosConfigurations.preview-full`**    | Full VM Test          | Niri               | QEMU guest with the complete package suite               |
+| **`nixosConfigurations.installer`**       | Installer Media       | Unattended ISO     | Generates an automated installer image (`installer-iso`) |
 
-| Host Configuration | Target Environment | Desktop / Shell | Primary Hardware Profile |
-| :--- | :--- | :--- | :--- |
-| **`nixosConfigurations.fluid`** | Primary Workstation | KDE Plasma 6 (Wayland) | Intel 11th Gen Tiger Lake (Iris Xe Graphics), NVMe, Lanzaboote Secure Boot |
-| **`nixosConfigurations.minimal`** | Primary Workstation | Niri (Wayland) + `dux-shell` | Intel 11th Gen Tiger Lake (Iris Xe Graphics), NVMe, Lanzaboote Secure Boot |
-| **`nixosConfigurations.machine`** | Home Server | Headless (None) | Intel Pentium G2020 (Ivy Bridge Gen7 HD 2500), Rotational Mechanical HDD |
-| **`nixosConfigurations.machine-desktop`**| Auxiliary Desktop | KDE Plasma 6 (Wayland) | Intel Pentium G2020 (Ivy Bridge Gen7 HD 2500), Rotational Mechanical HDD |
-| **`nixosConfigurations.preview`** | Local QEMU VM | Niri (Wayland) | Minimal VM testing environment (isolated hardware parameters) |
-| **`nixosConfigurations.preview-full`**| Local QEMU VM | Niri (Wayland) | Full VM testing environment with development & virtualization suite |
-| **`nixosConfigurations.installer`** | Installation Media | Automated Unattended Installer | Builds bootable installation ISO (`installer-iso`) |
-
----
-
-## 2. Directory Structure
+## 2. Layout
 
 ```text
 hosts/
-├── laptop/                     # Primary mobile workstation
-│   ├── configuration.nix       # Laptop host configuration & specialisation definitions
-│   └── hardware-configuration.nix # Disks, Btrfs subvolumes, and generated hardware scan
-├── machine/                    # Ivy Bridge Pentium desktop & headless server
-│   ├── configuration.nix       # Server daemon toggles, HDD protections, and user access
-│   └── hardware-configuration.nix # Ext4 storage and legacy hardware scan
-└── preview/                    # QEMU VM testing targets
-    └── configuration.nix       # Portability-first VM configuration with dummy hardware
+├── laptop/
+│   ├── configuration.nix          # Laptop host baseline and specialisation overrides
+│   └── hardware-configuration.nix  # Btrfs subvolumes, swap, and hardware scan
+├── machine/
+│   ├── configuration.nix          # Headless server services, HDD rules, and access
+│   └── hardware-configuration.nix  # Ext4 mounts, commit intervals, and legacy driver scan
+└── preview/
+    └── configuration.nix          # Portable QEMU test target with dummy hardware
 ```
 
----
+## 3. Workstation Specialisations (`laptop`)
 
-## 3. Runtime Specialisations (`laptop`)
+The laptop configuration defines three runtime specialisations. You can switch between them on the running system without a reboot:
 
-The primary workstation supports runtime specialisations that can be activated on the fly without a system reboot:
+### Lab (`specialisation.lab`)
 
-### Lab Specialisation (`specialisation.lab`)
-Designed for containerization, Android development, and hypervisor virtualization:
-- **Podman**: Rootless Docker-compatible container engine with DNS plugins.
-- **Waydroid**: Containerized Android execution environment with hardware acceleration.
-- **Libvirt / KVM**: Full hypervisor virtualization stack with QEMU, `virt-manager`, and SWTPM 2.0.
+For development workflows that would clutter the base daily driver:
 
-### Windows Virtualization (`specialisation.windows`)
-Near-native Windows gaming and productivity VM:
-- **Direct Partition Mapping**: Maps physical NVMe partitions (`win-vm-disk`) directly into the VM to eliminate Copy-on-Write (CoW) overhead.
-- **UEFI & TPM**: OVMF firmware with TPM 2.0 emulation (`swtpm`) for Windows 11 compatibility.
-- **VirtIO & Remote Desktop**: Pre-configured VirtIO guest drivers and FreeRDP client launcher.
+- **Podman**: Rootless container engine with local bridge networking.
+- **Waydroid**: Android runtime with hardware rendering.
+- **Libvirt / KVM**: Full hypervisor setup with QEMU, `virt-manager`, and software TPM 2.0 (`swtpm`).
 
-### Gaming Specialisation (`specialisation.gaming`)
-Low-latency desktop gaming stack:
-- **Kryoto Desktop**: Standalone native gaming shell and launcher.
-- **Feral GameMode**: Automatically prioritizes game processes, requests high CPU clocks, and optimizes scheduler priorities.
-- **Gamescope & MangoHud**: Micro-compositor for integer scaling, HDR, and framerate containment, paired with MangoHud telemetry overlay.
-- **spectraNET Toggle**: Option to toggle real-time network telemetry specifically during gaming sessions.
+### Windows (`specialisation.windows`)
 
----
+Runs a Windows 11 guest directly off an NVMe block partition:
 
-## 4. Hardware Profiles
+- **Direct Partition Mapping**: Bypasses Btrfs CoW and file-backed virtual disks by passing the physical `/dev/disk/by-partlabel/win-vm-disk` partition into QEMU.
+- **Firmware**: OVMF UEFI with emulated TPM 2.0.
+- **Drivers & Client**: VirtIO guest storage/network drivers with a pre-configured FreeRDP connection script.
+
+### Gaming (`specialisation.gaming`)
+
+Lowers latency and strips desktop background tasks:
+
+- **Kernel**: Switches to `linux-cachyos-bore-lto` built for `x86_64-v4`.
+- **Schedulers**: Disables `scx_loader` and `bpftune` to prevent BPF scheduler preemption against game threads. Autogrouping is set to 0.
+- **Stack**: Kryoto Desktop, Feral GameMode, Gamescope (integer scaling and framerate limits), and MangoHud overlay.
+- **Driver**: Switches the Intel GPU driver to `xe` for gaming performance.
+
+## 4. Hardware Details
 
 ### Intel Tiger Lake Workstation (`hosts/laptop/`)
-- **Graphics**: Intel Iris Xe Graphics (Gen 12) with early KMS initrd `i915`, GuC/HuC firmware load (`enable_guc=3`), Framebuffer Compression (`enable_fbc=1`), and Panel Self Refresh (`enable_psr=1`).
-- **Media Runtime**: Intel Media Driver (`iHD`), Intel Compute Runtime (OpenCL), and Intel VPL GPU runtime.
-- **Storage**: High-performance NVMe running Btrfs with Kyber I/O latency targeting.
-- **Power**: Non-adaptive `thermald` policies and runtime PCI power management.
+
+- **GPU**: Iris Xe (Gen 12) on `i915` with GuC/HuC firmware (`i915.enable_guc=3`), framebuffer compression, and panel self-refresh.
+- **Video & Compute**: Intel Media Driver (`iHD`), Compute Runtime (OpenCL), and Intel VPL.
+- **Storage**: Btrfs with `compress=zstd:1`, `noatime`, `discard=async`, and Kyber I/O scheduler targeting 2ms read latency.
+- **RAM Builds**: `/tmp` and `nix-daemon` scratch space both live in `tmpfs` (100% RAM limit, backing into 7.5 GiB zRAM swap with `zstd`). This keeps intermediate compilation artifacts out of the NVMe drive's NAND flash.
 
 ### Intel Ivy Bridge Pentium Desktop (`hosts/machine/`)
-- **Graphics**: Legacy Intel HD Graphics 2500 (Gen 7) with `vaapiIntel` hardware acceleration and Mesa Gallium drivers.
-- **Rotational HDD Wear Protection**:
-  - **BFQ I/O Scheduler**: Replaces modern NVMe schedulers with BFQ (Budget Fair Queueing) to ensure interactive desktop responsiveness under heavy mechanical disk load.
-  - **APM Spindown Prevention**: Disables aggressive Advanced Power Management head parking to prevent mechanical drive actuator wear.
-  - **ZRAM Compressed Swap**: Prevents swap thrashing on slow mechanical disks by compressing memory in RAM.
-  - **Dirty Page Limits**: Strict 50MB background writeback limits (`vm.dirty_background_bytes = 52428800`) to prevent kernel I/O flushes from freezing userland.
 
----
+- **GPU**: Intel HD Graphics 2500 (Gen 7) using `vaapiIntel` and Mesa Gallium.
+- **Mechanical HDD Lifespan Rules**:
+  - **BFQ Scheduler**: Prevents random mechanical seeks from freezing interactive shells.
+  - **No Head Parking**: Enforces `hdparm -B 254 -S 0` to stop aggressive drive spindown cycles.
+  - **Memory Limits**: Caps background writeback dirty memory at 50MB (`vm.dirty_background_bytes = 52428800`) to avoid periodic multi-second I/O stalls during large file writes.
+  - **zRAM Swap**: All paging stays in RAM to avoid swap thrashing on slow magnetic disks.
 
-## 5. Deployment & Operations
+## 5. Operations
 
 ### First-Time Installation
 
-1. **Partition & Mount Storage**:
+1. **Partition and mount storage**:
+
    ```bash
-   # Mount root partition to /mnt, EFI to /mnt/boot
    mount /dev/disk/by-label/nixos /mnt
    mkdir -p /mnt/boot
    mount /dev/disk/by-label/BOOT /mnt/boot
    ```
 
-2. **Clone Configuration Repository**:
+2. **Clone repo**:
+
    ```bash
    git clone https://github.com/fizzflip/.nixos-config.git /mnt/etc/nixos/config
    cd /mnt/etc/nixos/config
    ```
 
-3. **Generate Hardware Configuration**:
+3. **Generate hardware scan**:
+
    ```bash
    nixos-generate-config --show-hardware-config --root /mnt > hosts/laptop/hardware-configuration.nix
    ```
 
-4. **Install System**:
+4. **Install**:
    ```bash
    git add .
    nixos-install --flake .#minimal --root /mnt
    ```
 
----
+### Routine Maintenance
 
-### Daily Operations
+#### Switch desktop environments
 
-#### Rebuild & Switch Profiles
 ```bash
-# Switch to Niri Wayland session (minimal profile)
-sudo nixos-rebuild switch --flake .#minimal    # or fish alias: rminimal
-
-# Switch to KDE Plasma 6 Wayland session (fluid profile)
-sudo nixos-rebuild switch --flake .#fluid      # or fish alias: rfluid
+sudo nixos-rebuild switch --flake .#minimal    # Niri (alias: rminimal)
+sudo nixos-rebuild switch --flake .#fluid      # KDE Plasma 6 (alias: rfluid)
 ```
 
-#### Switch Specialisations Without Rebooting
+#### Switch specialisations live
+
 ```bash
-# Switch to Lab environment (Containers & Android)
+# Activate specialisations without rebooting
 sudo /run/current-system/specialisation/lab/bin/switch
-
-# Switch to Windows VM configuration
 sudo /run/current-system/specialisation/windows/bin/switch
-
-# Switch to Gaming environment
 sudo /run/current-system/specialisation/gaming/bin/switch
 
-# Return to base system configuration
+# Return to base system
 sudo /nix/var/nix/profiles/system/bin/switch-to-configuration switch
 ```
 
-#### Secure Boot Integrity
-```bash
-# Inspect Secure Boot status
-sudo sbctl status
+#### Check Secure Boot
 
-# Verify all kernel, initrd, and UKI signatures
+```bash
+sudo sbctl status
 sudo sbctl verify
 ```
 
-#### Local VM Testing
-```bash
-# Run lightweight minimal testing VM in QEMU
-nix run .#preview
+#### Run test VMs
 
-# Run comprehensive full-suite testing VM in QEMU
-nix run .#preview-full
+```bash
+nix run .#preview         # Fast minimal VM
+nix run .#preview-full    # Complete desktop VM
 ```
 
-#### Ivy Bridge Machine & Unattended Installer
-```bash
-# Build automated unattended installation ISO
-nix build .#installer-iso
+#### Deploy server or build installer
 
-# Deploy / switch on the remote machine
+```bash
 sudo nixos-rebuild switch --flake .#machine
-sudo nixos-rebuild switch --flake .#machine-desktop
+nix build .#installer-iso
 ```
