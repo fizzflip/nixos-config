@@ -40,7 +40,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     metrolist = {
-      url = "github:Matko802/metrolist-kmp-flake";
+      url = "github:MetrolistGroup/Metrolist";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     treefmt-nix = {

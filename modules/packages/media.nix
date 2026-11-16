@@ -24,7 +24,11 @@ lib.mkIf (!config.my.packages.minimal) {
           or inputs.opentubex.packages.${pkgs.stdenv.hostPlatform.system}.default
         )
       ]
-  ++ lib.optionals (inputs.metrolist.packages ? ${pkgs.stdenv.hostPlatform.system}) [
-    inputs.metrolist.packages.${pkgs.stdenv.hostPlatform.system}.default
-  ];
+  ++
+    lib.optionals (inputs ? metrolist && inputs.metrolist.packages ? ${pkgs.stdenv.hostPlatform.system})
+      [
+        (inputs.metrolist.packages.${pkgs.stdenv.hostPlatform.system}.default
+          or inputs.metrolist.packages.${pkgs.stdenv.hostPlatform.system}.metrolist
+        )
+      ];
 }
