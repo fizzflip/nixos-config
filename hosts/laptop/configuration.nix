@@ -44,8 +44,9 @@
   # Enable Lanzaboote UEFI Secure Boot
   my.security.secureboot.enable = true;
 
-  # Bleeding-edge testing kernel for Intel Tiger Lake Iris Xe & laptop features
-  boot.kernelPackages = pkgs.linuxPackages_testing;
+  # CachyOS latest kernel (x86-64-v4 microarchitecture with Clang ThinLTO & sched-ext support)
+  boot.kernelPackages =
+    inputs.nix-cachyos-kernel.legacyPackages.x86_64-linux."linuxPackages-cachyos-latest-lto-x86_64-v4";
 
   # Hardware acceleration & laptop power tuning
   my.hardware.intelGpu.enable = true;

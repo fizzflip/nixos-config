@@ -61,6 +61,7 @@ Lowers latency and strips desktop background tasks:
 
 ### Intel Tiger Lake Workstation (`hosts/laptop/`)
 
+- **Kernel**: CachyOS latest kernel (`linux-cachyos-latest-lto`) targeting native `x86_64-v4` microarchitecture with Clang ThinLTO, sched-ext support, and pre-built binaries via `cache.lantian.pub`.
 - **GPU**: Iris Xe (Gen 12) on `i915` with GuC/HuC firmware (`i915.enable_guc=3`), framebuffer compression, and panel self-refresh.
 - **Video & Compute**: Intel Media Driver (`iHD`), Compute Runtime (OpenCL), and Intel VPL.
 - **Storage**: Btrfs with `compress=zstd:1`, `noatime`, `discard=async`, and Kyber I/O scheduler targeting 2ms read latency.
