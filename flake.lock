@@ -90,16 +90,16 @@
     "gaze-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1794344842,
-        "narHash": "sha256-k/pFxYkrpSIDdxZI6eP6C2P6kVXUmy9cWBYfJxeqtdE=",
+        "lastModified": 1794886104,
+        "narHash": "sha256-woH11N8p8vcw/WvRWdCMQityc9lprNFk8yJuAw2fcBY=",
         "owner": "GunduLabs",
         "repo": "gaze",
-        "rev": "7dc47c0e8c6e9270448cbc5e25a7e038823955b0",
+        "rev": "459386686e83807fb3520dfc0ad77b77c8ccb647",
         "type": "github"
       },
       "original": {
         "owner": "GunduLabs",
-        "ref": "v0.5.1",
+        "ref": "v0.5.2",
         "repo": "gaze",
         "type": "github"
       }
@@ -131,17 +131,17 @@
     "horizon-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1794931367,
-        "narHash": "sha256-XEU6Owlu9sAN45b0eE34bDET0dwOmKucra750NmNi64=",
+        "lastModified": 1794974716,
+        "narHash": "sha256-H34rOBuv3ESkehivRTYXHygVOzuNw3i0bS4VPxZsPAA=",
         "owner": "horizon-rust",
         "repo": "horizon",
-        "rev": "864112e0e7b6cc30f2c9550f64dca9c08e2dee84",
+        "rev": "0b14f8acfd97fa2c750e42795249dcc981178ca4",
         "type": "github"
       },
       "original": {
         "owner": "horizon-rust",
-        "ref": "main",
         "repo": "horizon",
+        "rev": "0b14f8acfd97fa2c750e42795249dcc981178ca4",
         "type": "github"
       }
     },
@@ -175,11 +175,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794996532,
-        "narHash": "sha256-R+ID0zUlv2zvT0WKhGCyiEITelc7vzRjqwd82L8w5Zw=",
+        "lastModified": 1795003145,
+        "narHash": "sha256-YkGyQRXDo12F2HERJwjCqLN6yEM8AjwJdO8JjHLGwWg=",
         "owner": "MetrolistGroup",
         "repo": "Metrolist",
-        "rev": "e33d4c581247f7ec653401d4a96ad9dab5bab67f",
+        "rev": "dc02bfcf483624cfdfdf77ee2716dd1d6d40695b",
         "type": "github"
       },
       "original": {
@@ -346,11 +346,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794994964,
-        "narHash": "sha256-8jkBQDuXH144t3wGbjFn5KZr+WGn96y3M0gAM8Kc67o=",
+        "lastModified": 1795002503,
+        "narHash": "sha256-/ZKEEppNpUgBHZs02WL9QjujxAFJW6Mu82SrODxEmyM=",
         "ref": "refs/heads/master",
-        "rev": "486443fb26a27cc38dd60bcd81a8f08376111c88",
-        "revCount": 54,
+        "rev": "cce8c71e6f0676361508b6dbd0ac86b5b8aba03f",
+        "revCount": 56,
         "type": "git",
         "url": "https://github.com/fizzflip/packaging-nixos-apps.git"
       },

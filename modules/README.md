@@ -69,6 +69,18 @@ modules/
 - **Authentication**: Gaze on-device facial authentication daemon (`services.gaze`) integrated with PAM for `sudo`, Polkit, and login.
 - **Secrets Management**: GNOME Keyring with PAM session unlocking on login and SDDM.
 
+### Nix Daemon & Community Binary Caching (`core/nix.nix`)
+
+- **Prioritized Substituters**: Explicitly ordered query resolution (`priority=10` through `85`) spanning:
+  - `cache.nixos.org` (primary upstream Hydra)
+  - `cache.lantian.pub/lantian` (CachyOS LTO x86-64-v4 and BORE kernels)
+  - `nix-community.cachix.org` (Lanzaboote, Crane, Fenix, community overlays)
+  - `niri.cachix.org` & `nixpkgs-wayland.cachix.org` (Niri compositor and Wayland components)
+  - `chaotic-nyx.cachix.org` & `nix-gaming.cachix.org` (`scx-loader` schedulers and gaming stack)
+  - `numtide.cachix.org` & `devenv.cachix.org` (Treefmt and development shells)
+  - `nixpkgs-unfree.cachix.org` (Pre-built unfree software omitted by Hydra)
+- **Fast-Failing Resilience**: Configured with a 5-second connection timeout (`connect-timeout = 5`) and 10-second stall limit to prevent build delays during external cache network jitter.
+
 ### Binary Compatibility (`core/compat.nix`)
 
 - **Standard Linux Binaries (`programs.nix-ld`)**: Runs unpatched dynamically linked Linux executables with standard glibc and graphics libraries.
