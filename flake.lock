@@ -128,6 +128,23 @@
         "type": "github"
       }
     },
+    "horizon-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794931367,
+        "narHash": "sha256-XEU6Owlu9sAN45b0eE34bDET0dwOmKucra750NmNi64=",
+        "owner": "horizon-rust",
+        "repo": "horizon",
+        "rev": "864112e0e7b6cc30f2c9550f64dca9c08e2dee84",
+        "type": "github"
+      },
+      "original": {
+        "owner": "horizon-rust",
+        "ref": "main",
+        "repo": "horizon",
+        "type": "github"
+      }
+    },
     "lanzaboote": {
       "inputs": {
         "crane": "crane",
@@ -158,11 +175,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794825016,
-        "narHash": "sha256-HXIc+KmBo6wXk/F5AVLJ1F9FAUbzTJyAz4q1/muTZzY=",
+        "lastModified": 1794996532,
+        "narHash": "sha256-R+ID0zUlv2zvT0WKhGCyiEITelc7vzRjqwd82L8w5Zw=",
         "owner": "MetrolistGroup",
         "repo": "Metrolist",
-        "rev": "36bb564b4a148c6b415dc3c1c74faf790ae76bc6",
+        "rev": "e33d4c581247f7ec653401d4a96ad9dab5bab67f",
         "type": "github"
       },
       "original": {
@@ -182,11 +199,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1794782352,
-        "narHash": "sha256-/eMKS9wK6ywWzrgcgA7/bK754dPYwN+L705Bzlw6+l4=",
+        "lastModified": 1794959890,
+        "narHash": "sha256-u4cyCNJgaq5LljcsIucyDTK9HfaSY4jfC8Zvw77ObU4=",
         "owner": "xddxdd",
         "repo": "nix-cachyos-kernel",
-        "rev": "9d1001801db6023d5ce07707fea6af75de260d3f",
+        "rev": "c157f8ddd2c830e8dd5ef6cf11a288668fb96189",
         "type": "github"
       },
       "original": {
@@ -218,11 +235,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794597451,
-        "narHash": "sha256-bUkc9dMpCFiJuuf5Efr7pnCDs5q18aA8zJah+MYZl9w=",
+        "lastModified": 1794906521,
+        "narHash": "sha256-B3ox9O5jQ7/RU2IECjP6MtA0BRqL9+yunGJRow0c1gA=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "eb3c90bd715f7a9a28719bb014f53d309ccb2fc8",
+        "rev": "d9da8426d86bd7e937226f5ecef1df1504ead2e8",
         "type": "github"
       },
       "original": {
@@ -233,11 +250,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1794753127,
-        "narHash": "sha256-Md5NSizVOG4FKytS0sQJEtoFeTtEUcmBHjLn7I2R8os=",
+        "lastModified": 1794889970,
+        "narHash": "sha256-P2lDrEI0HTVwYaYbowkA2SbHfFx0FGsTGqBgRWZRECk=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "47b71a0bb15ac494e654ff14ee0c6792a4a53751",
+        "rev": "6f042c2abe8f42261ac134f0a33d6e740136811b",
         "type": "github"
       },
       "original": {
@@ -280,11 +297,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1794537146,
-        "narHash": "sha256-Wpz/7x/YWnDIBu7yj6ixe8j6fIMsidd9Y+o1PqPF3iM=",
+        "lastModified": 1794890597,
+        "narHash": "sha256-lME2lHoDHAaSHP3/okgiVoJ0icVEvsQH8LeU3We7tcc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "d5cc6833999746cffdfe0598f7bc801a57b887a9",
+        "rev": "04906337b6d53e8bb0eaf0470ae9f070a4d4eb55",
         "type": "github"
       },
       "original": {
@@ -302,11 +319,11 @@
         "nixpkgs-x86_64-darwin": "nixpkgs-x86_64-darwin"
       },
       "locked": {
-        "lastModified": 1794781439,
-        "narHash": "sha256-EuZm6NQ/iUyxWFBldIOXErHnb52zKttJNuNMdv1Q8qU=",
+        "lastModified": 1794864374,
+        "narHash": "sha256-A2VHkC2RB/zJrJl6axwoGHvE+zMQhOkCUlQehcQYL5k=",
         "owner": "OpenTubeX",
         "repo": "nix",
-        "rev": "eb48bb1b4f2f49ff670a5ec3d44a830cae0d8161",
+        "rev": "745de2d3f711f7a942f232ccd43d94b76ddbbee9",
         "type": "github"
       },
       "original": {
@@ -323,16 +340,17 @@
         ],
         "flake-utils": "flake-utils",
         "gaze-src": "gaze-src",
+        "horizon-src": "horizon-src",
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1794819408,
-        "narHash": "sha256-SqWn22RrHZwlPq4IhFjM1hgM0T3vpSy2dlk5VW4Fjzk=",
+        "lastModified": 1794994964,
+        "narHash": "sha256-8jkBQDuXH144t3wGbjFn5KZr+WGn96y3M0gAM8Kc67o=",
         "ref": "refs/heads/master",
-        "rev": "62d7f507aa61df475bb2a4b73242aa03e5603722",
-        "revCount": 48,
+        "rev": "486443fb26a27cc38dd60bcd81a8f08376111c88",
+        "revCount": 54,
         "type": "git",
         "url": "https://github.com/fizzflip/packaging-nixos-apps.git"
       },

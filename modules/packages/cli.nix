@@ -20,6 +20,7 @@
 
     # Searching
     pkgs.fd
+    pkgs.jq
     pkgs.bat
     pkgs.skim
     pkgs.ripgrep

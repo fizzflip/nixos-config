@@ -30,6 +30,29 @@ in
     security.pam.services.sddm.enableGnomeKeyring = true;
     security.pam.services.login.enableGnomeKeyring = true;
 
+    # Upstream SDDM sets useDefaultRules = false, which causes NixOS to ignore enableGnomeKeyring.
+    # Explicitly hook pam_gnome_keyring into SDDM after substack login to capture the auth token
+    # and automatically unlock login.keyring upon graphical login.
+    security.pam.services.sddm.rules = {
+      auth.gnome-keyring = {
+        order = 11200;
+        control = "optional";
+        modulePath = "${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so";
+      };
+      session.gnome-keyring = {
+        order = 11200;
+        control = "optional";
+        modulePath = "${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so";
+        args = [ "auto_start" ];
+      };
+      password.gnome-keyring = {
+        order = 11200;
+        control = "optional";
+        modulePath = "${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so";
+        args = [ "use_authtok" ];
+      };
+    };
+
     # GNOME Keyring graphical manager (Seahorse)
     environment.systemPackages = [
       pkgs.seahorse

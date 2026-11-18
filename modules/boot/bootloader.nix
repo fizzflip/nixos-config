@@ -52,7 +52,9 @@ in
       "splash"
       "loglevel=3"
       "udev.log_priority=3"
+      "rd.udev.log_level=3"
       "rd.systemd.show_status=auto"
+      "vt.global_cursor_default=0"
 
       "8250.nr_uarts=0"
       "tpm_tis.interrupts=0"

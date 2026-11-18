@@ -43,7 +43,7 @@ modules/
   - Assembles signed Unified Kernel Images (UKIs) for systemd-boot.
   - Monitored and enrolled through `sbctl`.
 - **GRUB (Fallback)**: Catppuccin Mocha themed bootloader used when Secure Boot is disabled.
-- **Plymouth**: Silent boot splash screen with flicker-free transition into display managers.
+- **Plymouth**: Silent UEFI ACPI BGRT boot splash screen with flicker-free transition into SDDM.
 
 ### Performance & Storage Tuning (`system-tuning/`, `hardware/`)
 
