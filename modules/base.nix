@@ -21,9 +21,9 @@
     ./desktop/default.nix
 
     # External flake modules
+    inputs.gaze.nixosModules.default
     inputs.lanzaboote.nixosModules.lanzaboote
     inputs.nix-flatpak.nixosModules.nix-flatpak
-    inputs.packaging-nixos-apps.nixosModules.gaze
     inputs.packaging-nixos-apps.nixosModules.spectranet
   ];
   environment.sessionVariables = {

@@ -5,6 +5,6 @@
 <samp>╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ <a href="INDEX.md"><b>INDEX</b></a> ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌</samp> <br>
 <sub>
 My NixOS daily driver -- <i>messy, declarative, yet actively evolving.</i><br>
-<a href="https://wallhaven.cc/w/6lqvql">Wallpaper</a> by <a href="https://wallhaven.cc/user/Trashbuff">Trashbuff</a>
+<a href="https://x.com/NothingBlues/status/1936499577940803863">Artwork</a> by <a href="https://x.com/NothingBlues"> さとざき幸 (@NothingBlues)</a>
 </sub>
 </div>

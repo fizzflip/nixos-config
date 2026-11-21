@@ -111,6 +111,59 @@
     '';
   };
 
+  specialisation.wifi-audit.configuration = {
+    # Pre-regression LTS kernel. 6.6.162 is the recommended balance.
+    # For maximum conservatism use pkgs.linuxPackages_6_1 (6.1.192).
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_6;
+
+    # Keep module loaded so capture tools work immediately after boot.
+    boot.kernelModules = [ "rtw88_8821ce" ];
+
+    # Dedicated audit toolchain available in the specialization.
+    environment.systemPackages = with pkgs; [
+      iw
+      aircrack-ng
+      wpa_supplicant
+      hostapd
+      dnsmasq
+      kismet
+      mdk4
+      wireshark-cli
+      tcpdump
+      hashcat
+      john
+      hcxtools
+      hcxdumptool
+      seclists
+      wordlists
+      pixiewps
+      bully
+      wifite2
+      airgeddon
+      bettercap
+      nmap
+      routersploit
+      feroxbuster
+      net-tools
+      iproute2
+      pciutils
+      usbutils
+      binwalk
+      python3
+    ];
+
+    # NetworkManager interferes with monitor mode and channel locking.
+    # Disabling it is standard practice (airmon-ng "check kill" does the same).
+    # To use normal WiFi in this specialization, re-enable temporarily with:
+    #   sudo systemctl start NetworkManager
+    networking.networkmanager.enable = lib.mkForce false;
+    services.scx-loader.enable = lib.mkForce false;
+
+    # Make the audit intent visible.
+    environment.variables.AUDIT_ENV = "wifi-audit";
+    environment.variables.AUDIT_KERNEL = "6.6-lts";
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It's perfectly fine and recommended to leave
