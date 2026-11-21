@@ -93,7 +93,7 @@
         ProtectHome = true;
         ProtectSystem = "full";
         PrivateTmp = true;
-        ProtectKernelTunables = true;
+        ProtectKernelTunables = false;
         ProtectKernelModules = true;
         ProtectKernelLogs = true;
         ProtectControlGroups = true;

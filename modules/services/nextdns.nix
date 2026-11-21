@@ -69,6 +69,7 @@ in
         "disabled" # Disable LAN mDNS discovery to prevent local network scanning
         "-setup-router=false" # Client machine stub resolver only
         "-detect-captive-portals=false" # Prevent unencrypted DNS downgrade attacks
+        "-report-client-info=false" # Disable client discovery warning on loopback stub resolver
       ];
     };
 

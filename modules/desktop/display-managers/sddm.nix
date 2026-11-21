@@ -54,7 +54,7 @@ in
       extraPackages = [ pkgs.bibata-cursors ];
       settings = {
         General = {
-          GreeterEnvironment = lib.mkForce "QML2_IMPORT_PATH=${config.programs.silentSDDM.package'}/share/sddm/themes/silent/components/,QT_IM_MODULE=qtvirtualkeyboard,QT_WAYLAND_SHELL_INTEGRATION=layer-shell,XCURSOR_PATH=/run/current-system/sw/share/icons,XCURSOR_THEME=Bibata-Modern-Classic,XCURSOR_SIZE=24";
+          GreeterEnvironment = lib.mkForce "QML2_IMPORT_PATH=${config.programs.silentSDDM.package'}/share/sddm/themes/silent/components/,QT_WAYLAND_SHELL_INTEGRATION=layer-shell,XCURSOR_PATH=/run/current-system/sw/share/icons,XCURSOR_THEME=Bibata-Modern-Classic,XCURSOR_SIZE=24";
         };
         Theme = {
           CursorTheme = "Bibata-Modern-Classic";
