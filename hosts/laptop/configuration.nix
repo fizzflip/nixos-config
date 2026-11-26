@@ -113,51 +113,61 @@
 
   specialisation.wifi-audit.configuration = {
     # Pre-regression LTS kernel. 6.6.162 is the recommended balance.
-    # For maximum conservatism use pkgs.linuxPackages_6_1 (6.1.192).
     boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_6;
 
     # Keep module loaded so capture tools work immediately after boot.
     boot.kernelModules = [ "rtw88_8821ce" ];
+    services.scx-loader.enable = false;
 
-    # Dedicated audit toolchain available in the specialization.
-    environment.systemPackages = with pkgs; [
-      iw
-      aircrack-ng
-      wpa_supplicant
-      hostapd
-      dnsmasq
-      kismet
-      mdk4
-      wireshark-cli
-      tcpdump
-      hashcat
-      john
-      hcxtools
-      hcxdumptool
-      seclists
-      wordlists
-      pixiewps
-      bully
-      wifite2
-      airgeddon
-      bettercap
-      nmap
-      routersploit
-      feroxbuster
-      net-tools
-      iproute2
-      pciutils
-      usbutils
-      binwalk
-      python3
-    ];
+    # ---- Permanent driver / kernel tunables -------------------------------
+    boot.extraModprobeConfig = ''
+      # rtw88 RTL8821CE: prevent LPS/ASPM hard freeze and MSI instability.
+      options rtw88_core disable_lps_deep=y
+      options rtw88_pci disable_aspm=y
+      options rtw88_pci disable_msi=y
 
-    # NetworkManager interferes with monitor mode and channel locking.
-    # Disabling it is standard practice (airmon-ng "check kill" does the same).
-    # To use normal WiFi in this specialization, re-enable temporarily with:
-    #   sudo systemctl start NetworkManager
+      # Unlock 5 GHz (ch36-48) - world regdomain marks them PASSIVE-SCAN.
+      options cfg80211 ieee80211_regdom=US
+
+      # Reduce spurious disassociations while hopping/locking channels.
+      options mac80211 max_nullfunc_tries=10
+      options mac80211 max_probe_tries=10
+      options mac80211 beacon_loss_count=10
+    '';
+
+    # Belt-and-braces runtime application: module params above are applied at
+    # load; this ensures regdom + power-save state even after a device reprobe.
+    systemd.services."wifi-audit-runtime" = {
+      description = "WiFi audit runtime tweaks (regdom US, power_save off)";
+      wantedBy = [ "multi-user.target" ];
+      # Do NOT pin to wlan0 - this adapter enumerates as wlp2s0.
+      after = [ "network.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+        ExecStart = pkgs.writeShellScript "wifi-audit-runtime" ''
+          ${pkgs.iw}/bin/iw reg set US || true
+          # Apply to every wireless interface, regardless of naming scheme
+          # (wlan*, wlp*, wifi*, ...). Retry briefly for slow enumeration.
+          for try in 1 2 3 4 5; do
+            found=0
+            for dev in /sys/class/net/*; do
+              [ -d "$dev/wireless" ] || continue
+              iface=$(basename "$dev")
+              ${pkgs.iw}/bin/iw dev "$iface" set power_save off 2>/dev/null && found=1
+            done
+            [ "$found" = 1 ] && break
+            sleep 1
+          done
+          exit 0
+        '';
+      };
+    };
+
+    # NetworkManager AND iwd fight over wlan0 and can reset monitor mode,
+    # regulatory state or power saving. Both are disabled in this audit boot.
     networking.networkmanager.enable = lib.mkForce false;
-    services.scx-loader.enable = lib.mkForce false;
+    networking.wireless.iwd.enable = lib.mkForce false;
 
     # Make the audit intent visible.
     environment.variables.AUDIT_ENV = "wifi-audit";
