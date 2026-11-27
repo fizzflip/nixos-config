@@ -2,25 +2,11 @@
   nixConfig = {
     extra-substituters = [
       "https://cache.lantian.pub/lantian"
-      "https://nix-community.cachix.org"
       "https://nixpkgs-unfree.cachix.org"
-      # "https://niri.cachix.org"
-      # "https://nixpkgs-wayland.cachix.org"
-      # "https://chaotic-nyx.cachix.org"
-      # "https://nix-gaming.cachix.org"
-      # "https://numtide.cachix.org"
-      # "https://devenv.cachix.org"
     ];
     extra-trusted-public-keys = [
       "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "nixpkgs-unfree.cachix.org-1:hqvoInulhbV4nJ9yJOEr+4wxhDV4xq2d1DK7S6Nj6rs="
-      # "niri.cachix.org-1:Wv0OmO7PsuocRKzfDoJ3mulSl7Z6oezYhGhR+3W2964="
-      # "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
-      # "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-      # "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-      # "numtide.cachix.org-1:2ps1kLBUWjxIneOy1Ik6cQjb41X0iXVXeHigGmycPPE="
-      # "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
     ];
   };
 
@@ -49,7 +35,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     gaze = {
-      url = "github:GunduLabs/gaze/v0.5.2";
+      url = "github:GunduLabs/gaze/v0.5.3";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     craftapps = {

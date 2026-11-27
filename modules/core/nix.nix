@@ -34,26 +34,12 @@
       substituters = [
         "https://cache.nixos.org?priority=10"
         "https://cache.lantian.pub/lantian?priority=20"
-        "https://nix-community.cachix.org?priority=30"
-        "https://nixpkgs-unfree.cachix.org?priority=40"
-        # "https://nix-gaming.cachix.org?priority=60"
-        # "https://numtide.cachix.org?priority=70"
-        # "https://niri.cachix.org?priority=40"
-        # "https://nixpkgs-wayland.cachix.org?priority=45"
-        # "https://chaotic-nyx.cachix.org?priority=50"
-        # "https://devenv.cachix.org?priority=80"
+        "https://nixpkgs-unfree.cachix.org?priority=30"
       ];
       trusted-substituters = [
         "https://cache.nixos.org"
         "https://cache.lantian.pub/lantian"
-        "https://nix-community.cachix.org"
         "https://nixpkgs-unfree.cachix.org"
-        # "https://nix-gaming.cachix.org"
-        # "https://numtide.cachix.org"
-        # "https://niri.cachix.org"
-        # "https://nixpkgs-wayland.cachix.org"
-        # "https://chaotic-nyx.cachix.org"
-        # "https://devenv.cachix.org"
       ];
       trusted-public-keys = [
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
